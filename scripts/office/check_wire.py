@@ -4,6 +4,7 @@ SPDX-License-Identifier: GPL-2.0-or-later
 """
 import argparse
 import base64
+import ctypes
 import json
 import queue
 import selectors
@@ -18,13 +19,49 @@ from openrgb.utils import RGBColor
 from govee_trial import detector_inventory, devices
 
 
+class ReadinessLog:
+    """Observe native file flushes or process exit, independent of console attachment."""
+    def __init__(self, directory):
+        from ctypes import wintypes
+        self.kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+        self.kernel.FindFirstChangeNotificationW.argtypes = [wintypes.LPCWSTR, wintypes.BOOL, wintypes.DWORD]
+        self.kernel.FindFirstChangeNotificationW.restype = wintypes.HANDLE
+        self.kernel.FindNextChangeNotification.argtypes = [wintypes.HANDLE]
+        self.kernel.FindCloseChangeNotification.argtypes = [wintypes.HANDLE]
+        self.kernel.WaitForMultipleObjects.argtypes = [wintypes.DWORD, ctypes.POINTER(wintypes.HANDLE), wintypes.BOOL, wintypes.DWORD]
+        self.handle = self.kernel.FindFirstChangeNotificationW(str(directory.resolve()), True, 0x13)
+        if self.handle == ctypes.c_void_p(-1).value:
+            raise ctypes.WinError(ctypes.get_last_error())
+        self.directory = directory
+
+    def wait(self, process):
+        from ctypes import wintypes
+        handles = (wintypes.HANDLE * 2)(int(process._handle), self.handle)
+        while True:
+            for path in (self.directory / 'logs').glob('*.log'):
+                content = path.read_text(encoding='utf-8-sig', errors='replace')
+                if 'SDK listening host=' in content and 'Detection completed' in content:
+                    print('Native SDK listening and detection-completed events observed', flush=True)
+                    return
+            result = self.kernel.WaitForMultipleObjects(2, handles, False, 0xFFFFFFFF)
+            if result == 0:
+                raise RuntimeError(f'OpenRGB exited before SDK readiness: {process.wait()}')
+            if result != 1:
+                raise ctypes.WinError(ctypes.get_last_error())
+            if not self.kernel.FindNextChangeNotification(self.handle):
+                raise ctypes.WinError(ctypes.get_last_error())
+
+    def close(self):
+        self.kernel.FindCloseChangeNotification(self.handle)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--exe', type=Path, required=True)
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--work', type=Path, required=True)
     args = parser.parse_args()
-    args.work.mkdir(parents=True, exist_ok=True)
+    args.work.mkdir(parents=True, exist_ok=False)
     config = args.work / 'OpenRGB.json'
     config.write_text(json.dumps({
         'Detectors': {'detectors': detector_inventory(args.source)},
@@ -62,27 +99,15 @@ def main():
 
     receiver = threading.Thread(target=receive, daemon=True)
     receiver.start()
+    readiness = ReadinessLog(args.work)
     log = (args.work / 'server-output.log').open('w', encoding='utf-8')
     process = subprocess.Popen([str(args.exe), '--config', str(args.work), '--noautoconnect', '--server',
                                 '--server-host', '127.0.0.1', '--loglevel', 'info', '-v'],
-                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+                               stdout=log, stderr=subprocess.STDOUT, text=True,
                                creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
     client = None
     try:
-        for line in process.stdout:
-            log.write(line)
-            log.flush()
-            if 'SDK listening host=' in line:
-                break
-        else:
-            raise RuntimeError(f'OpenRGB exited before SDK readiness: {process.wait()}')
-        # Drain stdout independently so a filled pipe cannot block device writes.
-        def drain():
-            for line in process.stdout:
-                log.write(line)
-                log.flush()
-        drainer = threading.Thread(target=drain, daemon=True)
-        drainer.start()
+        readiness.wait(process)
         actual = json.loads(config.read_text(encoding='utf-8-sig'))['Detectors']['detectors']
         assert [name for name, enabled in actual.items() if enabled] == ['Govee'], 'Other detectors enabled'
         (args.exe.parent / 'office' / 'detectors.json').write_text(json.dumps(actual, indent=2), encoding='utf-8')
@@ -126,8 +151,7 @@ def main():
         if process.poll() is None:
             process.terminate()  # Explicit teardown of this test-owned process.
         process.wait()
-        if 'drainer' in locals():
-            drainer.join()
+        readiness.close()
         stop.set()
         sockets[0].sendto(b'{}', ('127.0.0.1', 4001))
         receiver.join()

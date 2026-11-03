@@ -13,7 +13,11 @@ def detector_inventory(source):
     names = set()
     for path in (source / 'Controllers').rglob('*.cpp'):
         text = path.read_text(encoding='utf-8-sig', errors='replace')
-        names.update(re.findall(r'REGISTER_[A-Z_]*DETECTOR[A-Z_]*\s*\(\s*"([^"\n]+)"', text))
+        names.update(re.findall(r'REGISTER_[A-Z0-9_]*DETECTOR[A-Z0-9_]*\s*\(\s*"([^"\n]+)"', text))
+        constants = dict(re.findall(r'#define\s+(\w+)\s+"([^"\n]+)"', text))
+        for token in re.findall(r'REGISTER_[A-Z0-9_]*DETECTOR[A-Z0-9_]*\s*\(\s*(\w+)', text):
+            if token in constants:
+                names.add(constants[token])
     if 'Govee' not in names or len(names) < 500:
         raise RuntimeError('Incomplete detector inventory')
     return {name: name == 'Govee' for name in sorted(names)}
