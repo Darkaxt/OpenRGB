@@ -77,7 +77,8 @@ The initial CI harness waited on stdout redirected away by Windows console
 attachment; its compiled artifact was retained and the corrected native-log event
 test passed locally. Native Govee broadcast discovery also succeeds on the real LAN.
 The initial solid command briefly blanked at mode entry before the user confirmed
-red/blue; sustained output and startup latency still require observation.
+red/blue. At that checkpoint sustained output had not yet been observed; the later
+stream and stop/start acceptance results below supersede that checkpoint.
 SignalRGB's installed Govee.js currently hashes EC2510D880C4223D74D45C359F41E1542
 034262134392FF1904F418B04318B8F (stock); preserve it, do not assume the old fix remains active.
 
