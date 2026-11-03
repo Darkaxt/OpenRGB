@@ -8,7 +8,7 @@
 class RGBController_KeychronSignal : public RGBController
 {
 public:
-    static RGBController_KeychronSignal* Detect(hid_device_info* info);
+    static RGBController_KeychronSignal* Detect(hid_device_info* info, bool& recognized);
     ~RGBController_KeychronSignal();
     void SetupZones();
     void DeviceUpdateMode();

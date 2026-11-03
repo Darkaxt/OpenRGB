@@ -22,11 +22,13 @@ DetectedControllers DetectQMKKeychronControllers(hid_device_info* info, const st
 {
     DetectedControllers detected_controllers;
 
-    if(auto* signal = RGBController_KeychronSignal::Detect(info))
+    bool signal_firmware = false;
+    if(auto* signal = RGBController_KeychronSignal::Detect(info, signal_firmware))
     {
         detected_controllers.push_back(signal);
         return detected_controllers;
     }
+    if(signal_firmware) return detected_controllers;
 
     for(unsigned int attempt = 0; attempt < 2; attempt++)
     {

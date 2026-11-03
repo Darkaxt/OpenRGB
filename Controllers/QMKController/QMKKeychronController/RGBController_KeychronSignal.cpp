@@ -35,24 +35,34 @@ bool Query(hid_device* dev, unsigned char command, std::array<unsigned char, 32>
     unsigned char request[33] = {0, command};
     if(hid_write(dev, request, sizeof(request)) != sizeof(request)) return false;
     // Required boundary: HID API's bounded read, matching the existing QMK driver.
-    const int length = hid_read_timeout(dev, reply.data(), reply.size(), 1000);
-    return length == 32 && reply[0] == command;
+    int length;
+    while((length = hid_read_timeout(dev, reply.data(), reply.size(), 1000)) > 0)
+    {
+        // VIA emits an additional echo after the useful response. It can arrive
+        // after the next request; consume it, never resend either command.
+        if(length == 32 && reply[0] == command) return true;
+    }
+    return false;
 }
 }
 
-RGBController_KeychronSignal* RGBController_KeychronSignal::Detect(hid_device_info* info)
+RGBController_KeychronSignal* RGBController_KeychronSignal::Detect(hid_device_info* info, bool& recognized)
 {
+    recognized = false;
     if(info->product_id != 0x0B61 || info->interface_number != 1) return nullptr;
     hid_device* handle = hid_open_path(info->path);
     if(!handle) return nullptr;
     std::array<unsigned char, 32> reply{};
-    const bool protocol = Query(handle, 0x22, reply) && reply[1] == 1 && reply[2] == 0 && reply[3] == 6;
+    recognized = Query(handle, 0x22, reply) && reply[1] > 0 && reply[1] < 32;
+    const bool protocol = recognized && reply[1] == 1 && reply[2] == 0 && reply[3] == 6;
     const bool count = protocol && Query(handle, 0x27, reply) && reply[1] == 109;
     if(!count)
     {
+        if(recognized) LOG_WARNING("[Keychron SRGBmods] Unsupported protocol or LED count; OEM RGB driver skipped");
         hid_close(handle);
         return nullptr;
     }
+    LOG_INFO("[Keychron SRGBmods] Protocol 1.0.6, 109 LEDs, ISO layout");
     return new RGBController_KeychronSignal(handle, info->path);
 }
 

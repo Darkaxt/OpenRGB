@@ -19,7 +19,9 @@ Govee v1.1-office.0.1.0 remains the verified rollback baseline, not overall comp
 - I3: Preserve existing SignalRGB configuration, plugins, device settings and
   recovery material. Only one active lighting writer per device. G HUB is an
   authorized fallback for mouse button/DPI functions; preserve its saved profile
-  and its current disabled boot/updater state. Do not recreate those functions
+  and its disabled launch-at-login state. On 2026-11-04 the user authorized recovering
+  G HUB after OpenRGB's devices are wired; restore its required service on demand
+  if needed rather than restoring automatic boot. Do not recreate its input functions
   merely to avoid that fallback. Verify any required coexistence rather than assume it.
 - A1: Deliver screen ambience for the main LG DISPLAY2, 5120x2160, only. With ordinary
   non-maximized windows covering it, capture the rendered Wallpaper Engine wallpaper
@@ -51,6 +53,14 @@ Govee v1.1-office.0.1.0 remains the verified rollback baseline, not overall comp
    Legion and G502; preservation of input/profile behavior; integrated device set,
    sustained output/resource verification and rollback. These are internal gaps
    under investigation, not external impediments. No tracked deferrals.
+   Candidate 2e6d3a8e passed native CI run 41733515534, including Govee idle-frame
+   preservation and a simulated 48-zone NL72S2 null-metadata/HTTP/UDP regression.
+   Native changes are diagnostic candidates, not physical acceptance. Run 41735201548
+   builds 66db218b with graceful headless teardown. Next: inspect six real devices
+   using E:/Temp/openrgb-integration-20261104/Inspect-NativeDevices.ps1 (single CLI
+   scan with original Govee process restored in finally), then activate the verified
+   shutdown-capable candidate for colour/input/sustained checks. G HUB recovery is
+   authorized after lighting is wired; its saved profile remains unchanged.
 2. Main-monitor ambience — NOT STARTED (A1-A3).
    Requires stage 1's integrated device set. Capture/source switching, temporal
    smoothing, wallpaper refresh, layout and real end-to-end acceptance belong here.
