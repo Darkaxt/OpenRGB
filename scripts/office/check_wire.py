@@ -72,7 +72,7 @@ def main():
         for line in process.stdout:
             log.write(line)
             log.flush()
-            if 'Network server started' in line:
+            if 'SDK listening host=' in line:
                 break
         else:
             raise RuntimeError(f'OpenRGB exited before SDK readiness: {process.wait()}')

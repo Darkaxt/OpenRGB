@@ -20,12 +20,14 @@ jobs:
           modules: qt5compat
           cache: true
       - name: Build isolated trial package
+        id: compile
         shell: pwsh
         run: ./scripts/office/Compile-Windows.ps1 -QtRoot '${{ steps.qt.outputs.qt-root-dir }}' -BuildRoot D:/office-build
       - name: Verify SDK to UDP stream and idle refresh
         shell: pwsh
         run: ./scripts/office/Check-Wire.ps1 -Executable D:/office-build/release/OpenRGB.exe -Work D:/office-wire-check
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.compile.outcome == 'success'
         with:
           name: OpenRGB-1.1-office.0.1.0-windows-x64
           path: D:/office-build/release

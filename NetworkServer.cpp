@@ -984,6 +984,7 @@ void NetworkServer::ConnectionThreadFunction(int socket_idx)
 
         server_listening = true;
         SignalServerListeningChanged();
+        LOG_INFO("[%s] SDK listening host=%s port=%hu", NETWORKSERVER, host.c_str(), GetPort());
 
         /*-------------------------------------------------*\
         | Accept the client connection                      |

@@ -58,7 +58,8 @@ def control(args):
                                'led_names': [led.name for led in d.leds]} for sku, d in found.items()], indent=2))
             return
         for device in found.values():
-            device.set_mode('Direct')
+            if device.modes[device.active_mode].name != 'Direct':
+                device.set_mode('Direct')
         if args.action == 'solid':
             colours = {'H6609': RGBColor(255, 0, 0), 'H8048': RGBColor(0, 0, 255)}
             for sku, device in found.items():
