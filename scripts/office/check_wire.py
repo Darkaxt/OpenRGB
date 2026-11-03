@@ -29,7 +29,8 @@ class ReadinessLog:
         self.kernel.FindNextChangeNotification.argtypes = [wintypes.HANDLE]
         self.kernel.FindCloseChangeNotification.argtypes = [wintypes.HANDLE]
         self.kernel.WaitForMultipleObjects.argtypes = [wintypes.DWORD, ctypes.POINTER(wintypes.HANDLE), wintypes.BOOL, wintypes.DWORD]
-        self.handle = self.kernel.FindFirstChangeNotificationW(str(directory.resolve()), True, 0x13)
+        # Include size: last-write timestamps may remain cached while the log stays open.
+        self.handle = self.kernel.FindFirstChangeNotificationW(str(directory.resolve()), True, 0x1B)
         if self.handle == ctypes.c_void_p(-1).value:
             raise ctypes.WinError(ctypes.get_last_error())
         self.directory = directory
@@ -43,7 +44,12 @@ class ReadinessLog:
                 if 'SDK listening host=' in content and 'Detection completed' in content:
                     print('Native SDK listening and detection-completed events observed', flush=True)
                     return
-            result = self.kernel.WaitForMultipleObjects(2, handles, False, 0xFFFFFFFF)
+            # Windows documents cached/delayed file notifications. This diagnostic
+            # rescan only observes the real log state; expiry never cancels, retries
+            # or declares the native operation ready/failed.
+            result = self.kernel.WaitForMultipleObjects(2, handles, False, 1000)
+            if result == 0x102:
+                continue
             if result == 0:
                 raise RuntimeError(f'OpenRGB exited before SDK readiness: {process.wait()}')
             if result != 1:

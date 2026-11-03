@@ -10,7 +10,7 @@ if ($process) {
     Stop-Process -Id $process.Id
     $process.WaitForExit()
 }
-$config = Get-Content -LiteralPath (Join-Path $StateRoot 'OpenRGB.json') -Raw | ConvertFrom-Json
+$config = Get-Content -LiteralPath (Join-Path $StateRoot 'OpenRGB.json') -Raw | ConvertFrom-Json -AsHashtable
 $udp = [Net.Sockets.UdpClient]::new()
 try {
     $packet = [Text.Encoding]::UTF8.GetBytes('{"msg":{"cmd":"razer","data":{"pt":"uwABsQAL"}}}')

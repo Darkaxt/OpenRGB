@@ -2,9 +2,16 @@ name: Office Govee Windows
 on:
   push:
     branches: [codex/govee-office]
+    paths-ignore: ['scripts/office/**', 'office-govee-specification.md', '.github/workflows/office-windows.yml']
   workflow_dispatch:
+    inputs:
+      artifact-run:
+        description: Reuse a compiled run for SDK/wire verification (empty builds native code)
+        type: string
+        default: ''
 permissions:
   contents: read
+  actions: read
 jobs:
   build:
     runs-on: windows-2022
@@ -13,6 +20,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: jurplel/install-qt-action@b344308e4483fc892e0d27b3cd1b173ebdd95f06
+        if: inputs.artifact-run == ''
         id: qt
         with:
           version: '6.8.3'
@@ -20,9 +28,17 @@ jobs:
           modules: qt5compat
           cache: true
       - name: Build isolated trial package
+        if: inputs.artifact-run == ''
         id: compile
         shell: pwsh
         run: ./scripts/office/Compile-Windows.ps1 -QtRoot '${{ steps.qt.outputs.qt-root-dir }}' -BuildRoot D:/office-build
+      - name: Retrieve compiled trial package
+        if: inputs.artifact-run != ''
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_RUN: ${{ inputs.artifact-run }}
+        run: gh run download $env:ARTIFACT_RUN --repo $env:GITHUB_REPOSITORY --name OpenRGB-1.1-office.0.1.0-windows-x64 --dir D:/office-build/release
       - name: Verify SDK to UDP stream and idle refresh
         shell: pwsh
         run: ./scripts/office/Check-Wire.ps1 -Executable D:/office-build/release/OpenRGB.exe -Work D:/office-wire-check
@@ -32,3 +48,10 @@ jobs:
           name: OpenRGB-1.1-office.0.1.0-windows-x64
           path: D:/office-build/release
           if-no-files-found: error
+      - name: Preserve wire diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: office-wire-diagnostics
+          path: D:/office-wire-check
+          if-no-files-found: ignore
