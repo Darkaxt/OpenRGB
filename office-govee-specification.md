@@ -34,8 +34,13 @@ deliverable is device control only. No ambience/capture rewrite belongs here.
 ## Stages
 
 1. Govee control integration — ACTIVE (O1-O5).
-   Build/model support, runtime ownership, headless installation and real-device
-   acceptance are not yet verified. These are current advancement blockers.
+   Verified: Windows compilation; real executable/SDK against UDP peers (20 distinct
+   RGB values, correct checksum, idle frame preserved at 30.39 seconds, exactly one
+   stream-enable per device); headless real discovery/SDK enumeration of both models;
+   user-confirmed red strip/blue bars and perimeter pattern. Actual first-ten indices
+   drive the physically left bar; correcting the H8048 names/matrix to match.
+   Remaining advancement blockers: final build with corrected bar mapping, sustained
+   real-device stream/visual confirmation, stop/start lifecycle and installed parity.
    There are no tracked deferrals. Ambience plugins are explicitly outside this
    requested first step.
 2. Final delivery — NOT STARTED (O6).
@@ -55,3 +60,13 @@ E:/Temp/openrgb-office-20261103; local native build output, if required, uses
 D:/Temp/openrgb-office-build-20261103 for native/small-file I/O and must be
 transactionally cleaned after its last consumer. GitHub-hosted compilation is
 preferred to avoid adding load to the already struggling laptop.
+
+Current candidate: cf2c2cf6866a68d66ead5f70ba7196e339467ae6, downloaded artifact
+SHA256 51155e529f5753f7de01f98070a4d2ec626c8c20f543752e883c5f6855bbb91a.
+The initial CI harness waited on stdout redirected away by Windows console
+attachment; its compiled artifact was retained and the corrected native-log event
+test passed locally. Native Govee broadcast discovery also succeeds on the real LAN.
+The initial solid command briefly blanked at mode entry before the user confirmed
+red/blue; sustained output and startup latency still require observation.
+SignalRGB's installed Govee.js currently hashes EC2510D880C4223D74D45C359F41E1542
+034262134392FF1904F418B04318B8F (stock); preserve it, do not assume the old fix remains active.

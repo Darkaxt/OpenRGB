@@ -113,6 +113,10 @@ def main():
         (args.exe.parent / 'office' / 'detectors.json').write_text(json.dumps(actual, indent=2), encoding='utf-8')
         client = OpenRGBClient(protocol_version=3, name='Office wire acceptance')
         found = devices(client)
+        bars = found['H8048']
+        assert bars.leds[0].name == 'Left Bar LED 1' and bars.leds[10].name == 'Right Bar LED 1'
+        assert [row[0] for row in bars.zones[0].matrix_map] == list(range(10))
+        assert [row[-1] for row in bars.zones[0].matrix_map] == list(range(10, 20))
 
         def frame_for(sku, colours, after=0):
             expected = bytes(channel for colour in colours for channel in (colour.red, colour.green, colour.blue))

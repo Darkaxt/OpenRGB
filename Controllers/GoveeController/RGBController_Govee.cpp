@@ -126,6 +126,8 @@ RGBController_Govee::~RGBController_Govee()
 void RGBController_Govee::SetupZones()
 {
     GoveeDeviceInfo hw = { GOVEE_FALLBACK_LED_COUNT, GOVEE_ZONE_LINEAR, 0, 0, false };
+    // H8048's first ten wire indices are the left bar in the office setup.
+    const bool left_bar_first = controller->GetSku() == "H8048";
 
     std::map<std::string, GoveeDeviceInfo>::iterator it = govee_device_info.find(controller->GetSku());
     if(it != govee_device_info.end())
@@ -174,8 +176,8 @@ void RGBController_Govee::SetupZones()
                     strip.matrix_map.map[(y * width) + x] = GOVEE_MATRIX_LED_NONE;
                 }
 
-                strip.matrix_map.map[(y * width)]                 = bar_leds + y;
-                strip.matrix_map.map[(y * width) + (width - 1)]   = y;
+                strip.matrix_map.map[(y * width)]               = left_bar_first ? y : bar_leds + y;
+                strip.matrix_map.map[(y * width) + (width - 1)]   = left_bar_first ? bar_leds + y : y;
             }
             break;
         }
@@ -237,11 +239,11 @@ void RGBController_Govee::SetupZones()
 
             if(led_idx < bar_leds)
             {
-                strip_led.name  = "Right Bar LED " + std::to_string(led_idx + 1);
+                strip_led.name  = std::string(left_bar_first ? "Left Bar LED " : "Right Bar LED ") + std::to_string(led_idx + 1);
             }
             else
             {
-                strip_led.name  = "Left Bar LED " + std::to_string(led_idx - (bar_leds - 1));
+                strip_led.name  = std::string(left_bar_first ? "Right Bar LED " : "Left Bar LED ") + std::to_string(led_idx - (bar_leds - 1));
             }
         }
         else

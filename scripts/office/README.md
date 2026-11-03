@@ -56,7 +56,9 @@ The stop command checks the recorded process ID, executable and start time,
 stops only that trial process, waits for exit, then releases streaming on the two
 configured addresses. Reopen SignalRGB normally to restore its lighting output.
 Do not run both writers simultaneously. The original SignalRGB Govee addon and
-its stream-refresh fix remain installed.
+its settings are preserved. The installed addon is currently the stock version;
+the separately retained SignalRGB stream-refresh fix has not been reinstalled by
+this trial.
 
 ## Verification scope
 
