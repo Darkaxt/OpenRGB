@@ -48,12 +48,13 @@ deliverable is device control only. No ambience/capture rewrite belongs here.
    during streaming; Python sender processes added 29.34 MiB working set.
    There are no tracked deferrals. Ambience plugins are explicitly outside this
    requested first step.
-2. Final delivery — ACTIVE (O6).
-   Remaining criteria: versioned package with current support scripts, verified
-   publication/download/install/activation and cleanup of disposable candidates.
-   Reuse the verified native binary only if a Git comparison proves all subsequent
-   source changes concern support scripts, this ledger or the office workflow.
-   Record native compilation and package source commits separately in its manifest.
+2. Final delivery — COMPLETE (O6).
+   Published v1.1-office.0.1.0 as a normal GitHub release with Windows x64 ZIP and
+   SHA256 asset. Independently downloaded it, checked its hash, release/tag/source
+   metadata and all 41 installed package members. The installed executable's SDK
+   enumerates both real controllers with corrected names and successfully sends
+   the verified perimeter/bar pattern. No blockers or tracked deferrals remain.
+   Disposable candidates and current OpenRGB scratch were transactionally cleaned.
 
 ## Starting evidence
 
@@ -79,3 +80,35 @@ The initial solid command briefly blanked at mode entry before the user confirme
 red/blue; sustained output and startup latency still require observation.
 SignalRGB's installed Govee.js currently hashes EC2510D880C4223D74D45C359F41E1542
 034262134392FF1904F418B04318B8F (stock); preserve it, do not assume the old fix remains active.
+
+## Delivered result and retention
+
+Release: https://github.com/Darkaxt/OpenRGB/releases/tag/v1.1-office.0.1.0
+Package source/tag commit: 1978c49ee5b301447b88c5feeb66b4ca655d2dc9.
+Native compilation commit: c5df4c4375541f94ffd02f5a08ff65b405f1f20b.
+The package script verifies that native source is unchanged between those commits.
+Package SHA256: 43a255d68f49952cd80356d5e241a567ba77cefe7f69dfd84ee2567d100acbed.
+Executable SHA256: 101E408C9034FA6C9A950DE5FE3F0428B921C3DE7444714B5165CBD5CDD0E059.
+
+Retained usable package: D:/Tools/OpenRGB/packages; active installation:
+D:/Tools/OpenRGB/releases/1.1-office.0.1.0. SDK Python environment and private
+configuration/native logs remain in D:/Tools/OpenRGB/python and state. The
+user-authorized headless SDK server is the continuing consumer of state/runtime-temp
+(empty at delivery); its launcher explicitly assigns TEMP/TMP there and no startup
+registration was added. Stop-Office.ps1 verifies the recorded process identity and
+releases streaming; reopening SignalRGB afterward restores its existing setup.
+
+The two-minute real stream completed 1800 frames/controller at 15 FPS, zero UDP
+send failures, with user-confirmed no flashes/freezes. Another 30-second stream
+provided the active resource sample. No smoothing is implemented in this diagnostic
+animation; its colour ramp wraps abruptly. No ambience or other-peripheral migration
+is part of this release. The user permits G HUB as a fallback for mouse bindings/DPI
+when a later lighting migration is undertaken.
+
+Cleanup receipts: candidate runtimes c877dc650c149a19223f938081d58d58 removed
+156248071 bytes; OpenRGB scratch 53d0e28ee8d6e72297a478114a374493 removed
+146257222 bytes; generated source-side Python cache 5557be064dce06763074a363781c8bbb
+removed 10440 bytes. Final runtime, package, source, private state and the existing
+SignalRGB configuration/plugins/layouts were retained. The historical initial
+startup blank is documented above; subsequent sustained control and stop/start
+acceptance passed, and no permanent hardware acknowledgement is claimed.
