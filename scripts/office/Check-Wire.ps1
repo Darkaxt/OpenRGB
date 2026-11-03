@@ -4,3 +4,5 @@ python -m pip install --disable-pip-version-check -r (Join-Path $PSScriptRoot 'r
 if ($LASTEXITCODE) { throw 'SDK client installation failed.' }
 python (Join-Path $PSScriptRoot 'check_wire.py') --exe $Executable --source (Join-Path $PSScriptRoot '../..') --work $Work
 if ($LASTEXITCODE) { throw 'SDK/UDP verification failed.' }
+python -B (Join-Path $PSScriptRoot 'check_nanoleaf.py') --exe $Executable --source (Join-Path $PSScriptRoot '../..') --work ($Work + '-nanoleaf')
+if ($LASTEXITCODE) { throw 'Nanoleaf SDK/HTTP/UDP verification failed.' }

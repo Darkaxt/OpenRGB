@@ -395,11 +395,102 @@ LenovoRGBController_Gen7_8::~LenovoRGBController_Gen7_8()
 {
     Shutdown();
 
+    if(direct_enabled)
+    {
+        controller->setLedsDirectOff(controller->getCurrentProfileId());
+    }
+
     delete controller;
+}
+
+bool LenovoRGBController_Gen7_8::SetupHardwareZones()
+{
+    std::vector<std::vector<uint16_t>> rows;
+    std::vector<uint16_t> auxiliary;
+    if(!controller->getHardwareLayout(rows, auxiliary))
+    {
+        LOG_WARNING("[Lenovo Gen7/8] Hardware layout unavailable; using the legacy layout");
+        return false;
+    }
+
+    auto add_led = [this](uint16_t id)
+    {
+        led item;
+        item.value = id;
+        item.name = "LED " + std::to_string(id);
+        for(const auto& key : legion7_gen7and8_ansi_leds)
+        {
+            if(key.led_num == id)
+            {
+                item.name = key.name;
+                break;
+            }
+        }
+        if(id == 78)  item.name = "ISO < >";
+        if(id == 168) item.name = "ISO #";
+        led_id_to_index[id] = leds.size();
+        leds.push_back(item);
+        return static_cast<unsigned int>(leds.size() - 1);
+    };
+
+    std::vector<unsigned int> matrix(7 * 20, NA);
+    for(unsigned int y = 0; y < 7; y++)
+    {
+        for(unsigned int x = 0; x < 20; x++)
+        {
+            const uint16_t id = rows[y][x];
+            if(id == 0) continue;
+            const auto found = led_id_to_index.find(id);
+            matrix[y * 20 + x] = found == led_id_to_index.end() ? add_led(id) : static_cast<unsigned int>(found->second);
+        }
+    }
+    zone keyboard;
+    keyboard.name = "Keyboard (firmware layout)";
+    keyboard.type = ZONE_TYPE_MATRIX;
+    keyboard.leds_count = static_cast<unsigned int>(leds.size());
+    keyboard.leds_min = keyboard.leds_max = keyboard.leds_count;
+    keyboard.matrix_map.Set(7, 20, matrix.data());
+    zones.push_back(keyboard);
+
+    const auto front_start = leds.size();
+    for(uint16_t id : rows[7])
+    {
+        if(id != 0 && led_id_to_index.find(id) == led_id_to_index.end())
+        {
+            add_led(id);
+            leds.back().name = "Front " + std::to_string(leds.size() - front_start);
+        }
+    }
+    zone front;
+    front.name = "Front light bar";
+    front.type = ZONE_TYPE_LINEAR;
+    front.leds_count = static_cast<unsigned int>(leds.size() - front_start);
+    front.leds_min = front.leds_max = front.leds_count;
+    zones.push_back(front);
+
+    for(uint16_t id : auxiliary)
+    {
+        if(led_id_to_index.find(id) != led_id_to_index.end()) continue;
+        add_led(id);
+        leds.back().name = "Auxiliary " + std::to_string(id);
+        zone extra;
+        extra.name = leds.back().name;
+        extra.type = ZONE_TYPE_SINGLE;
+        extra.leds_count = extra.leds_min = extra.leds_max = 1;
+        zones.push_back(extra);
+    }
+    LOG_INFO("[Lenovo Gen7/8] Firmware layout: %u keys, %u front sections, %u auxiliary lights",
+             keyboard.leds_count, front.leds_count, static_cast<unsigned int>(auxiliary.size()));
+    return true;
 }
 
 void LenovoRGBController_Gen7_8::SetupZones()
 {
+    if(controller->getPid() == LEGION_7GEN8 && SetupHardwareZones())
+    {
+        SetupColors();
+        return;
+    }
     vector<lenovo_zone> lenovo_zones;
     if(Is24ZoneDevice(controller->getPid()))
     {
@@ -508,7 +599,7 @@ void LenovoRGBController_Gen7_8::DeviceUpdateMode()
         {
             controller->setLedsDirectOn(profile_id);
             direct_enabled = true;
-            if(!UsesGen10PacketFormat(controller->getPid()))
+            if(!UsesGen10PacketFormat(controller->getPid()) && controller->getPid() != LEGION_7GEN8)
             {
                 controller->setLedsByGroup(profile_id, GetLedGroups());
             }

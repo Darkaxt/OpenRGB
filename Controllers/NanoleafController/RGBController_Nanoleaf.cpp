@@ -27,8 +27,8 @@ using json = nlohmann::json;
     @comment
 \*-------------------------------------------------------------------*/
 
-RGBController_Nanoleaf::RGBController_Nanoleaf(std::string a_address, int a_port, std::string a_auth_token) :
-    controller(a_address, a_port, a_auth_token)
+RGBController_Nanoleaf::RGBController_Nanoleaf(std::string a_address, int a_port, std::string a_auth_token, unsigned int zone_count) :
+    controller(a_address, a_port, a_auth_token, zone_count)
 {
     location    = a_address+":"+std::to_string(a_port);
     name        = controller.GetName();

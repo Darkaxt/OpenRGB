@@ -71,6 +71,7 @@ class LenovoGen7And8USBController
     uint8_t getKeyboardId();
     void switchProfileTo(uint8_t profile_id);
     std::vector<led_group> getProfileSettings(uint8_t profile_id);
+    bool getHardwareLayout(std::vector<std::vector<uint16_t>>& rows, std::vector<uint16_t>& auxiliary);
 
 
     private:

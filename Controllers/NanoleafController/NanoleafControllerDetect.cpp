@@ -32,13 +32,13 @@ DetectedControllers DetectNanoleafControllers()
             {
                 try
                 {
-                    RGBController_Nanoleaf* rgb_controller = new RGBController_Nanoleaf(device["ip"], device["port"], device["auth_token"]);
+                    RGBController_Nanoleaf* rgb_controller = new RGBController_Nanoleaf(device["ip"], device["port"], device["auth_token"], device.value("zone_count", 0u));
 
                     detected_controllers.push_back(rgb_controller);
                 }
                 catch(...)
                 {
-                    LOG_DEBUG("[Nanoleaf] Could not connect to device at %s:%d using auth_token %s", device["ip"].get<std::string>().c_str(), device["port"].get<int>(), device["auth_token"].get<std::string>().c_str());
+                    LOG_DEBUG("[Nanoleaf] Could not connect to device at %s:%d", device["ip"].get<std::string>().c_str(), device["port"].get<int>());
                 }
             }
         }

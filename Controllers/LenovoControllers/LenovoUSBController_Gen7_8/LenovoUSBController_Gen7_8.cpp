@@ -8,6 +8,7 @@
 \*---------------------------------------------------------*/
 
 #include <iomanip>
+#include <algorithm>
 #include <sstream>
 #include "LenovoDevices.h"
 #include "LenovoUSBController_Gen7_8.h"
@@ -47,6 +48,50 @@ LenovoGen7And8USBController::~LenovoGen7And8USBController()
 uint16_t LenovoGen7And8USBController::getPid()
 {
     return pid;
+}
+
+bool LenovoGen7And8USBController::getHardwareLayout(std::vector<std::vector<uint16_t>>& rows, std::vector<uint16_t>& auxiliary)
+{
+    // Spectrum's GET-only topology includes ISO keys, wide-key duplicates and
+    // front lighting. Do not infer their IDs from an ANSI drawing.
+    uint8_t dimensions[PACKET_SIZE] = {REPORT_ID, 0xC4, 0xC0, 3, 7};
+    const auto size = getFeatureReport(dimensions, sizeof(dimensions));
+    if(size.size() != PACKET_SIZE || size[1] != 0xC4 || size[5] != 8 || size[6] != 20)
+    {
+        return false;
+    }
+    rows.clear();
+    auxiliary.clear();
+    for(unsigned int y = 0; y < 8; y++)
+    {
+        uint8_t request[PACKET_SIZE] = {REPORT_ID, 0xC5, 0xC0, 3, 7, static_cast<uint8_t>(y)};
+        const auto page = getFeatureReport(request, sizeof(request));
+        if(page.size() != PACKET_SIZE || page[1] != 0xC5)
+        {
+            return false;
+        }
+        std::vector<uint16_t> row;
+        for(unsigned int x = 0; x < 20; x++)
+        {
+            row.push_back(page[7 + x * 3] | (page[8 + x * 3] << 8));
+        }
+        rows.push_back(row);
+    }
+    uint8_t request[PACKET_SIZE] = {REPORT_ID, 0xC5, 0xC0, 3, 8, 0};
+    const auto page = getFeatureReport(request, sizeof(request));
+    if(page.size() != PACKET_SIZE || page[1] != 0xC5)
+    {
+        return false;
+    }
+    for(unsigned int x = 0; x < 20; x++)
+    {
+        const uint16_t id = page[7 + x * 3] | (page[8 + x * 3] << 8);
+        if(id != 0 && std::find(auxiliary.begin(), auxiliary.end(), id) == auxiliary.end())
+        {
+            auxiliary.push_back(id);
+        }
+    }
+    return true;
 }
 
 string LenovoGen7And8USBController::getName()

@@ -47,6 +47,7 @@ private:
     LenovoGen7And8USBController* controller;
     std::vector<led_group> GetLedGroups();
     void ReadDeviceSettings();
+    bool SetupHardwareZones();
     std::unordered_map<unsigned int, size_t> led_id_to_index;
     int last_mode = 0;
     bool direct_enabled = false;

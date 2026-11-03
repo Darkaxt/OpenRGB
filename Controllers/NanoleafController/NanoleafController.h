@@ -20,11 +20,12 @@
 #define NANOLEAF_SHAPES_MODEL               "NL42"
 #define NANOLEAF_LINES_MODEL                "NL59"
 #define NANOLEAF_4D_SCREEN_MIRROR_MODEL     "NL69"
+#define NANOLEAF_SECRETLAB_MODEL            "NL72S2"
 
 class NanoleafController
 {
 public:
-    NanoleafController(std::string a_address, int a_port, std::string a_auth_token);
+    NanoleafController(std::string a_address, int a_port, std::string a_auth_token, unsigned int zone_count = 0);
 
     static std::string          Pair(std::string address, int port);
     static void                 Unpair(std::string address, int port, std::string auth_token);

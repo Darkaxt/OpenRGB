@@ -13,6 +13,7 @@
 #include "LogManager.h"
 #include "httplib.h"
 #include "JsonUtils.h"
+#include <stdexcept>
 
 long APIRequest(std::string method, std::string location, std::string URI, json* request_data = nullptr, json* response_data = nullptr)
 {
@@ -103,7 +104,7 @@ long APIRequest(std::string method, std::string location, std::string URI, json*
     return status;
 }
 
-NanoleafController::NanoleafController(std::string a_address, int a_port, std::string a_auth_token)
+NanoleafController::NanoleafController(std::string a_address, int a_port, std::string a_auth_token, unsigned int zone_count)
 {
     address                 = a_address;
     port                    = a_port;
@@ -120,6 +121,31 @@ NanoleafController::NanoleafController(std::string a_address, int a_port, std::s
         model               = data["model"];
 
         brightness          = data["state"]["brightness"]["value"];
+
+        // MAGRGB firmware exposes neither effects nor panelLayout at the root.
+        // Its configured number of addressable sections must be supplied explicitly.
+        if(model == NANOLEAF_SECRETLAB_MODEL)
+        {
+            if(zone_count == 0 || zone_count > 255)
+            {
+                throw std::runtime_error("MAGRGB requires zone_count between 1 and 255");
+            }
+            json selected;
+            if(APIRequest("GET", location, "/api/v1/" + auth_token + "/effects/select", nullptr, &selected) != 200 || !selected.is_string())
+            {
+                throw std::runtime_error("MAGRGB effect state unavailable");
+            }
+            selectedEffect = selected.get<std::string>();
+            if(selectedEffect == "*ExtControl*")
+            {
+                selectedEffect = NANOLEAF_DIRECT_MODE_EFFECT_NAME;
+            }
+            for(unsigned int i = 0; i < zone_count; i++)
+            {
+                panel_ids.push_back(i);
+            }
+            return;
+        }
         selectedEffect      = data["effects"]["select"];
 
         for(json::const_iterator it = data["effects"]["effectsList"].begin(); it != data["effects"]["effectsList"].end(); ++it)
@@ -210,7 +236,8 @@ void NanoleafController::UpdateLEDs(std::vector<RGBColor>& colors)
     else if((model == NANOLEAF_CANVAS_MODEL)
          || (model == NANOLEAF_SHAPES_MODEL)
          || (model == NANOLEAF_LINES_MODEL)
-         || (model == NANOLEAF_4D_SCREEN_MIRROR_MODEL))
+         || (model == NANOLEAF_4D_SCREEN_MIRROR_MODEL)
+         || (model == NANOLEAF_SECRETLAB_MODEL))
     {
         /*---------------------------------------------------------*\
         | Protocol V2 - https://forum.nanoleaf.me/docs              |
@@ -279,7 +306,8 @@ void NanoleafController::StartExternalControl()
     else if((model == NANOLEAF_CANVAS_MODEL)
          || (model == NANOLEAF_SHAPES_MODEL)
          || (model == NANOLEAF_LINES_MODEL)
-         || (model == NANOLEAF_4D_SCREEN_MIRROR_MODEL))
+         || (model == NANOLEAF_4D_SCREEN_MIRROR_MODEL)
+         || (model == NANOLEAF_SECRETLAB_MODEL))
     {
         /*---------------------------------------------------------*\
         | Protocol v2 does not return anything, use device IP and   |

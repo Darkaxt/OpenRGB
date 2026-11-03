@@ -16,10 +16,17 @@
 #include "DetectionManager.h"
 #include "QMKKeychronController.h"
 #include "RGBController_QMKKeychron.h"
+#include "RGBController_KeychronSignal.h"
 
 DetectedControllers DetectQMKKeychronControllers(hid_device_info* info, const std::string& /*name*/)
 {
     DetectedControllers detected_controllers;
+
+    if(auto* signal = RGBController_KeychronSignal::Detect(info))
+    {
+        detected_controllers.push_back(signal);
+        return detected_controllers;
+    }
 
     for(unsigned int attempt = 0; attempt < 2; attempt++)
     {
