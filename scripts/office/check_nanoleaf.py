@@ -13,6 +13,7 @@ from pathlib import Path
 
 from check_wire import ReadinessLog
 from govee_trial import detector_inventory
+from runtime_control import request_shutdown
 
 
 def main():
@@ -69,8 +70,8 @@ def main():
     }), encoding='utf-8')
     log_path = args.work / 'native.log'
     log = log_path.open('wb')
-    readiness = ReadinessLog(args.work)
-    env = dict(os.environ, TEMP=str(args.work), TMP=str(args.work))
+    readiness = ReadinessLog(args.work, marker='Graceful shutdown event ready')
+    env = dict(os.environ, TEMP=str(args.work), TMP=str(args.work), OPENRGB_OFFICE_SHUTDOWN='1')
     process = subprocess.Popen([str(args.exe), '--config', str(args.work), '--noautoconnect',
                                 '--server', '--server-host', '127.0.0.1', '--loglevel', 'info'],
                                stdout=log, stderr=subprocess.STDOUT, env=env)
@@ -89,8 +90,13 @@ def main():
             item = data[2+i*8:10+i*8]
             assert item == i.to_bytes(2, 'big') + bytes([colour.red, colour.green, colour.blue, 0, 0, 0]), (i, item)
         assert writes == [{'write': {'command': 'display', 'animType': 'extControl', 'extControlVersion': 'v2'}}], writes
+        client.disconnect()
+        client = None
+        request_shutdown(process.pid)
+        assert process.wait() == 0, 'Graceful shutdown failed'
         print(json.dumps({'model': 'NL72S2', 'zones': 48, 'null_metadata_supported': True,
                           'packet_bytes': len(data), 'stream_enables': len(writes),
+                          'graceful_shutdown': True,
                           'scope': 'native executable and SDK against simulated HTTP/UDP'}))
     finally:
         if client:

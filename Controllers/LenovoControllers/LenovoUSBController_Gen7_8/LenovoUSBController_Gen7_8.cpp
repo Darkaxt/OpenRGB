@@ -56,7 +56,7 @@ bool LenovoGen7And8USBController::getHardwareLayout(std::vector<std::vector<uint
     // front lighting. Do not infer their IDs from an ANSI drawing.
     uint8_t dimensions[PACKET_SIZE] = {REPORT_ID, 0xC4, 0xC0, 3, 7};
     const auto size = getFeatureReport(dimensions, sizeof(dimensions));
-    if(size.size() != PACKET_SIZE || size[1] != 0xC4 || size[5] != 8 || size[6] != 20)
+    if(size.size() != PACKET_SIZE || size[0] != REPORT_ID || size[1] != 0xC4 || size[4] != 7 || size[5] != 8 || size[6] != 20)
     {
         return false;
     }
@@ -66,7 +66,7 @@ bool LenovoGen7And8USBController::getHardwareLayout(std::vector<std::vector<uint
     {
         uint8_t request[PACKET_SIZE] = {REPORT_ID, 0xC5, 0xC0, 3, 7, static_cast<uint8_t>(y)};
         const auto page = getFeatureReport(request, sizeof(request));
-        if(page.size() != PACKET_SIZE || page[1] != 0xC5)
+        if(page.size() != PACKET_SIZE || page[0] != REPORT_ID || page[1] != 0xC5 || page[4] != 7 || page[5] != y)
         {
             return false;
         }
@@ -79,7 +79,7 @@ bool LenovoGen7And8USBController::getHardwareLayout(std::vector<std::vector<uint
     }
     uint8_t request[PACKET_SIZE] = {REPORT_ID, 0xC5, 0xC0, 3, 8, 0};
     const auto page = getFeatureReport(request, sizeof(request));
-    if(page.size() != PACKET_SIZE || page[1] != 0xC5)
+    if(page.size() != PACKET_SIZE || page[0] != REPORT_ID || page[1] != 0xC5 || page[4] != 8 || page[5] != 0)
     {
         return false;
     }

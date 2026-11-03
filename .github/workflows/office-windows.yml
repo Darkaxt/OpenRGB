@@ -38,14 +38,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           ARTIFACT_RUN: ${{ inputs.artifact-run }}
-        run: gh run download $env:ARTIFACT_RUN --repo $env:GITHUB_REPOSITORY --name OpenRGB-1.1-office.0.1.0-windows-x64 --dir D:/office-build/release
+        run: gh run download $env:ARTIFACT_RUN --repo $env:GITHUB_REPOSITORY --name OpenRGB-1.1-office.0.2.0-windows-x64 --dir D:/office-build/release
       - name: Verify SDK to UDP stream and idle refresh
         shell: pwsh
         run: ./scripts/office/Check-Wire.ps1 -Executable D:/office-build/release/OpenRGB.exe -Work D:/office-wire-check
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always() && steps.compile.outcome == 'success'
         with:
-          name: OpenRGB-1.1-office.0.1.0-windows-x64
+          name: OpenRGB-1.1-office.0.2.0-windows-x64
           path: D:/office-build/release
           if-no-files-found: error
       - name: Preserve wire diagnostics

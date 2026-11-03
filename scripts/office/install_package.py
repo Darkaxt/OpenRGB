@@ -19,6 +19,7 @@ def main():
     parser.add_argument('--archive', type=Path, required=True)
     parser.add_argument('--sha256', required=True)
     parser.add_argument('--source-commit', required=True)
+    parser.add_argument('--version', default='1.1-office.0.1.0')
     parser.add_argument('--destination', type=Path, required=True)
     args = parser.parse_args()
     archive_hash = digest(args.archive.read_bytes())
@@ -38,7 +39,7 @@ def main():
                 raise ValueError('Duplicate or link archive member')
             files[info.filename.casefold()] = (info.filename, archive.read(info))
     build = json.loads(files['office-build.json'][1].decode('utf-8-sig'))
-    if build['source'] != args.source_commit or build['version'] != '1.1-office.0.1.0':
+    if build['source'] != args.source_commit or build['version'] != args.version:
         raise ValueError('Package provenance does not match requested source/version')
     exe = files['openrgb.exe'][1]
     pe = int.from_bytes(exe[0x3C:0x40], 'little')

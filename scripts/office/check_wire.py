@@ -21,7 +21,7 @@ from govee_trial import detector_inventory, devices
 
 class ReadinessLog:
     """Observe native file flushes or process exit, independent of console attachment."""
-    def __init__(self, directory):
+    def __init__(self, directory, marker=None):
         from ctypes import wintypes
         self.kernel = ctypes.WinDLL('kernel32', use_last_error=True)
         self.kernel.FindFirstChangeNotificationW.argtypes = [wintypes.LPCWSTR, wintypes.BOOL, wintypes.DWORD]
@@ -34,6 +34,7 @@ class ReadinessLog:
         if self.handle == ctypes.c_void_p(-1).value:
             raise ctypes.WinError(ctypes.get_last_error())
         self.directory = directory
+        self.marker = marker
 
     def wait(self, process):
         from ctypes import wintypes
@@ -41,7 +42,7 @@ class ReadinessLog:
         while True:
             for path in (self.directory / 'logs').glob('*.log'):
                 content = path.read_text(encoding='utf-8-sig', errors='replace')
-                if 'SDK listening host=' in content and 'Detection completed' in content:
+                if 'SDK listening host=' in content and 'Detection completed' in content and (self.marker is None or self.marker in content):
                     print('Native SDK listening and detection-completed events observed', flush=True)
                     return
             # Windows documents cached/delayed file notifications. This diagnostic

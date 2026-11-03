@@ -523,16 +523,42 @@ void InitializeTimerResolutionThreadFunction()
 \*---------------------------------------------------------*/
 static void WaitWhileServerOnline(NetworkServer* srv)
 {
+    // The office's hidden, manually launched server has no console to receive
+    // Ctrl+C. An opt-in local event lets its owner request normal teardown,
+    // including controller destructors restoring temporary hardware modes.
+    HANDLE office_stop = NULL;
+    if(!started_as_service && GetEnvironmentVariableW(L"OPENRGB_OFFICE_SHUTDOWN", NULL, 0) != 0)
+    {
+        const std::wstring event_name = L"Local\\OpenRGB.Office.Shutdown." + std::to_wstring(GetCurrentProcessId());
+        office_stop = CreateEventW(NULL, TRUE, FALSE, event_name.c_str());
+        if(!office_stop)
+        {
+            LOG_ERROR("[Office] Could not create shutdown event: %lu", GetLastError());
+            srv->StopServer();
+            return;
+        }
+        LOG_INFO("[Office] Graceful shutdown event ready");
+    }
     std::unique_lock<std::mutex> lock(service_stop_mutex);
     while(srv->GetOnline())
     {
-        if(service_stop_requested)
+        if(service_stop_requested || (office_stop && WaitForSingleObject(office_stop, 0) == WAIT_OBJECT_0))
         {
             srv->StopServer();
             break;
         }
-        service_stop_cv.wait_for(lock, 1s);
+        if(office_stop)
+        {
+            // Diagnostic server-state observation only. Expiry never stops or
+            // restarts anything; the actual event requests shutdown.
+            WaitForSingleObject(office_stop, 1000);
+        }
+        else
+        {
+            service_stop_cv.wait_for(lock, 1s);
+        }
     };
+    if(office_stop) CloseHandle(office_stop);
 }
 
 /*---------------------------------------------------------*\
