@@ -33,18 +33,27 @@ deliverable is device control only. No ambience/capture rewrite belongs here.
 
 ## Stages
 
-1. Govee control integration — ACTIVE (O1-O5).
+1. Govee control integration — COMPLETE (O1-O5).
    Verified: Windows compilation; real executable/SDK against UDP peers (20 distinct
    RGB values, correct checksum, idle frame preserved at 30.39 seconds, exactly one
    stream-enable per device); headless real discovery/SDK enumeration of both models;
    user-confirmed red strip/blue bars and perimeter pattern. Actual first-ten indices
    drive the physically left bar; correcting the H8048 names/matrix to match.
-   Remaining advancement blockers: final build with corrected bar mapping, sustained
-   real-device stream/visual confirmation, stop/start lifecycle and installed parity.
+   Corrected native build c5df4c43 passed the full SDK/UDP and bar-matrix checks
+   locally and in hosted run 41729321503. Real discovery/enumeration and corrected
+   bar names verified on the installed build. User confirmed the two-minute 15 FPS
+   stream had no dark flashes or freezes; 1800 frames/device completed with zero
+   UDP send failures. Stop/start passed with PID/executable/start-time ownership.
+   OpenRGB measured 28.9 MiB working set, 9.27 MiB private, 0.042% whole-machine CPU
+   during streaming; Python sender processes added 29.34 MiB working set.
    There are no tracked deferrals. Ambience plugins are explicitly outside this
    requested first step.
-2. Final delivery — NOT STARTED (O6).
-   Requires all first-stage acceptance criteria and physical confirmation.
+2. Final delivery — ACTIVE (O6).
+   Remaining criteria: versioned package with current support scripts, verified
+   publication/download/install/activation and cleanup of disposable candidates.
+   Reuse the verified native binary only if a Git comparison proves all subsequent
+   source changes concern support scripts, this ledger or the office workflow.
+   Record native compilation and package source commits separately in its manifest.
 
 ## Starting evidence
 
