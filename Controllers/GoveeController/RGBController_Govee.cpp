@@ -13,6 +13,7 @@
 #include <map>
 #include <string>
 #include "RGBController_Govee.h"
+#include "LogManager.h"
 
 using namespace std::chrono_literals;
 
@@ -56,6 +57,8 @@ static std::map<std::string, GoveeDeviceInfo> govee_device_info
     { "H70B1",   { 20,  GOVEE_ZONE_LINEAR,     0,  0,  true } },    // Govee LED Curtain Lights
     { "H607C",   { 174, GOVEE_ZONE_LINEAR,     0,  0,  true } },    // Govee Floor Lamp 2
     { "H6069",   { 20,  GOVEE_ZONE_LINEAR,     0,  0,  true } },    // Govee Mini Panel Lights (20-panel kit)
+    { "H6609",   { 20,  GOVEE_ZONE_LINEAR,     0,  0,  true } },    // Govee G1 monitor strip
+    { "H8048",   { 20,  GOVEE_ZONE_SPLIT_BARS, 0,  10, true } },    // Govee Light Bars Pro, two 10-zone bars
 };
 
 enum
@@ -250,6 +253,7 @@ void RGBController_Govee::SetupZones()
     }
 
     SetupColors();
+    LOG_INFO("[Govee] sku=%s zones=%u layout=%u direct=%u", controller->GetSku().c_str(), hw.led_count, (unsigned int)hw.layout, (unsigned int)razer_supported);
 }
 
 void RGBController_Govee::DeviceConfigureZone(int zone_idx)
@@ -367,16 +371,20 @@ void RGBController_Govee::KeepaliveThread()
 {
     while(keepalive_thread_run.load())
     {
-        const std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
-
-        if((now - last_update_time) > std::chrono::seconds(30))
         {
-            if(modes[active_mode].value == GOVEE_MODE_STATIC)
+            // Use the same locks/order as RGBController's device-call thread.
+            std::shared_lock<std::shared_mutex> access_lock(AccessMutex);
+            std::lock_guard<std::mutex> device_lock(DeviceMutex);
+            const std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+
+            if((now - last_update_time) > std::chrono::seconds(30))
             {
-                UpdateStatic(true);
-            }
-            else if(modes[active_mode].value == GOVEE_MODE_DIRECT)
-            {
+                if(modes[active_mode].value == GOVEE_MODE_STATIC)
+                {
+                    UpdateStatic(true);
+                }
+                else if(modes[active_mode].value == GOVEE_MODE_DIRECT)
+                {
                 /*-----------------------------------------------------*\
                 | Direct/per-LED mode has no other periodic refresh -   |
                 | SendRazerEnable() only fires once, at mode entry.     |
@@ -385,12 +393,15 @@ void RGBController_Govee::KeepaliveThread()
                 | let the device's external-control session time out    |
                 | and fall back to its own firmware default.            |
                 \*-----------------------------------------------------*/
-                if(razer_supported)
-                {
-                    controller->SendRazerEnable();
-                }
+                // These models visibly blank when B1 is repeated. B0 refreshes
+                // the existing session without re-entering stream mode.
+                    if(razer_supported && controller->GetSku() != "H6609" && controller->GetSku() != "H8048")
+                    {
+                        controller->SendRazerEnable();
+                    }
 
-                DeviceUpdateLEDs();
+                    DeviceUpdateLEDs();
+                }
             }
         }
 

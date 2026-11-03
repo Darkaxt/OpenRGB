@@ -52,6 +52,11 @@ private:
     std::string         wifiVersionSoft;
 
     bool                broadcast_received;
+    unsigned long long  frame_count = 0;
+    unsigned long long  failed_frame_count = 0;
+    long long           maximum_send_us = 0;
+    long long           maximum_gap_ms = 0;
+    std::chrono::steady_clock::time_point previous_send;
 
     net_port            port;
 

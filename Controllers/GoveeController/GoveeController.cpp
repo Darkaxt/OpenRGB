@@ -14,6 +14,7 @@
 #include "base64.hpp"
 #include "GoveeController.h"
 #include "JsonUtils.h"
+#include "LogManager.h"
 
 using json = nlohmann::json;
 using namespace std::chrono_literals;
@@ -219,7 +220,8 @@ void GoveeController::SendRazerData(RGBColor* colors, unsigned int size)
     pkt.push_back(static_cast<base64::byte>((payload_len >> 8) & 0xFF)); /* len_hi */
     pkt.push_back(static_cast<base64::byte>(payload_len & 0xFF));        /* len_lo */
     pkt.push_back(0xB0);                                                 /* subcommand */
-    pkt.push_back(0x01);                                                 /* gradient_off = 1 */
+    // Match the verified discrete-segment stream used by the office devices.
+    pkt.push_back((sku == "H6609" || sku == "H8048") ? 0x00 : 0x01);
     pkt.push_back(static_cast<base64::byte>(count));                     /* led_count */
 
     for(std::size_t led_idx = 0; led_idx < count; led_idx++)
@@ -240,11 +242,33 @@ void GoveeController::SendRazerData(RGBColor* colors, unsigned int size)
     \*-----------------------------------------------------*/
     std::string command_str                     = command.dump();
 
-    port.udp_write((char *)command_str.c_str(), (int)command_str.length() + 1);
+    const std::chrono::steady_clock::time_point started = std::chrono::steady_clock::now();
+    const int expected = (int)command_str.length() + 1;
+    const int written = port.udp_write((char *)command_str.c_str(), expected);
+    const long long send_us = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - started).count();
+    maximum_send_us = std::max(maximum_send_us, send_us);
+    if(frame_count > 0)
+    {
+        const long long gap_ms = std::chrono::duration_cast<std::chrono::milliseconds>(started - previous_send).count();
+        maximum_gap_ms = std::max(maximum_gap_ms, gap_ms);
+    }
+    previous_send = started;
+    frame_count++;
+    if(written != expected)
+    {
+        failed_frame_count++;
+    }
+    // Summaries avoid allocating a log entry on every animation frame.
+    if(frame_count == 1 || frame_count % 300 == 0)
+    {
+        LOG_INFO("[Govee stream] sku=%s frames=%llu zones=%u udp_failures=%llu max_send_us=%lld max_gap_ms=%lld acknowledged=0",
+                 sku.c_str(), frame_count, count, failed_frame_count, maximum_send_us, maximum_gap_ms);
+    }
 }
 
 void GoveeController::SendRazerDisable()
 {
+    LOG_INFO("[Govee stream] sku=%s disable frames=%llu udp_failures=%llu", sku.c_str(), frame_count, failed_frame_count);
     const std::vector<base64::byte> pkt = { 0xBB, 0x00, 0x01, 0xB1, 0x00, 0x0B };
     json command;
 
@@ -261,6 +285,7 @@ void GoveeController::SendRazerDisable()
 
 void GoveeController::SendRazerEnable()
 {
+    LOG_INFO("[Govee stream] sku=%s enable", sku.c_str());
     const std::vector<base64::byte> pkt = { 0xBB, 0x00, 0x01, 0xB1, 0x01, 0x0A };
     json command;
 

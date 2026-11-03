@@ -27,7 +27,11 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 #-----------------------------------------------------------------------------------------------#
 MAJOR       = 1
 MINOR       = 1
+isEmpty(OFFICE_VERSION) {
 SUFFIX      = git
+} else {
+SUFFIX      = $$OFFICE_VERSION
+}
 
 SHORTHASH   = $$system("git rev-parse --short=7 HEAD")
 LASTTAG     = "release_"$$MAJOR"."$$MINOR
