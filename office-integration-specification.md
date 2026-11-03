@@ -61,6 +61,15 @@ Govee v1.1-office.0.1.0 remains the verified rollback baseline, not overall comp
    scan with original Govee process restored in finally), then activate the verified
    shutdown-capable candidate for colour/input/sustained checks. G HUB recovery is
    authorized after lighting is wired; its saved profile remains unchanged.
+   The CLI scan exposed short HIDAPI topology replies and delayed VIA echoes;
+   correlated GET-only probes reproduced both. Fixed in 7947db2c; CI 41736410371
+   passed, including native graceful teardown. Downloaded artifact SHA256
+   8fbb329f3588cf6671150174670c5c5243a60094d1223bf41864ec106045afe6 matched
+   GitHub's digest; 46 installed members read back at the task-owned candidate
+   D:/Tools/OpenRGB/releases/candidate-integration-7947db2c. Next action is
+   E:/Temp/openrgb-integration-20261104/Activate-Integration.ps1: verified-owner
+   baseline stop, native readiness, strict six-controller inventory and colours;
+   failure restores the Govee baseline. This remains intermediate testing.
 2. Main-monitor ambience — NOT STARTED (A1-A3).
    Requires stage 1's integrated device set. Capture/source switching, temporal
    smoothing, wallpaper refresh, layout and real end-to-end acceptance belong here.

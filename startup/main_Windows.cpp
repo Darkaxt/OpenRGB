@@ -48,6 +48,22 @@ static bool                  have_console;
 
 static std::mutex            service_status_mutex;
 
+static std::mutex            office_detection_mutex;
+static std::condition_variable office_detection_cv;
+static bool                  office_detection_complete = false;
+
+static void OfficeDetectionCallback(void*, unsigned int reason)
+{
+    if(reason == RESOURCEMANAGER_UPDATE_REASON_DETECTION_COMPLETE)
+    {
+        {
+            std::lock_guard<std::mutex> lock(office_detection_mutex);
+            office_detection_complete = true;
+        }
+        office_detection_cv.notify_all();
+    }
+}
+
 /*---------------------------------------------------------*\
 | Detection progress goes from 0 to 100 twice, passing an   |
 | estimate based on that confuses the service manager       |
@@ -529,6 +545,14 @@ static void WaitWhileServerOnline(NetworkServer* srv)
     HANDLE office_stop = NULL;
     if(!started_as_service && GetEnvironmentVariableW(L"OPENRGB_OFFICE_SHUTDOWN", NULL, 0) != 0)
     {
+        // Initialization and detection are separate operations. Publish the
+        // office ready/stop endpoint only after the real detection callback,
+        // including the service-startup profile, has completed.
+        {
+            std::unique_lock<std::mutex> lock(office_detection_mutex);
+            office_detection_cv.wait(lock, [] { return office_detection_complete; });
+        }
+        ResourceManager::get()->UnregisterResourceManagerCallback(OfficeDetectionCallback, NULL);
         const std::wstring event_name = L"Local\\OpenRGB.Office.Shutdown." + std::to_wstring(GetCurrentProcessId());
         office_stop = CreateEventW(NULL, TRUE, FALSE, event_name.c_str());
         if(!office_stop)
@@ -616,6 +640,10 @@ static int common_main(int argc, char* argv[])
     /*-----------------------------------------------------*\
     | Initialize ResourceManager                            |
     \*-----------------------------------------------------*/
+    if(!started_as_service && GetEnvironmentVariableW(L"OPENRGB_OFFICE_SHUTDOWN", NULL, 0) != 0)
+    {
+        ResourceManager::get()->RegisterResourceManagerCallback(OfficeDetectionCallback, NULL);
+    }
     ResourceManager::get()->Initialize(
         !(ret_flags & RET_FLAG_NO_AUTO_CONNECT),
         !(ret_flags & RET_FLAG_NO_DETECT),

@@ -3,6 +3,8 @@
 SPDX-License-Identifier: GPL-2.0-or-later
 """
 import argparse
+import ctypes
+from ctypes import wintypes
 import json
 import os
 import socket
@@ -24,9 +26,12 @@ def main():
     parser.add_argument('--exe', type=Path, required=True)
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--work', type=Path, required=True)
+    parser.add_argument('--sdk-port', type=int, default=6742)
     args = parser.parse_args()
     args.work.mkdir(parents=True, exist_ok=False)
     writes = []
+    metadata_requested = threading.Event()
+    release_metadata = threading.Event()
 
     class API(BaseHTTPRequestHandler):
         def log_message(self, *_):
@@ -36,6 +41,8 @@ def main():
             if self.path == '/api/v1/test/effects/select':
                 value = '*ExtControl*'
             elif self.path == '/api/v1/test':
+                metadata_requested.set()
+                release_metadata.wait()
                 value = dict(name='Secretlab MAGRGB test', serialNo='test', manufacturer='Nanoleaf',
                              model='NL72S2', firmwareVersion='4.0.0',
                              state={'brightness': {'value': 39}}, effects=None, panelLayout=None)
@@ -73,12 +80,32 @@ def main():
     readiness = ReadinessLog(args.work, marker='Graceful shutdown event ready')
     env = dict(os.environ, TEMP=str(args.work), TMP=str(args.work), OPENRGB_OFFICE_SHUTDOWN='1')
     process = subprocess.Popen([str(args.exe), '--config', str(args.work), '--noautoconnect',
-                                '--server', '--server-host', '127.0.0.1', '--loglevel', 'info'],
+                                '--server', '--server-host', '127.0.0.1', '--server-port', str(args.sdk_port), '--loglevel', 'info'],
                                stdout=log, stderr=subprocess.STDOUT, env=env)
+    # Wake the test on either the real request or native process completion.
+    def observe_exit():
+        process.wait()
+        metadata_requested.set()
+    exit_observer = threading.Thread(target=observe_exit)
+    exit_observer.start()
     client = None
     try:
+        metadata_requested.wait()
+        if process.poll() is not None:
+            raise RuntimeError('Native process exited before requesting metadata')
+        kernel = readiness.kernel
+        kernel.OpenEventW.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.LPCWSTR]
+        kernel.OpenEventW.restype = wintypes.HANDLE
+        kernel.CloseHandle.argtypes = [wintypes.HANDLE]
+        premature = kernel.OpenEventW(0x100000, False, f'Local\\OpenRGB.Office.Shutdown.{process.pid}')
+        if premature:
+            kernel.CloseHandle(premature)
+            raise AssertionError('Office readiness published while device detection was blocked')
+        if ctypes.get_last_error() != 2:
+            raise ctypes.WinError(ctypes.get_last_error())
+        release_metadata.set()
         readiness.wait(process)
-        client = OpenRGBClient('127.0.0.1', 6742, name='NL72S2 wire check', protocol_version=3)
+        client = OpenRGBClient('127.0.0.1', args.sdk_port, name='NL72S2 wire check', protocol_version=3)
         assert len(client.devices) == 1, [d.name for d in client.devices]
         device = client.devices[0]
         assert len(device.leds) == 48, len(device.leds)
@@ -97,13 +124,16 @@ def main():
         print(json.dumps({'model': 'NL72S2', 'zones': 48, 'null_metadata_supported': True,
                           'packet_bytes': len(data), 'stream_enables': len(writes),
                           'graceful_shutdown': True,
+                          'readiness_waits_for_device_detection': True,
                           'scope': 'native executable and SDK against simulated HTTP/UDP'}))
     finally:
+        release_metadata.set()
         if client:
             client.disconnect()
         if process.poll() is None:
             process.terminate()
         process.wait()
+        exit_observer.join()
         readiness.close()
         log.close()
         udp.close()

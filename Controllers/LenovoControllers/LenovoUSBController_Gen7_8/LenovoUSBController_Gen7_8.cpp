@@ -79,11 +79,13 @@ bool LenovoGen7And8USBController::getHardwareLayout(std::vector<std::vector<uint
     }
     uint8_t request[PACKET_SIZE] = {REPORT_ID, 0xC5, 0xC0, 3, 8, 0};
     const auto page = getFeatureReport(request, sizeof(request));
-    if(page.size() < 66 || page[0] != REPORT_ID || page[1] != 0xC5 || page[4] != 8 || page[5] != 0)
+    if(page.size() < 7 || page[0] != REPORT_ID || page[1] != 0xC5 || page[4] != 8 || page[5] != 0)
     {
         return false;
     }
-    for(unsigned int x = 0; x < 20; x++)
+    // Auxiliary pages contain only the available entries (one on the C988),
+    // not a padded keyboard row. Each ID needs two bytes at offset 7 + 3*x.
+    for(unsigned int x = 0; x < 20 && 9 + x * 3 <= page.size(); x++)
     {
         const uint16_t id = page[7 + x * 3] | (page[8 + x * 3] << 8);
         if(id != 0 && std::find(auxiliary.begin(), auxiliary.end(), id) == auxiliary.end())

@@ -8,13 +8,12 @@ $process = Get-Process -Id $owner.pid -ErrorAction SilentlyContinue
 if ($process) {
     if ($process.Path -ne $owner.executable -or $process.StartTime.ToUniversalTime().Ticks -ne $owner.startUtcTicks) { throw 'Process identity no longer matches this trial.' }
     if ($owner.graceful) {
-        python -B (Join-Path $PSScriptRoot 'runtime_control.py') --pid $process.Id
+        python -B (Join-Path $PSScriptRoot 'runtime_control.py') --pid $process.Id --wait-exit --state $StateRoot
         if ($LASTEXITCODE) { throw 'Graceful stop request failed; process preserved.' }
     } else {
         Stop-Process -Id $process.Id
     }
     $process.WaitForExit()
-    if ($owner.graceful -and $process.ExitCode -ne 0) { throw "OpenRGB exited abnormally: $($process.ExitCode)" }
 }
 $config = Get-Content -LiteralPath (Join-Path $StateRoot 'OpenRGB.json') -Raw | ConvertFrom-Json -AsHashtable
 $udp = [Net.Sockets.UdpClient]::new()
