@@ -43,7 +43,7 @@ def prepare(args):
 def identify(device):
     if 'H6609' in device.name: return 'H6609'
     if 'H8048' in device.name: return 'H8048'
-    if 'NL72S2' in device.description: return 'Secretlab'
+    if 'NL72S2' in device.metadata.description: return 'Secretlab'
     if 'Q6 HE ISO' in device.name: return 'Keychron'
     if 'Lenovo Legion 7 Gen 8' in device.name: return 'Legion'
     if 'G502 X PLUS' in device.name.upper(): return 'Logitech'
@@ -59,6 +59,22 @@ def inventory(client):
         found[key] = device
     if set(found) != set(COUNTS):
         raise RuntimeError(f'Incomplete integration: found {sorted(found)}, expected {sorted(COUNTS)}')
+    legion = found['Legion']
+    if [len(zone.leds) for zone in legion.zones] != [102, 6, 1]:
+        raise RuntimeError('Legion must expose its hardware keyboard, six-section front bar and auxiliary light')
+    matrix = legion.zones[0].matrix_map
+    if len(matrix) != 7 or any(len(row) != 20 for row in matrix):
+        raise RuntimeError('Unexpected Legion keyboard matrix dimensions')
+    if legion.leds[matrix[3][14]].name != 'ISO #' or legion.leds[matrix[4][1]].name != 'ISO < >':
+        raise RuntimeError('Legion ISO keys do not match the captured hardware layout')
+    if len(set(matrix[5][4:10])) != 1:
+        raise RuntimeError('Legion spacebar must map to one physical LED')
+    keychron = found['Keychron']
+    matrix = keychron.zones[0].matrix_map
+    if len(matrix) != 6 or any(len(row) != 21 for row in matrix):
+        raise RuntimeError('Unexpected Keychron ISO matrix dimensions')
+    if keychron.leds[matrix[3][12]].name != 'ISO #' or keychron.leds[matrix[4][1]].name != 'ISO <':
+        raise RuntimeError('Keychron ISO keys do not match the installed firmware')
     return found
 
 
@@ -72,6 +88,7 @@ def control(args):
             print(json.dumps([{'model': key, 'name': device.name, 'leds': len(device.leds),
                                'mode': device.modes[device.active_mode].name,
                                'zones': [{'name': z.name, 'leds': len(z.leds)} for z in device.zones],
+                               'geometry_checked': key in ('Keychron', 'Legion'),
                                'led_names': [led.name for led in device.leds]}
                               for key, device in found.items()], indent=2))
             return

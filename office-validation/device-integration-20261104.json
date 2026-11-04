@@ -1,0 +1,135 @@
+{
+  "native_source": "1d0abb5e985dcfc3b52f74a42edb130bf2b3b3ad",
+  "native_ci": 41739950727,
+  "artifact_sha256": "aaec8ebfc9e28b758f6f6fb7e1344075f7169f2614d96271f1652618345450a0",
+  "executable_sha256": "acdc25325b3e740518b8611a32bb69bb418f791257887ec65d104f5acc7b4b31",
+  "controllers": [
+    {
+      "model": "Logitech",
+      "leds": 8,
+      "zones": [
+        {
+          "name": "Mouse LEDs",
+          "leds": 8
+        }
+      ],
+      "geometry_checked": false
+    },
+    {
+      "model": "Keychron",
+      "leds": 109,
+      "zones": [
+        {
+          "name": "Keyboard",
+          "leds": 109
+        }
+      ],
+      "geometry_checked": true
+    },
+    {
+      "model": "Legion",
+      "leds": 109,
+      "zones": [
+        {
+          "name": "Keyboard (firmware layout)",
+          "leds": 102
+        },
+        {
+          "name": "Front light bar",
+          "leds": 6
+        },
+        {
+          "name": "Auxiliary 1501",
+          "leds": 1
+        }
+      ],
+      "geometry_checked": true
+    },
+    {
+      "model": "H6609",
+      "leds": 20,
+      "zones": [
+        {
+          "name": "Govee Strip",
+          "leds": 20
+        }
+      ],
+      "geometry_checked": false
+    },
+    {
+      "model": "H8048",
+      "leds": 20,
+      "zones": [
+        {
+          "name": "Light Bars",
+          "leds": 20
+        }
+      ],
+      "geometry_checked": false
+    },
+    {
+      "model": "Secretlab",
+      "leds": 48,
+      "zones": [
+        {
+          "name": "Nanoleaf Layout",
+          "leds": 48
+        }
+      ],
+      "geometry_checked": false
+    }
+  ],
+  "network_regressions": {
+    "govee_idle_colour_preserved": true,
+    "stream_enable_once": true,
+    "secretlab_48_zones_null_metadata": true,
+    "detection_readiness": true,
+    "graceful_shutdown": true
+  },
+  "real_lifecycle": {
+    "exit_code": 0,
+    "six_controllers_after_restart": true,
+    "legion_saved_profile_bytes": 960,
+    "legion_saved_profile_unchanged": true,
+    "legion_saved_profile_sha256": "5b1f77a6ace401183115ee1c1431fd0fbfc5748e5b8ef5c6042bf9248e2c718d"
+  },
+  "exclusive_stream": {
+    "frames_per_controller": 1800,
+    "fps": 15,
+    "elapsed_seconds": 120.01151340000797,
+    "resources": {
+      "OpenRGB": {
+        "pid": 67736,
+        "start_filetime": 134382241381290402,
+        "cpu_seconds": 6.046875,
+        "working_set_mib": 29.73046875,
+        "peak_working_set_mib": 29.82421875,
+        "private_mib": 9.93359375,
+        "whole_machine_cpu_percent": 0.1444360118784974
+      },
+      "sender": {
+        "pid": 74884,
+        "start_filetime": 134382241661586762,
+        "cpu_seconds": 1.765625,
+        "working_set_mib": 26.33984375,
+        "peak_working_set_mib": 26.62109375,
+        "private_mib": 15.8828125,
+        "whole_machine_cpu_percent": 0.04231364855032036
+      }
+    }
+  },
+  "physical_evidence": {
+    "source": "user observations in Ambilight chat on 2026-11-04",
+    "static_colours_all_six": "confirmed; mouse green after closing G HUB",
+    "non_mouse_animation": "confirmed",
+    "exclusive_mouse_animation": "user confirmed no dark flashes on all six; mouse final frame red-yellow-red"
+  },
+  "ghub": {
+    "application_recognition_recovered": true,
+    "service_mode": "Manual",
+    "application_autostart": false,
+    "lighting_coexistence": "conflicts; keep G HUB user processes closed",
+    "saved_profile_preserved": true,
+    "onboard_input_profile_work": "explicitly excluded from this delivery by user"
+  }
+}
