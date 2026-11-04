@@ -1,0 +1,138 @@
+{
+  "release": "EDAmbilight v1.2.0",
+  "analysis_scope": "frontend contract and pure topology geometry",
+  "archive_sha256": "9b73dc1b13917d4566a960767d2000894ba23adb4c29e7b8e5bef5d0708c2a7c",
+  "rea_bundle_sha256": "559aad6f0c64d51c356cc4574b17a0c12ebde49de310021a2fd356cbfd2c591e",
+  "source_files_verified": 28,
+  "inline_scripts_analyzed": 9,
+  "frontend_rpc_names": [
+    "cancel_shutdown",
+    "flash_topology_device",
+    "get_ambilight_config",
+    "get_ambilight_device_zones",
+    "get_ambilight_devices",
+    "get_ambilight_status",
+    "get_app_version",
+    "get_init_status",
+    "get_scene_topology",
+    "get_settings",
+    "open_log_folder",
+    "quit_app",
+    "reconnect_openrgb",
+    "reload_scene_from_openrgb",
+    "restart_app",
+    "retry_openrgb",
+    "save_scene_topology",
+    "save_settings",
+    "set_ambilight_config",
+    "set_ambilight_device_enabled",
+    "set_ambilight_zone_enabled",
+    "stop_topology_calibration",
+    "test_openrgb_connection",
+    "test_topology_calibration"
+  ],
+  "javascript_syntax": "pass",
+  "geometry_replay": {
+    "authority": "controlled-replay",
+    "methods_only": true,
+    "device_writes": false,
+    "round_trip": {
+      "input": {
+        "x": 12.5,
+        "y": 7
+      },
+      "output": {
+        "x": 12.5,
+        "y": 7
+      },
+      "passes": true
+    },
+    "geometry_discrepancy": {
+      "zone_corners": [
+        {
+          "x": 5,
+          "y": 4
+        },
+        {
+          "x": 9,
+          "y": 4
+        },
+        {
+          "x": 9,
+          "y": 5
+        },
+        {
+          "x": 5,
+          "y": 5
+        }
+      ],
+      "calibration_led_0": {
+        "x": 5.5,
+        "y": 5.5
+      },
+      "calibration_center_inside_hit_area": false
+    },
+    "calibration_direction": {
+      "forward": {
+        "test-device": [
+          [
+            0,
+            1,
+            false
+          ],
+          [
+            1,
+            1,
+            true
+          ],
+          [
+            2,
+            1,
+            false
+          ],
+          [
+            3,
+            1,
+            false
+          ]
+        ]
+      },
+      "reverse": {
+        "test-device": [
+          [
+            0,
+            1,
+            false
+          ],
+          [
+            1,
+            1,
+            true
+          ],
+          [
+            2,
+            1,
+            false
+          ],
+          [
+            3,
+            1,
+            false
+          ]
+        ]
+      },
+      "identical": true
+    },
+    "limitations": [
+      "No Eel/Python backend or browser rendering executed. Direction identity alone does not prove a physical-output defect."
+    ]
+  },
+  "original_application_executed": false,
+  "live_lighting_configuration_changed": false,
+  "reconstructed_gui_installed": false,
+  "limitations": [
+    "Static Eel call contracts do not establish Python backend implementation.",
+    "The original Preview page is a procedural generator, not capture preview.",
+    "Matrix keyboards require an explicit adaptation of the linear topology editor."
+  ]
+}

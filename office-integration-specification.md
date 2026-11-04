@@ -188,6 +188,18 @@ do not reopen completed stages or permit parallel ACTIVE implementation stages.
    recovery path against native lifecycle signals, distinguish new-frame delivery
    latency from reused-frame age, and clear transient diagnostics after confirmed
    successful frames. Preserve the currently accepted capture pipeline.
+   Latest user direction: stop the train/mapping investigation and focus on
+   EDAmbilight GUI REA; the user will adjust mappings tomorrow with the new tooling.
+   REA recovered the shipped v1.2.0 HTML/CSS/JS, all nine inline script bodies,
+   24 frontend RPC names, scene persistence and calibration contracts. Exact
+   retained sources/hashes and pure geometry replay are at
+   D:/Tools/OpenRGB/validation/20261104/edambilight-gui-v1.2.0.
+   Companion source report: D:/Projects/OpenRGB-Ambient/EDAMBILIGHT-GUI-REVIEW.md.
+   Sanitized evidence: office-validation/edambilight-gui-20261104.json.
+   GUI REA is complete at the frontend-contract boundary; the GUI itself is not
+   implemented or installed. Its integration/release and the review's native
+   recovery/telemetry corrections remain current-stage acceptance blockers,
+   not completed work or later-stage deferrals. Native settings are unchanged.
 6. Monthly upstream maintenance — NOT STARTED.
    User requested this after the system/interface work is good and done. Schedule
    a monthly check of the OpenRGB and krojew/OpenRGB-Ambient upstreams, merge and
