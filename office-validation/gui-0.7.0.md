@@ -73,5 +73,11 @@ LED's transformed rectangle; saved normalized topology is never rewritten.
 The first GPU regression exposed an inlined nested-loop early-return issue:
 both 4:3 edges independently passed, but the ratio loop lost the matching crop.
 Accumulating matte evidence without those inner early returns fixed the actual
-GPU regression. Installed combined-build performance and final delivery remain
-pending at this source checkpoint.
+GPU regression. The installed combined build with border detection enabled and
+five preview requests per second held 14.92 output FPS, 29.98 input FPS, median
+GPU processing 0.665 ms, request 10.41 ms and total CPU 0.92% (32 logical CPUs).
+The diagnostic setting change was reverted with the owner stopped; exact saved
+bytes were restored, then the owner restarted and all six controllers/314 LEDs
+and the original configuration hash were read back. The readiness helper briefly
+encountered a Windows endpoint-file publication sharing race; actual endpoint
+readiness was subsequently confirmed. Final release/delivery remains pending.

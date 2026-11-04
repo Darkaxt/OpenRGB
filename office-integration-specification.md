@@ -541,10 +541,22 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     context and synchronized blur. Evidence: gui-0.7.0/candidate-*-performance.json
     and candidate-state-check.json. Closure assessment: no required consolidation
     remains beyond final consumer migration/obsolete-directory cleanup in 16.
-15. ACTIVE — Conservative media-border detection integrated with native GPU
+15. COMPLETE — Conservative media-border detection integrated with native GPU
     sampling. Verify format/content evidence, transitions, valid black and actual
     runtime sampling/performance with the final saved topology retained.
-16. NOT STARTED — Responsive-preview 0.7.0 release, independent download/readback, native owner/
+    Windows run 41919043899 verifies paired margin/content evidence, 4:3, 16:9,
+    16:10 and cinema formats, format transitions, asymmetric/dark/unsupported
+    rejection and genuine black. Installed combined build fd38160 with detection
+    enabled and five preview requests/second holds 14.92 output FPS with 29.98
+    fresh input FPS, 0.665 ms GPU sampling and 0.92% total CPU. The owner's
+    temporary setting was restored byte-for-byte after a clean owner exit;
+    the restarted owner readback confirms six online devices, 314 LEDs and the
+    original hash/settings. A transient endpoint publication sharing race in the
+    diagnostic readiness reader was followed by confirmed actual endpoint
+    readiness; it did not affect restoration or native output. No feature
+    blocker/deferral remains. Closure assessment: the shared 1-pixel GPU pass
+    avoids per-LED detection; no required architectural consolidation remains.
+16. ACTIVE — Responsive-preview 0.7.0 release, independent download/readback, native owner/
     panel activation and readback. Retire obsolete release directories only after
     consumers/path bindings are migrated, preserve live drafts, and clean scratch.
     This delivery follows stages 14, 15 and 17: the urgent performance correction
