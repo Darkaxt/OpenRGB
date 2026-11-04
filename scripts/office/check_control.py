@@ -113,9 +113,11 @@ def main():
             dimensions=struct.unpack('>II',png[16:24]);assert dimensions[0]<=640 and dimensions[1]<=270
             assert snapshot['status']['has_valid_frame'] and snapshot['status']['output_fps']>10
             assert len(snapshot['colors'])==6 and sum(map(len,snapshot['colors']))==314
+            online=snapshot.get('online',[True]*6)
             a.record.write_text(json.dumps({'status':snapshot['status'],'preview_size':dimensions,
-                'devices':[{'id':d['id'],'leds':len(d['regions'])} for d in snapshot['layout']],
+                'devices':[{'id':d['id'],'leds':len(d['regions']),'online':connected} for d,connected in zip(snapshot['layout'],online)],
                 'actual_preview':True,'actual_output':True},indent=2),encoding='utf-8')
-            print(json.dumps({'actual_preview':dimensions,'actual_six_device_output':True,'output_fps':snapshot['status']['output_fps']}))
+            print(json.dumps({'actual_preview':dimensions,'configured_devices':6,'online_devices':sum(online),
+                'actual_six_device_output':all(online),'output_fps':snapshot['status']['output_fps']}))
 
 if __name__=='__main__':main()

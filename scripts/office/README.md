@@ -67,6 +67,9 @@ Rotate and reverse preserve hardware LED identities. Save applies the draft
 atomically; Reload discards it. Opening the panel leaves the existing map intact.
 Devices provides per-controller enable and identify; Status provides diagnostics
 and explicit capture recovery. Calibration stops when requested or on disconnect.
+Disconnected controllers keep their saved regions and appear offline. Native
+removal synchronizes with output before OpenRGB frees a controller; reconnecting
+the same device rebinds it without rearranging hardware LED indexes.
 
 The same-user named pipe uses a random per-process authentication value stored
 only in the private `office-control.json`. Do not publish that file. The launcher
