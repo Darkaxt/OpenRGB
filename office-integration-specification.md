@@ -674,13 +674,26 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     checks apply to the unchanged UI code in the final shader build. No blocker
     or deferral remains. Closure assessment: the existing GPU worker/IPC/cache
     suffices, without a new capture path or second RGB writer.
-20. ACTIVE — Publish and independently verify Office 0.7.1 after stage 19;
+20. COMPLETE — Publish and independently verify Office 0.7.1 after stage 19;
     verify package hashes/provenance and actual installed owner/panel rendering,
     preserve saved settings, migrate shortcut/consumers and retire spent scratch
     and obsolete release only after the old draft/consumers are safely closed.
+    Published normal release v1.1-office.0.7.1 at completed source ccdeeaa5;
+    independently downloaded ZIP/checksum and verified the tag, GitHub digest,
+    complete 108-member installed payload, plugin/panel provenance and installer
+    rejection checks. Installed owner PID 115236 reports all six controllers and
+    actual 640x270 preview at 14.92 Hz; panel PID 117828 and the verified desktop
+    shortcut use the official 0.7.1 directory. Actual final app exports cover the
+    required pages and show the corrected preview instruction. Saved topology
+    SHA-256 remains identical. Both candidate roots, obsolete 0.7.0 installation
+    and this task's E: scratch were removed through completed reviewed cleanup
+    tickets; only the current release directory remains. Recovery packages and
+    required acceptance evidence remain. No blocker or tracked deferral remains.
 
-Current disposable work: E:/Temp/openrgb-draft-blur-20261105 (hosted build inputs
-and package checks). Persistent acceptance: D:/Tools/OpenRGB/validation/20261105/gui-0.7.1.
+Completed disposable work: E:/Temp/openrgb-draft-blur-20261105 (hosted build inputs
+and package checks) was transactionally removed. Persistent acceptance:
+D:/Tools/OpenRGB/validation/20261105/gui-0.7.1. The continuing owner/panel use
+D:/Tools/OpenRGB/state-integration/runtime-temp independently of task scratch.
 Completed disposable work: E:/Temp/openrgb-grey-context-20261104 was transactionally
 removed after final release verification. Hosted Windows builds; no native host
 build tree. Persistent verification: D:/Tools/OpenRGB/validation/20261104/gui-0.7.0.

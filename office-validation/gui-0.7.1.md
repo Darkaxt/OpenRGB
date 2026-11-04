@@ -36,4 +36,23 @@ Actual raw/blurred preview images, acceptance JSON, performance samples and app
 renders are retained under `D:/Tools/OpenRGB/validation/20261105/gui-0.7.1`.
 No private topology, pairing state or IPC credentials are included here. The user
 authorized terminating the old panel's draft when replacing the program; its
-saved settings were preserved. Final 0.7.1 publication/activation is stage 20.
+saved settings were preserved.
+
+Delivery: normal release `v1.1-office.0.7.1` is published from completed source
+`ccdeeaa5ddfd54619146e66d37b2da9f86a08e02`. Independently downloaded ZIP SHA-256
+`6a02898989881dae52e04843854724ba146b7bfb01a5ead2047d9bc7f8aed787` matches the
+published checksum and GitHub digest. Tag source and all 108 installed payload
+members were read back; native/plugin/panel provenance and rejection of corrupted
+plugin/panel before installation passed on the downloaded package.
+
+Official owner PID 115236 and panel PID 117828 use the installed 0.7.1 directory.
+All six controllers report online with actual preview and 14.92 Hz output clock.
+The desktop shortcut was migrated and read back; final native exports cover all
+pages and the corrected Preview hint. Saved topology remained byte-identical.
+
+Reviewed cleanup removed both spent candidate installations, obsolete official
+0.7.0 and the task scratch. Final tickets cd83eb87, 3d8f0a83 and b4e8bb24 applied
+without residuals; the earlier candidate ticket 769ba570 also applied. Only
+`D:/Tools/OpenRGB/releases/1.1-office.0.7.1` remains under releases. Published
+recovery ZIPs and required validation evidence remain; live owner/panel scratch
+stays bound to persistent state-integration/runtime-temp. Stage 20 is complete.
