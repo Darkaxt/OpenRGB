@@ -1,0 +1,22 @@
+{
+  "application": "SignalRGB 2.5.84",
+  "registered_quiet_uninstaller_exit_code": 0,
+  "uninstall_registration_removed": true,
+  "application_directory_removed": true,
+  "application_processes_remaining": 0,
+  "application_services_remaining": 0,
+  "scheduled_tasks_remaining": 0,
+  "legacy_capture_login_entry_disabled": true,
+  "private_recovery_archive": "G:/Archives/SignalRGB/2026-11-04-office-migration",
+  "verified_recovery_files": 1571,
+  "recovery_includes": ["custom Documents content","both installed versions' plugins/components/effects/macros","persistent web profile","private registry/pairing export","complete 2.5.84 Squirrel package/updater","original capture login value"],
+  "recovery_procedure": "G:/Archives/SignalRGB/RECOVERY-PROCEDURE.md",
+  "residual_cleanup_transaction": "4ea16de43db0fefcbe1288bb24f22549",
+  "residual_cleanup_state": "applied",
+  "residual_deleted_members": 219,
+  "residual_deleted_bytes": 610735291,
+  "continuing_openrgb_release": "1.1-office.0.2.0",
+  "six_device_inventory_after_retirement": true,
+  "fresh_wallpaper_frames_after_retirement": true,
+  "capture_error_after_retirement": ""
+}

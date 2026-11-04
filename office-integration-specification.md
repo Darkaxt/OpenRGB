@@ -150,25 +150,52 @@ do not reopen completed stages or permit parallel ACTIVE implementation stages.
    tracked deferrals. The final release remains separate and is not yet delivered.
    Native probe scratch D:/Temp/openrgb-wgc-native-20261104 was removed after its
    last use: transaction 579efa625a090532b1642530164665f1 APPLIED, 4,026,031 bytes.
-3. Final delivery — ACTIVE (D1).
-   Requires stages 1 and 2 complete. Package/publish/download/install readback and
-   final reconciliation close this stage; the overall request stays active until then.
-4. SignalRGB retirement — NOT STARTED.
-   Preserve current settings/plugins and pairing recovery, use supported silent
-   uninstall where available, verify application/service state and the continuing
-   six-device OpenRGB ambience. No unrelated app removal or desktop takeover.
-5. EDAmbilight interface reconstruction — NOT STARTED.
+3. Final delivery — COMPLETE (D1).
+   Published normal release v1.1-office.0.2.0 at Darkaxt/OpenRGB, source 1294ef8c.
+   Independent public download matches GitHub digest and SHA256 sidecar:
+   c6d365f2a363a369e5100680d4f039cb6dd4fe76f6660cae7a88b3b1027fa953.
+   All 56 installed members read back correctly at D:/Tools/OpenRGB/releases/1.1-office.0.2.0;
+   the actual loaded ambient module, fresh frame after owner creation, six-device
+   inventory and continuing output passed. Active owner PID 28460, no visible UI.
+   Packaged native/plugin bytes exactly match the accepted candidate and CI builds.
+   Wrong plugin metadata is rejected before extraction. Private state is excluded.
+   Retained release evidence: office-validation/release-0.2.0-20261104.json.
+   The capture-free 1d0abb5e candidate is intentionally retained for six-device
+   rollback using the existing state; older published 0.1.0 remains Govee fallback.
+   Remaining E: analysis inputs serve the explicitly authorized REA stage. Retire
+   the now-unused 82f150a2 candidate through its exact cleanup transaction.
+   Candidate cleanup 0d6ce034e84f5c5501b68d4a13bd4de5 APPLIED: 57 members,
+   78,711,912 bytes. No remaining delivery blockers or deferrals.
+4. SignalRGB retirement — COMPLETE.
+   Registered silent uninstaller exited 0 and removed registration. The leftover
+   deployed application binaries were removed through reviewed transaction
+   4ea16de43db0fefcbe1288bb24f22549: 219 members, 610,735,291 bytes, APPLIED.
+   App directory, processes, services and scheduled tasks are absent. The old
+   BetterSignalRGBCapture login value is disabled and preserved for recovery.
+   1,571 files hash-verified in G:/Archives/SignalRGB/2026-11-04-office-migration,
+   with private pairing/settings registry exports and a defined recovery procedure.
+   Original Documents/custom profile content is preserved. Native OpenRGB PID 28460
+   continues from the published release; six-device inventory and fresh wallpaper
+   output pass after retirement. Retained evidence: office-validation/signalrgb-retirement-20261104.json.
+   No remaining stage blockers or tracked deferrals.
+5. EDAmbilight interface reconstruction — ACTIVE.
    Inspect the actual shipped interface/engine through REA and establish a bounded
    authoritative UI specification. Recreate the applicable control surface around
    the existing native backend, including all six devices and the required LG
    wallpaper/app policy. Keep current lighting running during analysis. This
    outcome requires its own verified integrated release.
+   Incorporate the supplied companion-plugin review: validate the failed-session
+   recovery path against native lifecycle signals, distinguish new-frame delivery
+   latency from reused-frame age, and clear transient diagnostics after confirmed
+   successful frames. Preserve the currently accepted capture pipeline.
 6. Monthly upstream maintenance — NOT STARTED.
    User requested this after the system/interface work is good and done. Schedule
    a monthly check of the OpenRGB and krojew/OpenRGB-Ambient upstreams, merge and
    verify compatible changes in the maintained forks, remain quiet when unchanged,
    and report conflicts or failing checks. Preserve active lighting and do not
    introduce an unattended desktop takeover or simultaneous device writer.
+   Include the user's requested OpenRGB branch inventory/cleanup: remove verified
+   obsolete or merged refs while preserving active work and release/rollback refs.
 
 The former LG built-in LED investigation remains parked; Govee is the installed
 monitor-lighting alternative. The unrelated VLC screenshots belong to another chat.
