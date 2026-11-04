@@ -468,17 +468,28 @@ outlines and one group boundary. Keep enable checkboxes independent of selection
 The placement grid must invert the image pixels beneath its lines, so it remains
 visible across bright and dark wallpaper. Invert intersections once, keep lines
 crisp at normal/high DPI, and leave non-grid pixels, selection colours, handles,
-spacing, snapping and saved maps unchanged. Show grid off removes the overlay.
+snapping and saved maps unchanged. Show grid off removes the overlay.
+User correction: remove the old implicit 20-pixel spacing clamp. The labelled
+percentage must determine visible divisions on each axis (1% = 100 intervals),
+matching snap positions independently of viewport size, DPI and zoom.
 
 12. COMPLETE — Production canvas pixel checks verify exact RGB inversion on
     light/dark inputs, single inversion at crossings, unchanged non-grid pixels,
     Show grid off, selection handles and saved maps at 100%/150%/200% rendering.
     Hosted Windows run 41883193147 passed; its exact production widgets also
     passed locally with 150% Qt scaling. Connected normal/high-DPI exports show
-    actual LG content and six controllers. No feature blocker/deferral remains.
+    actual LG content and six controllers. The inherited 20-pixel clamp is removed:
+    production pixel scans count 99 internal lines for 1%, 19 for 5%, and 9 for
+    10%, on both axes at small/large sizes and 100%/150%/200% rendering. Real canvas
+    dragging with snapping lands on the visible 1% lines. Final Windows run
+    41886233498 and local 150% production widgets pass. Final connected normal/
+    high-DPI exports were inspected. No feature blocker/deferral remains.
 13. ACTIVE — Deliver verified 0.6.1 package through the normal release channel,
     independently retrieve/read back it, update the installed launcher and clean
     exact scratch. Preserve the user's open mapping draft and running lighting.
+    The first unpublished candidate was transactionally removed after the user's
+    spacing correction; its last consumers had exited. The final package must use
+    Ambient 189588543e633c7bd1664e532a74b6c34ec15ccd, verified by run 41886233498.
 
 New disposable work: E:/Temp/openrgb-inverted-grid-20261104. No native host build
 scratch is needed; compilation uses the existing hosted Windows workflow.
