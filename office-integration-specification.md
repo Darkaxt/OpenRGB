@@ -381,6 +381,14 @@ high-DPI actual renders remain required, with corresponding-page comparisons;
 functional tests alone cannot establish visual compliance. Audit checklist:
 D:/Projects/OpenRGB-Ambient/design-reference/VISUAL-PARITY-CHECKLIST.md.
 
+User-requested rotation affordance (2026-11-04, stage 8): make orientation visible
+even for square sampling regions. Add a floating quarter-turn rotate action
+connected to the selected shape's own top edge, following that edge after each
+rotation, plus a labelled top edge and first/last LED cues. Preserve physical LED
+indices, pixel aspect, undo/redo and saved orientation. Verify click/hit targets,
+four turns, save/load metadata and that resize handles remain usable. Existing
+quarter-turn sampling semantics remain; no arbitrary-angle sampling is implied.
+
 The former LG built-in LED investigation remains parked; Govee is the installed
 monitor-lighting alternative. The unrelated VLC screenshots belong to another chat.
 Canonical OpenRGB source: D:/Projects/OpenRGB; preserve current path bindings.
