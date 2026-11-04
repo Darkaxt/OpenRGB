@@ -78,16 +78,16 @@ def main():
                 assert any(any(c) for row in partial['colors'][1:] for c in row)
                 evidence['per_device_enable_verified']=True
                 save(settings,baseline['layout'])
-                client.call('calibrate');calibrated=next_frame(partial)
+                client.call('calibrate');calibrated=next_frame(client.call('snapshot'))
                 for d,row in zip(baseline['layout'],calibrated['colors']):
                     for index,(rect,color) in enumerate(zip(d['regions'],row)):
                         l,t,r,b=rect;expected=[int((l+r)*127.5),int((1-(t+b)/2)*255),40 if index%2 else 160]
                         assert all(abs(x-y)<=1 for x,y in zip(expected,color)),(index,expected,color)
                 evidence['spatial_calibration_uses_actual_regions']=True
-                client.call('identify',device=baseline['layout'][0]['id']);identified=next_frame(calibrated)
+                client.call('identify',device=baseline['layout'][0]['id']);identified=next_frame(client.call('snapshot'))
                 assert all(c==[255,255,255] for c in identified['colors'][0])
                 assert all(c==[0,0,0] for row in identified['colors'][1:] for c in row)
-                client.call('stop_test');normal=next_frame(identified);assert normal['test_mode']=='none'
+                client.call('stop_test');normal=next_frame(client.call('snapshot'));assert normal['test_mode']=='none'
                 evidence['identify_and_return_verified']=True
                 began=time.perf_counter();first=normal['status']['output_frames'];last=normal
                 while last['status']['output_frames']-first<20: last=next_frame(last)
