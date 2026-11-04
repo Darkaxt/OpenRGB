@@ -273,6 +273,53 @@ do not reopen completed stages or permit parallel ACTIVE implementation stages.
    No required blockers or deferrals remain. Administrative schedule/cleanup
    records do not change the already delivered 0.3.0 application binaries.
 
+## GUI revision requested 2026-11-04
+
+The user rejected palette-only resemblance and explicitly expanded this revision
+to working feature parity with all EDAmbilight repository screenshots. Preserve
+the six-device native owner, LG-only wallpaper/app policy, physical LED identity,
+offline/KVM handling, saved maps and last-valid-frame switching. The user saved
+none of the experimental map changes and is waiting for the revised editor.
+
+7. ACTIVE — Reference-led control and topology vertical slice. Acceptance:
+   EDAmbilight-style grouped dashboard; readable vector arrows/controls; selectable
+   algorithms (mean, percentile, median/dominant, fixed/adaptive with EMA), depth
+   and adaptive bounds, black-bar exclusion, scene cut, saturation, brightness
+   floor, real spatial blur, presets and advanced disclosure. All controls must
+   reach the production sampler/output and persist atomically. Topology supports
+   selection, move, eight edge/corner resize handles, cursor feedback, grid/snap,
+   pan/zoom, fit, rotation/reverse, undo/redo, names, LED selection, edge presets,
+   calibration and live output. No geometry operation renumbers hardware LEDs.
+   Verify actual widget mouse paths and native GPU/output settings, plus rendered
+   small/normal/large and high-DPI views. Blur must affect sampled RGB, including
+   retained static frames, and the mapping view must show its sampling footprint.
+8. NOT STARTED — Complete screenshot feature reconciliation. Acceptance:
+   device/zone enable, counts, identify-all and edit-topology links; settings for
+   connection test/reconnect, runtime/log access and lifecycle; actual live preview
+   plus original EDAmbilight procedural preview controls (including local music,
+   effects, postprocessing and presets); standby behavior driven by real Windows
+   lock/display events; working loading/error/reconnect feedback. Native local
+   IPC replaces the reference's SDK connection and web-port settings; WGC retains
+   the required occlusion-safe source policy instead of adding incompatible
+   foreground-capture fallbacks. Record each reference feature and its verified
+   native equivalent in the companion GUI review. No inert imitation controls.
+9. NOT STARTED — Integrated final release and delivery. Acceptance: all revision
+   requirements reconciled, existing lifecycle tests preserved, actual installed
+   runtime and private-map continuity checked, normal versioned release published,
+   independently downloaded/hash-verified, shortcut activation verified and spent
+   task artifacts transactionally cleaned. Preserve 0.3.0 rollback.
+
+Design contract (Huashu, selected within existing authorization): dark navy canvas,
+cyan accent, legible Segoe UI body (14px minimum), strong compact headings, 8px
+spacing rhythm, 88px navigation rail and grouped rounded cards. Dashboard uses a
+responsive card grid rather than stretched form rows. Topology reserves 220-280px
+for devices and 240-300px for inspector; remaining width/height belongs to the
+actual 21:9 image. Toolbars are compact and scroll when needed. At 1000x700 all
+actions remain accessible with intentional scrolling, at 1440x900 and 1920x1080
+the canvas grows. Resize handles remain constant in screen pixels while zooming;
+numeric inputs and vector arrows are DPI-scalable. Do not reproduce the reference's
+very low text contrast or inconsistent coordinate transform.
+
 The former LG built-in LED investigation remains parked; Govee is the installed
 monitor-lighting alternative. The unrelated VLC screenshots belong to another chat.
 Canonical OpenRGB source: D:/Projects/OpenRGB; preserve current path bindings.
