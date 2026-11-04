@@ -8,6 +8,7 @@ import copy
 import json
 import struct
 import base64
+import time
 from pathlib import Path
 from office_control import Control
 
@@ -21,7 +22,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--state',type=Path,required=True)
     p.add_argument('--record',type=Path,required=True)
-    p.add_argument('phase',choices=['prepare','restore','observe'])
+    p.add_argument('phase',choices=['prepare','restore','observe','exercise'])
     a=p.parse_args()
     with Control(a.state) as client:
         snapshot=client.call('snapshot',preview=True)
@@ -56,6 +57,56 @@ def main():
             record['restart_persistence_verified']=True;record['baseline_restored']=True
             record['restored_revision']=restored['revision'];a.record.write_text(json.dumps(record,indent=2),encoding='utf-8')
             print(json.dumps({'restart_persistence_verified':True,'original_map_and_settings_restored':True}))
+        elif a.phase=='exercise':
+            baseline=snapshot
+            def next_frame(previous):
+                while True:
+                    value=client.call('snapshot')
+                    if value['status']['output_frames']>previous['status']['output_frames']: return value
+            def save(settings,layout):
+                current=client.call('snapshot')
+                return client.call('save',revision=current['revision'],settings=settings,layout=layout)
+            evidence={}
+            try:
+                settings=copy.deepcopy(baseline['settings']);settings.update(enabled=False,smoothing_ms=0,fps=20)
+                disabled=next_frame(save(settings,baseline['layout']))
+                assert all(c==[0,0,0] for row in disabled['colors'] for c in row)
+                evidence['global_disable_verified']=True
+                settings['enabled']=True;layout=copy.deepcopy(baseline['layout']);layout[0]['enabled']=False
+                partial=next_frame(save(settings,layout))
+                assert all(c==[0,0,0] for c in partial['colors'][0])
+                assert any(any(c) for row in partial['colors'][1:] for c in row)
+                evidence['per_device_enable_verified']=True
+                save(settings,baseline['layout'])
+                client.call('calibrate');calibrated=next_frame(partial)
+                for d,row in zip(baseline['layout'],calibrated['colors']):
+                    for index,(rect,color) in enumerate(zip(d['regions'],row)):
+                        l,t,r,b=rect;expected=[int((l+r)*127.5),int((1-(t+b)/2)*255),40 if index%2 else 160]
+                        assert all(abs(x-y)<=1 for x,y in zip(expected,color)),(index,expected,color)
+                evidence['spatial_calibration_uses_actual_regions']=True
+                client.call('identify',device=baseline['layout'][0]['id']);identified=next_frame(calibrated)
+                assert all(c==[255,255,255] for c in identified['colors'][0])
+                assert all(c==[0,0,0] for row in identified['colors'][1:] for c in row)
+                client.call('stop_test');normal=next_frame(identified);assert normal['test_mode']=='none'
+                evidence['identify_and_return_verified']=True
+                began=time.perf_counter();first=normal['status']['output_frames'];last=normal
+                while last['status']['output_frames']-first<20: last=next_frame(last)
+                rate=(last['status']['output_frames']-first)/(time.perf_counter()-began)
+                assert 15<rate<25,rate
+                evidence['requested_20fps_measured']=rate
+                generation=last['status']['source_generation'];client.call('recover')
+                while True:
+                    recovered=client.call('snapshot')
+                    if recovered['status']['source_generation']>generation and recovered['status']['input_frames']>0: break
+                    if recovered['status']['error'] and recovered['status']['source_generation']>generation:
+                        raise AssertionError(recovered['status']['error'])
+                evidence['explicit_native_capture_recovery_verified']=True
+            finally:
+                client.call('stop_test')
+                restored=save(baseline['settings'],baseline['layout'])
+                assert restored['layout']==baseline['layout'] and restored['settings']==baseline['settings']
+            evidence['baseline_restored']=True;a.record.write_text(json.dumps(evidence,indent=2),encoding='utf-8')
+            print(json.dumps(evidence))
         else:
             png=base64.b64decode(snapshot['preview_png'])
             assert png[:8]==b'\x89PNG\r\n\x1a\n','No actual native preview yet'

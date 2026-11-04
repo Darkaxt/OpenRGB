@@ -7,6 +7,12 @@ $exe = (Resolve-Path (Join-Path $InstallRoot 'OfficeControl.exe')).Path
 $manifest = Get-Content -LiteralPath (Join-Path $InstallRoot 'plugins/installed-plugin.json') -Raw | ConvertFrom-Json
 if ((Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash -ne $manifest.panelSha256) { throw 'Installed control panel changed.' }
 if ((Get-FileHash -LiteralPath (Join-Path $InstallRoot 'Qt6Network.dll') -Algorithm SHA256).Hash -ne $manifest.networkSha256) { throw 'Installed panel network library changed.' }
+if (!(Get-Process -Name OpenRGB -ErrorAction SilentlyContinue)) {
+    $null = & (Join-Path $PSScriptRoot 'Start-Office.ps1') -InstallRoot $InstallRoot -StateRoot $StateRoot -AllDevices -Ambience
+    $owner = Get-Content -LiteralPath (Join-Path $StateRoot 'owner.json') -Raw | ConvertFrom-Json
+    python -B (Join-Path $PSScriptRoot 'runtime_control.py') --pid $owner.pid --wait-ready --state $StateRoot
+    if ($LASTEXITCODE) { throw 'The lighting owner exited before readiness.' }
+}
 $runtimeTemp = Join-Path $StateRoot 'runtime-temp'
 New-Item -ItemType Directory -Path $runtimeTemp -Force | Out-Null
 $start = [Diagnostics.ProcessStartInfo]::new($exe)

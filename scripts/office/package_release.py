@@ -54,14 +54,17 @@ def main():
         dll = plugin.read('openrgb_ambient.dll')
         panel = plugin.read('OfficeControl.exe')
         network = plugin.read('Qt6Network.dll')
+        offscreen = plugin.read('plugins/platforms/qoffscreen.dll')
     if provenance['openrgb'] != native_source or provenance['source'] != ambient_commit or provenance['qt'] != '6.8.3':
         raise RuntimeError('Plugin/native ABI provenance differs')
     members['plugins/openrgb_ambient.dll'] = dll
     members['OfficeControl.exe'] = panel
     members['Qt6Network.dll'] = network
+    members['platforms/qoffscreen.dll'] = offscreen
     members['LICENSE-EDAmbilight-MIT.txt'] = (args.ambient_source/'LICENSE-EDAmbilight-MIT.txt').read_bytes()
     plugin_manifest = dict(provenance,sha256=hashlib.sha256(dll).hexdigest().upper(),archiveSha256=plugin_digest,ci=receipt['run'],
-                           panelSha256=hashlib.sha256(panel).hexdigest().upper(),networkSha256=hashlib.sha256(network).hexdigest().upper())
+                           panelSha256=hashlib.sha256(panel).hexdigest().upper(),networkSha256=hashlib.sha256(network).hexdigest().upper(),
+                           offscreenSha256=hashlib.sha256(offscreen).hexdigest().upper())
     members['plugins/installed-plugin.json'] = json.dumps(plugin_manifest,indent=2).encode()
     members = {name: data for name, data in members.items() if not name.startswith('office/')}
     for name in git('ls-files', 'scripts/office').splitlines():

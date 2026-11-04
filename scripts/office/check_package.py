@@ -30,6 +30,7 @@ assert plugin['source']==a.ambient_source and plugin['archiveSha256']==receipt['
 assert hashlib.sha256(members['plugins/openrgb_ambient.dll']).hexdigest().upper()==plugin['sha256']
 assert hashlib.sha256(members['OfficeControl.exe']).hexdigest().upper()==plugin['panelSha256']
 assert hashlib.sha256(members['Qt6Network.dll']).hexdigest().upper()==plugin['networkSha256']
+assert hashlib.sha256(members['platforms/qoffscreen.dll']).hexdigest().upper()==plugin['offscreenSha256']
 detectors=json.loads(members['office/detectors.json'])
 assert {name for name,value in detectors.items() if value}==EXPECTED
 assert not any(Path(name).name.casefold() in ('openrgb.json','owner.json','office-control.json','office-ambience-status.json') for name in members)
