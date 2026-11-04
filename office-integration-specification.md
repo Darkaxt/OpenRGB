@@ -307,7 +307,7 @@ none of the experimental map changes and is waiting for the revised editor.
    widget and high-DPI evidence remains applicable. No blockers or deferrals.
    Closure design assessment found no required consolidation: capture/output
    remain owned by one native process and topology operations preserve indices.
-8. COMPLETE — Complete screenshot feature reconciliation. Acceptance:
+8. ACTIVE — Complete screenshot feature and visual reconciliation. Acceptance:
    device/zone enable, counts, identify-all and edit-topology links; settings for
    connection test/reconnect, runtime/log access and lifecycle; actual live preview
    plus original EDAmbilight procedural preview controls (including local music,
@@ -335,28 +335,43 @@ none of the experimental map changes and is waiting for the revised editor.
    supported controller arrival/recovery must bind automatically. No missing
    peripheral alone is a reason to stop the other lighting. The lifecycle tests
    cover safe removal, replacement registration, persisted offline bootstrap and
-   rescan. No blockers, tracked deferrals or required consolidation remain.
+   rescan. These results verify behavior, not visual fidelity. Visual acceptance
+   was reopened by the user's corresponding-page screenshots and explicit request
+   for a difference checklist and recovered iconography on 2026-11-04. The native
+   panel does not reproduce the reference's page composition, fonts, icons,
+   navigation, card treatments or control styling. This internal advancement
+   blocker is resolved only by reference-led implementation and matching-page
+   rendered verification; release cannot complete before that verification.
+   The current user-limited work is the comparison/checklist and asset recovery,
+   before further UI edits. Preserve the functional evidence and private map.
    Retained evidence is under D:/Tools/OpenRGB/validation/20261104/gui-0.4.0.
    The private map is preserved. Exact spent
    D:/Temp/openrgb-gui-parity-20261104 and E:/Temp/openrgb-gui-parity-20261104
    outputs were transactionally removed after consumer exit (251,720,026 and
    657,827,304 bytes respectively); no candidate runs from Temp.
-9. ACTIVE — Integrated final release and delivery. Acceptance: all revision
+9. BLOCKED — Integrated final release and delivery. Acceptance: all revision
    requirements reconciled, existing lifecycle tests preserved, actual installed
    runtime and private-map continuity checked, normal versioned release published,
    independently downloaded/hash-verified, shortcut activation verified and spent
    task artifacts transactionally cleaned. Preserve 0.3.0 rollback.
+   Publication is parked behind stage 8 visual acceptance. The local 0.4.0
+   package/install is an unpublished candidate, not the accepted final release;
+   the existing desktop shortcut still targets published 0.3.0.
 
-Design contract (Huashu, selected within existing authorization): dark navy canvas,
-cyan accent, legible Segoe UI body (14px minimum), strong compact headings, 8px
-spacing rhythm, 88px navigation rail and grouped rounded cards. Dashboard uses a
-responsive card grid rather than stretched form rows. Topology reserves 220-280px
-for devices and 240-300px for inspector; remaining width/height belongs to the
-actual 21:9 image. Toolbars are compact and scroll when needed. At 1000x700 all
-actions remain accessible with intentional scrolling, at 1440x900 and 1920x1080
-the canvas grows. Resize handles remain constant in screen pixels while zooming;
-numeric inputs and vector arrows are DPI-scalable. Do not reproduce the reference's
-very low text contrast or inconsistent coordinate transform.
+Design contract (user-directed reference fidelity, 2026-11-04): compare each native
+page with its corresponding EDAmbilight repository screenshot. Use the modern
+ss-* screenshot family as the main visual baseline, including the explicitly
+supplied Settings reference, and record older screenshot-* variants separately.
+Recover and use actual shipped iconography and Orbitron/Rajdhani typography;
+reproduce the 80px icon rail, compact page-specific header, reference card layout,
+double bezels, subtle surface depth, numeric readouts, toggles and sliders. The
+former assistant-selected Segoe/88px/generic Qt approximation is rejected.
+Preserve readability, correct transforms, real corner resizing, keyboard matrices
+and native owner/source policy. Native transport adaptations do not justify
+unrelated visual departures or fake SDK/web-port controls. Small/normal/large and
+high-DPI actual renders remain required, with corresponding-page comparisons;
+functional tests alone cannot establish visual compliance. Audit checklist:
+D:/Projects/OpenRGB-Ambient/design-reference/VISUAL-PARITY-CHECKLIST.md.
 
 The former LG built-in LED investigation remains parked; Govee is the installed
 monitor-lighting alternative. The unrelated VLC screenshots belong to another chat.
