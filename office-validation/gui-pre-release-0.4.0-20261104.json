@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-04",
+  "stages_7_and_8": "COMPLETE",
+  "delivery_stage": "ACTIVE",
+  "ambient_source": "4319799c318e52acf1f1704f25265c0d8449777f",
+  "ambient_ci": 41841845778,
+  "native_source": "82f150a276a800c01b6a5aed1de71520b9d138b4",
+  "live_processing_all_five_modes": true,
+  "actual_brightness_saturation_output": true,
+  "production_GPU_blur_and_sampling_tests": true,
+  "invalid_settings_rejected_transactionally": true,
+  "original_map_and_settings_restored": true,
+  "actual_LG_preview_all_six_pages": true,
+  "real_editor_save_roundtrip": true,
+  "normal_and_150percent_scaling": true,
+  "packaged_version_rendered": "1.1-office.0.4.0",
+  "global_and_device_enable_calibration_identify_recovery": true,
+  "requested_20fps_measured": 20.05737612982102,
+  "six_controller_stream_observation": {
+    "elapsed_seconds": 30.770712400000775,
+    "observed_output_fps_including_observer_startup": 14.721791101592714,
+    "total_CPU_percent": 0.25230718658953777,
+    "working_set_MiB": 76.02734375,
+    "capture_errors": false
+  },
+  "live_hotplug_online_sequence": [6, 4, 6],
+  "maps_retained_and_other_devices_continue": true,
+  "procedural_effects_particles_audio_presets_verified": true,
+  "second_RGB_writer": false,
+  "desktop_UI_takeover": false,
+  "retained_evidence": "D:/Tools/OpenRGB/validation/20261104/gui-0.4.0",
+  "remaining_delivery": "Package, install/activate, publish normal release, independently retrieve and verify assets, update shortcut, clean spent scratch"
+}

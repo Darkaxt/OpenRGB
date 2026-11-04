@@ -293,28 +293,11 @@ none of the experimental map changes and is waiting for the revised editor.
    Verify actual widget mouse paths and native GPU/output settings, plus rendered
    small/normal/large and high-DPI views. Blur must affect sampled RGB, including
    retained static frames, and the mapping view must show its sampling footprint.
-   Verified source 8602878: hosted CI 41829071697 passes production GPU sampling,
-   mouse resize/cancel/undo/stepper, layout, lifecycle and IPC checks. The candidate
-   uses unchanged private state. All six saved controllers are online again;
-   transient unavailable identities retained their maps. External acceptance
-   blocker: Wallpaper Engine's renderer is not running and native source discovery
-   finds no eligible wallpaper or maximized LG window; Windows also reports
-   display standby. Standby output is not evidence of captured image updates.
-   The offscreen export (process 105508, shell session 31049) was explicitly
-   cancelled after this concrete unavailable-source result; it did not produce
-   valid live-preview/save evidence. Resolution: restore an eligible LG source,
-   then run connected render/save and native processing acceptance checks. The
-   user has been asked about KVM/session state. No completion/release is claimed.
-   Subsequent unavailable-source exports verify all six UI pages at three sizes
-   and a reversible real Save-button name edit; they explicitly report
-   actual_preview=false and do not close the live-source acceptance criterion.
-   Stage 8's additional UI/system paths depend on the compiled control interfaces,
-   which passed; they do not depend on the currently absent wallpaper renderer.
-   Resumed after the user confirmed the laptop had been locked and is now back.
-   Fresh 2026-11-04 runtime evidence confirms Wallpaper Engine is running, six
-   controllers are online and the published owner is receiving wallpaper frames.
-   Reactivate the retained candidate and complete the pending live criteria.
-   Live closure: candidate 8602878 passed check_processing.py through the actual
+   Verified source 4319799: hosted Windows CI 41841845778 passes production GPU,
+   mouse resize/cancel/undo/stepper, geometry, lifecycle and IPC checks. The prior
+   parked live check was resolved when the user unlocked the laptop. The live
+   8602878 engine (unchanged in 4319799; only About/version and documentation
+   changed) passed check_processing.py through the actual
    native owner: brightness/saturation reached submitted LED colours; all five
    algorithms exposed valid effective GPU regions; invalid settings were rejected;
    the original map/settings were restored. All 18 connected UI exports include
@@ -324,7 +307,7 @@ none of the experimental map changes and is waiting for the revised editor.
    widget and high-DPI evidence remains applicable. No blockers or deferrals.
    Closure design assessment found no required consolidation: capture/output
    remain owned by one native process and topology operations preserve indices.
-8. ACTIVE — Complete screenshot feature reconciliation. Acceptance:
+8. COMPLETE — Complete screenshot feature reconciliation. Acceptance:
    device/zone enable, counts, identify-all and edit-topology links; settings for
    connection test/reconnect, runtime/log access and lifecycle; actual live preview
    plus original EDAmbilight procedural preview controls (including local music,
@@ -334,29 +317,31 @@ none of the experimental map changes and is waiting for the revised editor.
    the required occlusion-safe source policy instead of adding incompatible
    foreground-capture fallbacks. Record each reference feature and its verified
    native equivalent in the companion GUI review. No inert imitation controls.
-   Source and integration evidence: Ambient 8602878, successful Windows CI
-   41829071697; all six native pages exported at 1000x700, 1440x900 and 1920x1080,
+   Source and integration evidence: Ambient 4319799, successful Windows CI
+   41841845778; all six native pages exported at 1000x700, 1440x900 and 1920x1080,
    both normal and 150% scaling. The real editor Save button persisted a temporary
    zone-name edit and restored the complete original map. The packaged native
    restart script stopped the exact owner gracefully, started one replacement,
    and verified native and authenticated endpoint readiness. The candidate's
    actual loaded plugin path was verified. Original procedural effects, particle
    modes, local audio and preset round-trip passed in the packaged browser page.
-   Remaining external blocker: the actual-live-preview criterion cannot pass
-   while Windows reports display standby and Wallpaper Engine's renderer is
-   absent. This also blocks stage 7's installed GPU/output acceptance and stage 9.
-   Resolution: an awake LG session with the selected wallpaper rendering; resume
-   stage 7 first, run check_processing.py and export without AllowUnavailable,
-   then verify this stage's real preview. No required work is deferred or waived.
-   Candidate package/runtime and retained screenshots are under
-   D:/Tools/OpenRGB/validation/20261104/gui-0.4.0 for that concrete remaining test.
-   This is an unreleased candidate, not a replacement published release. The
-   ordinary desktop shortcut and active owner use the published 0.3.0 while this
-   live verification is unavailable. The private map is preserved. Exact spent
+   The resumed actual LG preview and versioned panel exports passed without
+   AllowUnavailable. About displays the package version. The six-controller
+   read-only SDK observation completed 453 output advances in 30.77 seconds
+   (14.72 measured across observer startup), with no capture errors and about
+   0.252% total CPU. Live device removal/reconnection changed online count 6→4→6
+   without restarting the owner, losing maps or interrupting the other devices.
+   The user explicitly permits continuing with temporarily missing controllers;
+   supported controller arrival/recovery must bind automatically. No missing
+   peripheral alone is a reason to stop the other lighting. The lifecycle tests
+   cover safe removal, replacement registration, persisted offline bootstrap and
+   rescan. No blockers, tracked deferrals or required consolidation remain.
+   Retained evidence is under D:/Tools/OpenRGB/validation/20261104/gui-0.4.0.
+   The private map is preserved. Exact spent
    D:/Temp/openrgb-gui-parity-20261104 and E:/Temp/openrgb-gui-parity-20261104
    outputs were transactionally removed after consumer exit (251,720,026 and
    657,827,304 bytes respectively); no candidate runs from Temp.
-9. NOT STARTED — Integrated final release and delivery. Acceptance: all revision
+9. ACTIVE — Integrated final release and delivery. Acceptance: all revision
    requirements reconciled, existing lifecycle tests preserved, actual installed
    runtime and private-map continuity checked, normal versioned release published,
    independently downloaded/hash-verified, shortcut activation verified and spent
