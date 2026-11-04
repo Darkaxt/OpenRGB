@@ -3,7 +3,8 @@ param(
     [Parameter(Mandatory)][string]$OutputDirectory,
     [string]$StateRoot = 'D:/Tools/OpenRGB/state-integration',
     [switch]$ExerciseEditor,
-    [switch]$AllowUnavailable
+    [switch]$AllowUnavailable,
+    [ValidateSet('1','1.5','2')][string]$ScaleFactor = '1'
 )
 $ErrorActionPreference = 'Stop'
 $exe = (Resolve-Path (Join-Path $InstallRoot 'OfficeControl.exe')).Path
@@ -19,6 +20,7 @@ foreach ($argument in @('--state',$StateRoot,'--export-views',$OutputDirectory))
 if ($ExerciseEditor) { $start.ArgumentList.Add('--exercise-editor') }
 if ($AllowUnavailable) { $start.ArgumentList.Add('--allow-unavailable-source') }
 $start.Environment['QT_QPA_PLATFORM'] = 'offscreen'
+$start.Environment['QT_SCALE_FACTOR'] = $ScaleFactor
 $start.Environment['TEMP'] = Join-Path $StateRoot 'runtime-temp'
 $start.Environment['TMP'] = Join-Path $StateRoot 'runtime-temp'
 $process = [Diagnostics.Process]::Start($start)
