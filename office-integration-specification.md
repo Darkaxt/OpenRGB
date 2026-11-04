@@ -556,12 +556,17 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     readiness; it did not affect restoration or native output. No feature
     blocker/deferral remains. Closure assessment: the shared 1-pixel GPU pass
     avoids per-LED detection; no required architectural consolidation remains.
-16. ACTIVE — Responsive-preview 0.7.0 release, independent download/readback, native owner/
+16. BLOCKED — Responsive-preview 0.7.0 release, independent download/readback, native owner/
     panel activation and readback. Retire obsolete release directories only after
     consumers/path bindings are migrated, preserve live drafts, and clean scratch.
-    This delivery follows stages 14, 15 and 17: the urgent performance correction
+    This delivery follows stages 14, 15, 17 and 18: the urgent performance correction
     and screensaver/rest policy take implementation priority, but do not authorize
     dropping the previously requested media-border resilience from final delivery.
+    Parked by the user's 2026-11-05 pre-release requirement in 18. The combined
+    0.7.0 package is installed locally and its shortcut migrated; no release was
+    published. Obsolete 0.5.0/0.6.1 and temporary candidates were transactionally
+    removed. Final publication, replacement package/readback and scratch cleanup
+    depend on verified changed-frame/changed-output behavior from 18.
 
 17. COMPLETE — Screensaver capture and automatic rest (user request 2026-11-04).
     The configured LG screensaver takes capture priority while active. Windows
@@ -591,6 +596,31 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     Known scope: capture reconstruction has a measured startup delay; no arbitrary
     waits were added. No current-stage blocker or deferral remains. Closure
     assessment: existing event/owner architecture suffices; no consolidation needed.
+
+18. ACTIVE — Skip unchanged capture and settled lighting output (user request
+    2026-11-05, required before the next release). When no new WGC frame arrives,
+    retain the last valid source. When WGC delivers identical LG pixels, determine
+    equality on the GPU before mip generation, blur, media detection or LED
+    sampling; skip that processing and preview invalidation. No full-resolution
+    CPU readback or collision-prone approximate fingerprint may classify changing
+    imagery as static. Processing-setting/map/source changes still invalidate
+    affected work. Pending colour adaptation must finish on the output clock even
+    after input becomes static. Only changed LEDs update controller buffers; only
+    devices with changed output submit a hardware frame, except a demonstrated
+    protocol keepalive requirement. User clarification: when a refresh is needed,
+    resend cached colours at the lowest verified reliable frequency, independently
+    of capture/sampling, rather than driving the entire pipeline as a keepalive.
+    Prefer batched writes where a protocol requires
+    a full device frame rather than multiplying transactions per changed LED.
+    First delivery and reconnected controllers must receive a complete state,
+    including black, even when retained colours equal their initialized buffer.
+    Rest, manual tests, enable/disable and genuine black remain correct. Verify
+    exact pixel changes (including outside sampled areas), static frame counters,
+    GPU-processing/preview reuse, partial device/LED writes, smoothing convergence,
+    reconnect and sustained actual static Govee retention without black flashes.
+    Report capture callbacks, processed changes, skipped inputs, output ticks and
+    real device submissions distinctly; no claim of 15 new hardware frames for
+    static content. Preserve the saved topology and release only after acceptance.
 
 Current disposable work: E:/Temp/openrgb-grey-context-20261104. Hosted Windows builds;
 no native host build tree. Persistent verification: D:/Tools/OpenRGB/validation/20261104/gui-0.7.0.

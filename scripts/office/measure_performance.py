@@ -34,5 +34,11 @@ def main():
        'cpu_total_percent':100*(cpu.user+cpu.system-first_cpu)/elapsed/os.cpu_count(),
        'working_set':process.memory_info().rss,'source_generations':sorted(set(r['status']['source_generation'] for r in rows)),
        'saved_state_unchanged':before==hashlib.sha256(config.read_bytes()).hexdigest()},'samples':rows}
+    # The output clock remains active while stable hardware receives no update.
+    # These counters are native API submissions, not hardware acknowledgements;
+    # independent controller-protocol keepalives are intentionally not included.
+    for counter,label in (('changed_input_frames','changed_input_fps'),('skipped_input_frames','skipped_input_fps'),
+            ('sampling_passes','sampling_passes_per_second'),('device_submissions','device_updates_per_second'),('led_writes','led_writes_per_second')):
+        if counter in first and counter in last:result['summary'][label]=(last[counter]-first[counter])/span
     a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(result,indent=2));print(json.dumps(result['summary'],indent=2))
 if __name__=='__main__':main()
