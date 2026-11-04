@@ -647,7 +647,7 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     blocker or deferral remains. Closure assessment: existing capture/device
     ownership suffices; no new service or architectural consolidation is needed.
 
-19. ACTIVE — Draft blur must change the Preview and Topology source image before
+19. COMPLETE — Draft blur must change the Preview and Topology source image before
     Apply (2026-11-05 user report). The current slider only edits the draft while
     the preview uses the owner's applied blur (observed 0 versus draft 10).
     Large blur must integrate the sampled footprint rather than duplicate sharp
@@ -662,7 +662,19 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     real widget request/render paths, static input and no hardware/config writes.
     User override: terminate the program when replacement is needed, including
     unsaved drafts, without asking again. Preserve the saved topology/settings.
-20. NOT STARTED — Publish and independently verify Office 0.7.1 after stage 19;
+    Verified production Windows run 41930768086 (Ambient 12df982): static draft
+    rendering, exact zero restoration, applied/draft equivalence without double
+    blur, dense-detail integration, cache reuse, actual widget request/decode and
+    stale-value rejection. Installed GPU read-only 0/10/0 comparison on the same
+    retained wallpaper visibly blurred the image with mean RGB changes
+    22.66/14.42/18.74, zero LED writes/submissions/sampling, exact source restoration
+    and byte-identical settings. All six controllers/314 LEDs remained online.
+    Playback resumed; visible-preview demand held 14.91 Hz, 0.541 ms GPU work,
+    8.37 ms median request and 0.77% total CPU. Existing normal/high-DPI UI layout
+    checks apply to the unchanged UI code in the final shader build. No blocker
+    or deferral remains. Closure assessment: the existing GPU worker/IPC/cache
+    suffices, without a new capture path or second RGB writer.
+20. ACTIVE — Publish and independently verify Office 0.7.1 after stage 19;
     verify package hashes/provenance and actual installed owner/panel rendering,
     preserve saved settings, migrate shortcut/consumers and retire spent scratch
     and obsolete release only after the old draft/consumers are safely closed.
