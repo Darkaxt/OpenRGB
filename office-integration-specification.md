@@ -647,6 +647,26 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     blocker or deferral remains. Closure assessment: existing capture/device
     ownership suffices; no new service or architectural consolidation is needed.
 
+19. ACTIVE — Draft blur must change the Preview and Topology source image before
+    Apply (2026-11-05 user report). The current slider only edits the draft while
+    the preview uses the owner's applied blur (observed 0 versus draft 10).
+    Send a bounded read-only preview override through the existing IPC/worker,
+    using the same GPU filter as LED extraction. Do not apply draft settings,
+    mutate/save topology or alter actual LED colours when rendering the draft.
+    Cache by source revision and blur; reject stale blur images after a newer
+    slider change. Return to zero must restore the source without double blur.
+    Identical source/blur must reuse the cache; hidden panels remain quiet and
+    PNG encoding remains outside the capture/output lock. Verify production GPU,
+    real widget request/render paths, static input and no hardware/config writes.
+    User override: terminate the program when replacement is needed, including
+    unsaved drafts, without asking again. Preserve the saved topology/settings.
+20. NOT STARTED — Publish and independently verify Office 0.7.1 after stage 19;
+    verify package hashes/provenance and actual installed owner/panel rendering,
+    preserve saved settings, migrate shortcut/consumers and retire spent scratch
+    and obsolete release only after the old draft/consumers are safely closed.
+
+Current disposable work: E:/Temp/openrgb-draft-blur-20261105 (hosted build inputs
+and package checks). Persistent acceptance: D:/Tools/OpenRGB/validation/20261105/gui-0.7.1.
 Completed disposable work: E:/Temp/openrgb-grey-context-20261104 was transactionally
 removed after final release verification. Hosted Windows builds; no native host
 build tree. Persistent verification: D:/Tools/OpenRGB/validation/20261104/gui-0.7.0.

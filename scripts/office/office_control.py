@@ -50,7 +50,7 @@ class Control:
         if self.handle==C.c_void_p(-1).value: raise C.WinError(C.get_last_error())
     def __enter__(self): return self
     def __exit__(self,*args): kernel.CloseHandle(self.handle)
-    def preview(self):
+    def preview(self,**arguments):
         """Await asynchronous preview publication, driven by native status writes or owner exit."""
         from runtime_control import owned_process
         native,process=owned_process(self.owner_pid,self.state)
@@ -65,7 +65,7 @@ class Control:
         handles=(W.HANDLE*2)(process,notification)
         try:
             while True:
-                value=self.call('snapshot',preview=True)
+                value=self.call('snapshot',preview=True,**arguments)
                 if value.get('preview_png'):return value
                 if value.get('preview_error'):raise RuntimeError(value['preview_error'])
                 result=native.WaitForMultipleObjects(2,handles,False,0xffffffff)
