@@ -307,7 +307,7 @@ none of the experimental map changes and is waiting for the revised editor.
    widget and high-DPI evidence remains applicable. No blockers or deferrals.
    Closure design assessment found no required consolidation: capture/output
    remain owned by one native process and topology operations preserve indices.
-8. ACTIVE — Complete screenshot feature and visual reconciliation. Acceptance:
+8. COMPLETE — Complete screenshot feature and visual reconciliation. Acceptance:
    device/zone enable, counts, identify-all and edit-topology links; settings for
    connection test/reconnect, runtime/log access and lifecycle; actual live preview
    plus original EDAmbilight procedural preview controls (including local music,
@@ -357,14 +357,29 @@ none of the experimental map changes and is waiting for the revised editor.
    D:/Temp/openrgb-gui-parity-20261104 and E:/Temp/openrgb-gui-parity-20261104
    outputs were transactionally removed after consumer exit (251,720,026 and
    657,827,304 bytes respectively); no candidate runs from Temp.
-9. BLOCKED — Integrated final release and delivery. Acceptance: all revision
+9. ACTIVE — Integrated final release and delivery. Acceptance: all revision
    requirements reconciled, existing lifecycle tests preserved, actual installed
    runtime and private-map continuity checked, normal versioned release published,
    independently downloaded/hash-verified, shortcut activation verified and spent
    task artifacts transactionally cleaned. Preserve 0.3.0 rollback.
-   Publication is parked behind stage 8 visual acceptance. The local 0.4.0
-   package/install is an unpublished candidate, not the accepted final release;
-   the existing desktop shortcut still targets published 0.3.0.
+   Stage 8 visual acceptance is now resolved. The local 0.4.0 package/install
+   remains an unpublished historical candidate. Final 0.5.0 package publication,
+   independent retrieval, installed activation and shortcut verification belong
+   to this stage; preserve published 0.3.0 rollback.
+
+Stage 8 closure, 2026-11-04: Ambient 8a45dd6e6fc2de43d21d9049f9d4355a9eb3cc28,
+successful Windows CI 41858244832. Recovered fonts/icons load natively without
+fallback; production switch/slider/stepper, corner resizing, physical identities,
+quarter-turn handle, undo/redo and four-turn tests pass. Corresponding native
+pages and loading/offline/empty/rotated fixtures were inspected against the
+modern references. `accepted-views` and `accepted-150percent` under
+D:/Tools/OpenRGB/validation/20261104/gui-0.5.0 each export all seven pages at the
+three required sizes and exit normally. The real Save action persisted temporary
+rotation/name changes and restored the exact original map; JSON receipt reports
+actual LG preview and no capture error. Native normalized mapping and single-owner
+transport adaptations are explicit in all 90 resolutions in
+office-validation/gui-0.5.0.md. Earlier failed visual/export iterations remain
+historical evidence, not current blockers. No stage 8 blocker or deferral remains.
 
 Design contract (user-directed reference fidelity, 2026-11-04): compare each native
 page with its corresponding EDAmbilight repository screenshot. Use the modern

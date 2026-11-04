@@ -128,5 +128,15 @@ No private pairing tokens, maps or captured wallpaper images enter the package.
 
 ## Delivery status
 
-ACTIVE: final exporter lifecycle check, final versioned package and installed
-runtime/delivery verification remain. This record is not yet release completion.
+Visual/editor acceptance COMPLETE: Ambient `8a45dd6e6fc2de43d21d9049f9d4355a9eb3cc28`,
+Windows CI `41858244832`. `accepted-views/panel-export.json` confirms the real Save
+round-trip restored the exact map, actual LG preview, seven pages at all three
+sizes, 80px rail and 640px Settings column. `accepted-150percent` also completes
+normally with the same geometry in logical units. Native screenshots and the
+explicit offline/empty/rotated/connection fixtures were visually inspected.
+The formerly invisible export shutdown dialog is resolved; no export process
+remains. Physical device visibility varies with the KVM; saved six-controller
+maps and 314 LED identities are retained.
+
+Delivery ACTIVE: versioned package, installed runtime and independent published
+asset verification remain. This record is not yet release completion.
