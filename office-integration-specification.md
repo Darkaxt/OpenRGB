@@ -281,7 +281,7 @@ the six-device native owner, LG-only wallpaper/app policy, physical LED identity
 offline/KVM handling, saved maps and last-valid-frame switching. The user saved
 none of the experimental map changes and is waiting for the revised editor.
 
-7. BLOCKED — Reference-led control and topology vertical slice. Acceptance:
+7. COMPLETE — Reference-led control and topology vertical slice. Acceptance:
    EDAmbilight-style grouped dashboard; readable vector arrows/controls; selectable
    algorithms (mean, percentile, median/dominant, fixed/adaptive with EMA), depth
    and adaptive bounds, black-bar exclusion, scene cut, saturation, brightness
@@ -310,7 +310,21 @@ none of the experimental map changes and is waiting for the revised editor.
    actual_preview=false and do not close the live-source acceptance criterion.
    Stage 8's additional UI/system paths depend on the compiled control interfaces,
    which passed; they do not depend on the currently absent wallpaper renderer.
-8. BLOCKED — Complete screenshot feature reconciliation. Acceptance:
+   Resumed after the user confirmed the laptop had been locked and is now back.
+   Fresh 2026-11-04 runtime evidence confirms Wallpaper Engine is running, six
+   controllers are online and the published owner is receiving wallpaper frames.
+   Reactivate the retained candidate and complete the pending live criteria.
+   Live closure: candidate 8602878 passed check_processing.py through the actual
+   native owner: brightness/saturation reached submitted LED colours; all five
+   algorithms exposed valid effective GPU regions; invalid settings were rejected;
+   the original map/settings were restored. All 18 connected UI exports include
+   the actual LG preview, and the real Save-button round-trip passed. Native
+   enable/disable, calibration, identify/return, requested 20 FPS (20.057 measured)
+   and explicit capture recovery passed. The unchanged current-task hosted GPU,
+   widget and high-DPI evidence remains applicable. No blockers or deferrals.
+   Closure design assessment found no required consolidation: capture/output
+   remain owned by one native process and topology operations preserve indices.
+8. ACTIVE — Complete screenshot feature reconciliation. Acceptance:
    device/zone enable, counts, identify-all and edit-topology links; settings for
    connection test/reconnect, runtime/log access and lifecycle; actual live preview
    plus original EDAmbilight procedural preview controls (including local music,
