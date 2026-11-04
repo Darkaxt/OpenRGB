@@ -414,6 +414,37 @@ quarter-turn sampling semantics remain; no arbitrary-angle sampling is implied.
 The former LG built-in LED investigation remains parked; Govee is the installed
 monitor-lighting alternative. The unrelated VLC screenshots belong to another chat.
 Canonical OpenRGB source: D:/Projects/OpenRGB; preserve current path bindings.
+
+## Selected-device topology and group movement (2026-11-04)
+
+User-authorized revision: show the selected device without the clutter of all
+devices, and select multiple tree entries to move their lights together (including
+the laptop keyboard, front strip and auxiliary light).
+
+Requirements: T1 provide explicit Selected devices (default), Selected zones and
+All devices visibility; T2 device-row selection includes all its zones, Ctrl
+toggles entries and Shift selects a tree range, with matching canvas selection;
+T3 a drag or arrow-key movement translates every selected LED by the same bounded
+delta, preserving spacing, physical indices and unselected regions; T4 one undo
+reverses a group gesture, Escape cancels it, save/reload retains geometry and
+selection; T5 retain readable selection counts, single-zone editing/rotation and
+existing visual layout, including offline devices. No capture/device protocol
+change or desktop takeover. The existing map remains intact during acceptance.
+
+Design contract: preserve current recovered typography, cyan editor, 80px rail
+and responsive split panes. Replace the ambiguous all-regions switch with a
+compact labelled view choice; selection uses highlighted rows, cyan member
+outlines and one group boundary. Keep enable checkboxes independent of selection.
+
+10. ACTIVE — Selected-device multi-selection feature (T1–T5). Implement and
+    verify production tree/canvas gestures, common-delta bounds, undo/cancel,
+    actual Save/readback/restoration, retained offline maps, and screenshots at
+    1000x700/1440x900 with 100%/150% scaling. Internal acceptance blockers: these
+    paths are not yet implemented; resolution is the complete verified feature.
+11. NOT STARTED — Integrated 0.6.0 delivery. Depends on stage 10; publish normal
+    verified package, independently retrieve/hash/read back, activate installed
+    launcher without disturbing an unsaved panel, and clean exact scratch.
+    Existing native capture/runtime remains unchanged; 0.5.0 is rollback.
 New disposable work: E:/Temp/openrgb-integration-20261104. Native build scratch,
 if required, uses D:/Temp/openrgb-integration-build-20261104 for I/O; prefer hosted
 compilation to avoid host load. Keep runtime state separate under D:/Tools/OpenRGB.
