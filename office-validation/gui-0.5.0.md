@@ -138,5 +138,28 @@ The formerly invisible export shutdown dialog is resolved; no export process
 remains. Physical device visibility varies with the KVM; saved six-controller
 maps and 314 LED identities are retained.
 
-Delivery ACTIVE: versioned package, installed runtime and independent published
-asset verification remain. This record is not yet release completion.
+Delivery COMPLETE: normal release [v1.1-office.0.5.0](https://github.com/Darkaxt/OpenRGB/releases/tag/v1.1-office.0.5.0)
+targets Core `b6ef96ad63e91f1678fdb885a6976ee3dc330de9`, compiled Ambient
+`8a45dd6e6fc2de43d21d9049f9d4355a9eb3cc28`. The independently downloaded ZIP
+matches its checksum file and GitHub digest:
+`f8a27d13a68386797889c99f90ebd8917b8b0f9052e83876971fc335fac35138`.
+Independent extraction read back all 100 members. Native owner PID 98884 and
+its loaded Ambient DLL run from `D:/Tools/OpenRGB/releases/1.1-office.0.5.0`;
+six online controllers / 314 LEDs produced 14.994 FPS at the installed-output
+check. `installed-views/panel-export.json` confirms actual LG preview and the
+real Save round-trip. The desktop shortcut targets the installed 0.5.0 launcher.
+Private layout and OpenRGB configuration hashes match before/after and final
+readback. Published 0.3.0 remains the rollback version.
+
+Retained local evidence: `D:/Tools/OpenRGB/validation/20261104/gui-0.5.0/`
+contains `delivery-receipt.json`, `installed-owner.json`, `installed-views`,
+`accepted-150percent` and the full final cleanup inspection. Exact spent
+`D:/Temp/openrgb-ui-fidelity-20261104` was removed (235,773,276 bytes); exact
+`E:/Temp/openrgb-ui-final-20261104` was removed (968,109,189 bytes across the
+main ticket and its two independently reviewed pre-existing residuals).
+No live process uses either removed directory. The original native CI archive
+`E:/Temp/openrgb-integration-20261104/native-82f150a2.zip` remains an intentional
+repeatable package input for the unchanged native executable; its legacy parent
+contains other analysis inputs and was not swept. No UI-revision blocker or
+tracked deferral remains. This post-delivery evidence update does not change
+the immutable package or its source tag.

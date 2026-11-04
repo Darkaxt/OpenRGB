@@ -1,0 +1,33 @@
+{
+  "version": "1.1-office.0.5.0",
+  "release_url": "https://github.com/Darkaxt/OpenRGB/releases/tag/v1.1-office.0.5.0",
+  "draft": false,
+  "prerelease": false,
+  "tag_commit": "b6ef96ad63e91f1678fdb885a6976ee3dc330de9",
+  "native_source": "82f150a276a800c01b6a5aed1de71520b9d138b4",
+  "ambient_source": "8a45dd6e6fc2de43d21d9049f9d4355a9eb3cc28",
+  "ambient_ci_run": 41858244832,
+  "downloaded_zip_sha256": "f8a27d13a68386797889c99f90ebd8917b8b0f9052e83876971fc335fac35138",
+  "github_asset_digest_matches": true,
+  "published_checksum_matches": true,
+  "independent_member_readback": 100,
+  "installed_root": "D:/Tools/OpenRGB/releases/1.1-office.0.5.0",
+  "installed_owner_pid": 98884,
+  "single_owner_and_installed_plugin_verified": true,
+  "online_controllers": 6,
+  "leds": 314,
+  "observed_output_fps": 14.994258698344405,
+  "installed_gui_real_preview": true,
+  "installed_gui_save_roundtrip": true,
+  "private_map_and_device_configuration_unchanged": true,
+  "desktop_shortcut_verified": true,
+  "rollback_version": "1.1-office.0.3.0",
+  "local_evidence": "D:/Tools/OpenRGB/validation/20261104/gui-0.5.0",
+  "cleanup": [
+    {"transaction": "839dc05dcc8a463395761ddc4856e93e", "state": "applied", "bytes": 235773276},
+    {"transaction": "3bc95814b717025cbedec3f129d8595f", "state": "applied", "bytes": 968108391},
+    {"transaction": "f17071de2be7885e1222b88ecbc0c517", "state": "applied", "bytes": 798}
+  ],
+  "unresolved_ui_revision_blockers": [],
+  "tracked_deferrals": []
+}

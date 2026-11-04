@@ -357,15 +357,22 @@ none of the experimental map changes and is waiting for the revised editor.
    D:/Temp/openrgb-gui-parity-20261104 and E:/Temp/openrgb-gui-parity-20261104
    outputs were transactionally removed after consumer exit (251,720,026 and
    657,827,304 bytes respectively); no candidate runs from Temp.
-9. ACTIVE — Integrated final release and delivery. Acceptance: all revision
+9. COMPLETE — Integrated final release and delivery. Acceptance: all revision
    requirements reconciled, existing lifecycle tests preserved, actual installed
    runtime and private-map continuity checked, normal versioned release published,
    independently downloaded/hash-verified, shortcut activation verified and spent
    task artifacts transactionally cleaned. Preserve 0.3.0 rollback.
-   Stage 8 visual acceptance is now resolved. The local 0.4.0 package/install
-   remains an unpublished historical candidate. Final 0.5.0 package publication,
-   independent retrieval, installed activation and shortcut verification belong
-   to this stage; preserve published 0.3.0 rollback.
+   Published normal release v1.1-office.0.5.0 targets verified Core b6ef96ad63e;
+   independently downloaded ZIP matches SHA-256 and GitHub asset digest, with
+   all 100 members read back. Final installed native owner and Ambient DLL are
+   loaded from D:/Tools/OpenRGB/releases/1.1-office.0.5.0; six controllers and
+   314 LEDs stream at approximately 15 FPS. Installed GUI export and real Save
+   round-trip pass. Desktop shortcut activates this version. Private map and
+   device configuration hashes are unchanged. Published 0.3.0 rollback remains.
+   Exact spent D:/Temp/openrgb-ui-fidelity-20261104 and
+   E:/Temp/openrgb-ui-final-20261104 were transactionally removed after their
+   consumers exited. No unresolved blocker or tracked deferral remains for this
+   UI revision. Delivery evidence: office-validation/gui-release-0.5.0-20261104.json.
 
 Stage 8 closure, 2026-11-04: Ambient 8a45dd6e6fc2de43d21d9049f9d4355a9eb3cc28,
 successful Windows CI 41858244832. Recovered fonts/icons load natively without
