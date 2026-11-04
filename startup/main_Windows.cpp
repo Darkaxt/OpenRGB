@@ -18,6 +18,8 @@
 #include <thread>
 
 #include <QApplication>
+#include <QTimer>
+#include <QWinEventNotifier>
 
 #include "cli.h"
 #include "startup.h"
@@ -25,6 +27,7 @@
 #include "NetworkServer.h"
 #include "DetectionManager.h"
 #include "ResourceManager.h"
+#include "PluginManager.h"
 #include "StringUtils.h"
 
 using namespace std::chrono_literals;
@@ -537,7 +540,7 @@ void InitializeTimerResolutionThreadFunction()
 |   Wait while NetworkServer is online and return only when |
 |   it has shut down                                        |
 \*---------------------------------------------------------*/
-static void WaitWhileServerOnline(NetworkServer* srv)
+static void WaitWhileServerOnline(NetworkServer* srv, int argc, char* argv[])
 {
     // The office's hidden, manually launched server has no console to receive
     // Ctrl+C. An opt-in local event lets its owner request normal teardown,
@@ -562,6 +565,45 @@ static void WaitWhileServerOnline(NetworkServer* srv)
             return;
         }
         LOG_INFO("[Office] Graceful shutdown event ready");
+    }
+    if(office_stop && GetEnvironmentVariableW(L"OPENRGB_OFFICE_PLUGIN", NULL, 0) != 0)
+    {
+        // Plugins need a Qt event loop, but this explicit office host must never
+        // construct QApplication, GetWidget(), a tray menu or a visible window.
+        QCoreApplication app(argc, argv);
+        PluginManager plugins;
+        ResourceManager::get()->SetPluginManager(&plugins);
+        QWinEventNotifier shutdown(office_stop);
+        QObject::connect(&shutdown, &QWinEventNotifier::activated, &app, &QCoreApplication::quit);
+        QTimer server_observer;
+        // Health observation only: a tick never times out or cancels a capture.
+        QObject::connect(&server_observer, &QTimer::timeout, &app, [&]() {
+            if(!srv->GetOnline()) app.quit();
+        });
+        server_observer.start(1000);
+        try
+        {
+            const auto plugin_path = filesystem::u8path(qEnvironmentVariable("OPENRGB_OFFICE_PLUGIN").toStdString());
+            plugins.AddPlugin(plugin_path, false);
+            if(plugins.ActivePlugins.size() != 1 || !plugins.ActivePlugins.front().plugin)
+            {
+                LOG_ERROR("[Office] Requested ambience plugin did not load");
+            }
+            else
+            {
+                LOG_INFO("[Office] Native headless ambience plugin loaded");
+                app.exec();
+            }
+        }
+        catch(const std::exception& error)
+        {
+            LOG_ERROR("[Office] Ambience plugin failed: %s", error.what());
+        }
+        plugins.UnloadPlugins();
+        ResourceManager::get()->SetPluginManager(nullptr);
+        srv->StopServer();
+        CloseHandle(office_stop);
+        return;
     }
     std::unique_lock<std::mutex> lock(service_stop_mutex);
     while(srv->GetOnline())
@@ -690,7 +732,7 @@ static int common_main(int argc, char* argv[])
             {
                 ReportServiceStatus(SERVICE_RUNNING, NO_ERROR, 0);
             }
-            WaitWhileServerOnline(server);
+            WaitWhileServerOnline(server, argc, argv);
         }
     }
 
