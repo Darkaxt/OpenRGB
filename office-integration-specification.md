@@ -650,6 +650,8 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
 19. ACTIVE — Draft blur must change the Preview and Topology source image before
     Apply (2026-11-05 user report). The current slider only edits the draft while
     the preview uses the owner's applied blur (observed 0 versus draft 10).
+    Large blur must integrate the sampled footprint rather than duplicate sharp
+    edges at sparse sample offsets; verify high-frequency detail is smoothed.
     Send a bounded read-only preview override through the existing IPC/worker,
     using the same GPU filter as LED extraction. Do not apply draft settings,
     mutate/save topology or alter actual LED colours when rendering the draft.
