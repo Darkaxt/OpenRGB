@@ -1,68 +1,73 @@
-# OpenRGB office Govee trial
+# OpenRGB office ambience 1.1-office.0.2.0
 
-This package controls H6609 (20 zones) and H8048 (two 10-zone bars) using Govee
-LAN control. It does not capture wallpaper or install an ambience plugin. No
-desktop UI, elevated driver, startup task or account is required.
+This package includes the native six-controller OpenRGB build and the adapted
+OpenRGB-Ambient plugin. It captures the LG's rendered Wallpaper Engine wallpaper
+behind ordinary windows; maximized/fullscreen LG apps take priority. Apps on the
+laptop display do not take over. All six devices follow the LG in this release.
 
-Use Windows PowerShell 7 and Python 3.11 or later. Install the pinned SDK client
-from `requirements.txt` into a dedicated Python environment.
+Supported office controllers: H6609 (20 regions, perimeter 3/7/4/6), H8048 (left
+10/right 10), Secretlab NL72S2 (48), Keychron Q6 HE ISO SRGBmods (109), Legion Pro
+7 Gen 8 Spanish ISO (102 keys, 6 front sections, auxiliary), G502 X PLUS (8).
 
-## Prepare and start
+The manually launched process is headless: no tray, window or startup task. It
+binds the SDK only to 127.0.0.1:6742. Keep SignalRGB, G HUB's user processes and
+other RGB writers closed. Saved mouse button/DPI profile work is outside this
+release; G HUB's existing profile remains available separately.
 
-1. Exit SignalRGB so it cannot compete for the Govee devices. Its settings,
-   custom plugins and accepted layouts are preserved.
-2. Prepare a **new** state directory using the shipped detector inventory:
+## Existing installation
 
-   ```powershell
-   python govee_trial.py prepare --detectors detectors.json --config D:/Tools/OpenRGB/state --strip-ip STRIP_IP --bars-ip BARS_IP
-   ```
+Keep private state in `D:/Tools/OpenRGB/state-integration`; never copy it into a
+public package. That directory already contains the verified device addresses,
+locally reused Secretlab credential and `office-ambience.json`:
 
-   Replace the two IP placeholders with your device addresses. The configuration
-   enables only the Govee detector. Keep private addresses and logs out of Git.
-3. The installation process creates `installed-manifest.json`, containing the
-   executable SHA256 from the verified package. Start with:
-
-   ```powershell
-   pwsh -NoProfile -File Start-Office.ps1 -InstallRoot D:/Tools/OpenRGB/releases/1.1-office.0.1.0 -StateRoot D:/Tools/OpenRGB/state
-   ```
-
-   The server binds `127.0.0.1:6742`. Native logs and `owner.json` are in the state
-   directory. No boot configuration is changed. A reported PID is launch
-   evidence; `inventory` establishes SDK readiness and the expected device set.
-
-## Check the lights
-
-```powershell
-python govee_trial.py inventory
-python govee_trial.py solid
-python govee_trial.py pattern
-python govee_trial.py stream --frames 1800 --fps 15
+```json
+{"monitor":"\\\\.\\DISPLAY2","fps":15,"smoothing_ms":140}
 ```
 
-`solid` sets the monitor strip red and both bars blue. `pattern` assigns the strip
-3 red, 7 green, 4 blue and 6 yellow zones; the bars get 10 red and 10 blue zones.
-These follow the accepted approximate perimeter split. Physical orientation
-needs visual confirmation. `stream` sends two minutes at 15 frames/second.
-Logs distinguish SDK completion and UDP writes from hardware acknowledgement,
-which the Govee streaming protocol does not provide.
-
-## Stop and return to SignalRGB
+After installing the hash-verified package into its versioned release directory:
 
 ```powershell
-pwsh -NoProfile -File Stop-Office.ps1 -StateRoot D:/Tools/OpenRGB/state
+pwsh -NoProfile -File D:/Tools/OpenRGB/releases/1.1-office.0.2.0/office/Start-Office.ps1 -InstallRoot D:/Tools/OpenRGB/releases/1.1-office.0.2.0 -StateRoot D:/Tools/OpenRGB/state-integration -AllDevices -Ambience
 ```
 
-The stop command checks the recorded process ID, executable and start time,
-stops only that trial process, waits for exit, then releases streaming on the two
-configured addresses. Reopen SignalRGB normally to restore its lighting output.
-Do not run both writers simultaneously. The original SignalRGB Govee addon and
-its settings are preserved. The installed addon is currently the stock version;
-the separately retained SignalRGB stream-refresh fix has not been reinstalled by
-this trial.
+`Start-Office.ps1` checks the native executable and plugin hashes and rejects a
+second OpenRGB/SignalRGB writer. Its child TEMP/TMP stays in the private runtime
+directory. The native owner event provides detection readiness and graceful stop.
+Pairing, keymaps, firmware, ordinary input bindings and boot settings are not reset.
 
-## Verification scope
+## Observe and stop
 
-`check_wire.py` runs the actual built executable against simulated LAN peers and
-verifies SDK enumeration, twenty distinct RGB values, the B0 checksum and idle
-frame retention without another B1 enable. This does not replace real-device
-discovery, visual colour confirmation or a sustained real stream test.
+Use the dedicated Python environment with pinned `requirements.txt`:
+
+```powershell
+D:/Tools/OpenRGB/python/Scripts/python.exe -B D:/Tools/OpenRGB/releases/1.1-office.0.2.0/office/office_devices.py inventory
+pwsh -NoProfile -File D:/Tools/OpenRGB/releases/1.1-office.0.2.0/office/Stop-Office.ps1 -StateRoot D:/Tools/OpenRGB/state-integration
+```
+
+Atomic `office-ambience-status.json` reports the chosen source, frame counters,
+GPU processing and callback-to-native-submit timing. This is software timing;
+Govee streaming does not acknowledge physical LED application. Native logs and
+`owner.json` remain in the state directory. The stop script verifies PID, creation
+time and executable, requests normal teardown, waits for exit and releases Govee
+streaming. No arbitrary execution deadline or periodic stream re-enable is used.
+
+## Capture and recovery
+
+The tested WGC target is the top-level Progman wallpaper host; its child renderer
+is not capturable on this machine. GPU processing crops only DISPLAY2 and reads
+back one RGBA value per LED. Previous valid colours remain during source changes
+and capture failures. Genuine black content is honored. Visible desktop-icon
+exclusion is not verified: the current desktop has no icons, and a nonempty
+visible icon list is rejected rather than substituted with foreground capture.
+
+For a capture-free six-device rollback, stop the active owner and run the retained
+`candidate-integration-1d0abb5e` with `-AllDevices` and without `-Ambience`, using
+the same state directory. The separately published v1.1-office.0.1.0 is the older
+Govee-only rollback. Preserved SignalRGB settings/plugins are another recovery
+input; do not run simultaneous lighting writers.
+
+The package records release, native and ambient source commits separately in
+`office-build.json`, plus CI archive hashes. The native code is identical to the
+verified compiled revision; current support scripts and sanitized acceptance
+evidence are packaged from the release commit. No credentials or screenshots
+are included. See `AMBIENCE.md` for capture details and retained upstream credit.

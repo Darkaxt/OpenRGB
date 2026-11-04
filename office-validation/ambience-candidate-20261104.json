@@ -1,5 +1,5 @@
 {
-  "status": "ACTIVE; physical source-switch acceptance and final release remain pending",
+  "status": "Ambience accepted by user; final delivery in progress",
   "native_source": "82f150a276a800c01b6a5aed1de71520b9d138b4",
   "native_ci": 41752570205,
   "plugin_source": "ec36299f4a6b4dc16ff0138b49820410a4895c2e",
@@ -55,12 +55,13 @@
   "first_wallpaper_frame_ms": 480.6248,
   "latency_boundary": "callback completion to native controller submission; not photon or hardware acknowledgment latency",
   "visible_window_created": false,
-  "pending": [
-    "physical six-device wallpaper confirmation",
-    "LG maximized/fullscreen and restore/minimize/close transitions",
-    "other-monitor isolation during maximization",
-    "prompt actual wallpaper replacement",
-    "final delivery"
-  ],
+  "physical_acceptance": {
+    "source": "User observations in Ambilight chat, 2026-11-04",
+    "six_device_wallpaper_colours": "consistent; soft wallpaper",
+    "lg_app_switch_and_wallpaper_replacement": "all works too nicely to be true",
+    "other_monitor_isolation": "Laptop has no effect",
+    "combined_remaining_case_acceptance": "stable enough; user will report later quirks"
+  },
+  "pending": ["final delivery"],
   "raw_report_sha256": "205e426c3d0b63775d113de091bf8de295edce131f7d0e33f71b7fb592ae9dc8"
 }

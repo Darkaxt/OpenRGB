@@ -45,6 +45,10 @@ def main():
     pe = int.from_bytes(exe[0x3C:0x40], 'little')
     if exe[:2] != b'MZ' or exe[pe:pe+4] != b'PE\0\0' or exe[pe+4:pe+6] != b'\x64\x86':
         raise ValueError('Expected Windows x64 executable')
+    if 'ambientSource' in build:
+        plugin = json.loads(files['plugins/installed-plugin.json'][1])
+        if plugin['source'] != build['ambientSource'] or plugin['openrgb'] != build['nativeSource'] or digest(files['plugins/openrgb_ambient.dll'][1]) != plugin['sha256']:
+            raise ValueError('Packaged plugin provenance differs from the native build')
     args.destination.mkdir(parents=True)
     hashes = {}
     for name, data in files.values():
@@ -57,6 +61,10 @@ def main():
             raise RuntimeError(f'Installed file readback failed: {name}')
     manifest = {'version': build['version'], 'source': build['source'], 'archiveSha256': archive_hash,
                 'executableSha256': digest(exe), 'files': hashes}
+    if 'nativeSource' in build:
+        manifest['nativeSource'] = build['nativeSource']
+    if 'ambientSource' in build:
+        manifest['ambientSource'] = build['ambientSource']
     (args.destination / 'installed-manifest.json').write_text(json.dumps(manifest, indent=2), encoding='utf-8')
     print(json.dumps({'installed': str(args.destination), 'verified_members': len(hashes),
                       'version': build['version'], 'source': build['source'], 'executable_sha256': digest(exe)}))

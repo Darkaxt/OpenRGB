@@ -51,6 +51,15 @@ Govee v1.1-office.0.1.0 remains the verified rollback baseline, not overall comp
   driver installs, application removal or desktop UI control. Keep credentials and
   personal device settings out of public packages. Transactionally clean scratch.
 
+User scope extension after ambience acceptance, 2026-11-04: SignalRGB may now be
+removed after preserving its custom plugins, profiles and pairing/recovery data;
+this overrides D1's former application-removal exclusion for SignalRGB only.
+After delivery and retirement, investigate EDAmbilight in REA and recreate its
+control interface for this system, preserving the working native capture/device
+pipeline. OpenRGB currently runs deliberately headless; upstream also has a GUI
+and tray. Do not take over the desktop UI. These subsequent authorized outcomes
+do not reopen completed stages or permit parallel ACTIVE implementation stages.
+
 ## Staged execution and reconciliation
 
 1. Device integration — COMPLETE (I1-I3).
@@ -80,9 +89,10 @@ Govee v1.1-office.0.1.0 remains the verified rollback baseline, not overall comp
    960-byte profile response is unchanged after real Direct streaming.
    Retained sanitized evidence: office-validation/device-integration-20261104.json.
    No remaining blockers or tracked deferrals for this stage.
-2. Main-monitor ambience — BLOCKED (A1-A3; external physical/UI acceptance input).
-   Stage 1's integrated device set is available. Capture/source switching, temporal
-   smoothing, wallpaper refresh, layout and real end-to-end acceptance remain required.
+2. Main-monitor ambience — COMPLETE (A1-A3).
+   Stage 1's integrated device set is available. User now confirms consistent
+   wallpaper colours across the six devices, including behind an ordinary window,
+   successful LG maximize/restore switching and prompt actual wallpaper replacement.
    Selected engine: https://github.com/Darkaxt/OpenRGB-Ambient, canonical checkout
    D:/Projects/OpenRGB-Ambient, branch codex/office-ambience, upstream 778fdcbf8a9e20ccb41dbd7e597d361f294c69de.
    EDAmbilight repository b497e19a29adaa0666b74c89a03a7b82d7b2c922 contains docs;
@@ -96,7 +106,7 @@ Govee v1.1-office.0.1.0 remains the verified rollback baseline, not overall comp
    verify the complete source-to-six-controller workflow and wallpaper replacement.
    Source selection investigation, 2026-11-04: user clarified that the unresolved
    case is wallpaper hidden by ordinary windows. Unobstructed/maximized native
-   capture already supplies the standard behavior. Evaluate Wallpaper Engine's
+   capture already supplies the standard behavior. Wallpaper Engine's
    Chroma color output was evaluated using UnifiedRGB's native shim. Its native
    ABI/pipe test passed, but the installed Wallpaper Engine loader checks both
    Authenticode trust and publisher Razer USA Ltd.; metadata cannot satisfy that.
@@ -131,20 +141,34 @@ Govee v1.1-office.0.1.0 remains the verified rollback baseline, not overall comp
    while the mouse samples its static lower-right region. No physical appearance
    or new source-switch acceptance is inferred from those software counters.
    Retained evidence: office-validation/ambience-candidate-20261104.json.
-   External acceptance input requested: physical six-device appearance, LG app
-   maximize/restore and actual wallpaper replacement. Other-monitor isolation,
-   fullscreen/minimize/close and retained-colour transitions still need current
-   acceptance. No desktop control is authorized, so those UI actions remain with
-   the user. Final release stays dependent on that acceptance, not implied complete.
-   Parking condition: all currently available backend checks have completed. The
-   exact unmet A1/A2 criteria require the user's physical observations and manual
-   source changes under the no-desktop-control constraint. Resume this earliest
-   stage when those observations arrive; do not activate final delivery before it.
+   User acceptance received 2026-11-04: all six follow the soft wallpaper with
+   consistent colours; LG maximize/restore plus wallpaper replacement "all works".
+   Final combined-case check: the user confirms maximizing on the laptop has no
+   effect and explicitly accepts the result as stable enough, with any later
+   quirks to be reported. This closes current physical acceptance without another
+   desktop takeover or repeated test ceremony. No remaining stage blockers or
+   tracked deferrals. The final release remains separate and is not yet delivered.
    Native probe scratch D:/Temp/openrgb-wgc-native-20261104 was removed after its
    last use: transaction 579efa625a090532b1642530164665f1 APPLIED, 4,026,031 bytes.
-3. Final delivery — NOT STARTED (D1).
+3. Final delivery — ACTIVE (D1).
    Requires stages 1 and 2 complete. Package/publish/download/install readback and
    final reconciliation close this stage; the overall request stays active until then.
+4. SignalRGB retirement — NOT STARTED.
+   Preserve current settings/plugins and pairing recovery, use supported silent
+   uninstall where available, verify application/service state and the continuing
+   six-device OpenRGB ambience. No unrelated app removal or desktop takeover.
+5. EDAmbilight interface reconstruction — NOT STARTED.
+   Inspect the actual shipped interface/engine through REA and establish a bounded
+   authoritative UI specification. Recreate the applicable control surface around
+   the existing native backend, including all six devices and the required LG
+   wallpaper/app policy. Keep current lighting running during analysis. This
+   outcome requires its own verified integrated release.
+6. Monthly upstream maintenance — NOT STARTED.
+   User requested this after the system/interface work is good and done. Schedule
+   a monthly check of the OpenRGB and krojew/OpenRGB-Ambient upstreams, merge and
+   verify compatible changes in the maintained forks, remain quiet when unchanged,
+   and report conflicts or failing checks. Preserve active lighting and do not
+   introduce an unattended desktop takeover or simultaneous device writer.
 
 The former LG built-in LED investigation remains parked; Govee is the installed
 monitor-lighting alternative. The unrelated VLC screenshots belong to another chat.

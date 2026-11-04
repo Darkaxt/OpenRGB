@@ -8,13 +8,17 @@ import json
 import subprocess
 import zipfile
 from pathlib import Path
+from govee_trial import detector_inventory
+from office_devices import DETECTORS
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--archive', type=Path, required=True)
     parser.add_argument('--sha256', required=True)
-    parser.add_argument('--detectors', type=Path, required=True)
+    parser.add_argument('--plugin-archive', type=Path, required=True)
+    parser.add_argument('--plugin-receipt', type=Path, required=True)
+    parser.add_argument('--ambient-source', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[2]
@@ -34,20 +38,47 @@ def main():
     source = git('rev-parse', 'HEAD')
     changed = git('diff', '--name-only', native_source, source).splitlines()
     for name in changed:
-        if not (name.startswith('scripts/office/') or name in (
-            'office-govee-specification.md', '.github/workflows/office-windows.yml')):
+        if not (name.startswith(('scripts/office/','office-validation/')) or name in (
+            'office-govee-specification.md', 'office-integration-specification.md', '.github/workflows/office-windows.yml')):
             raise RuntimeError(f'Native source changed after compilation: {name}')
+    receipt = json.loads(args.plugin_receipt.read_text())
+    plugin_digest = hashlib.sha256(args.plugin_archive.read_bytes()).hexdigest()
+    if plugin_digest != receipt['sha256']:
+        raise RuntimeError('Plugin archive digest mismatch')
+    ambient_commit = subprocess.check_output(['git','-C',str(args.ambient_source),'rev-parse','HEAD'],text=True).strip()
+    if ambient_commit != receipt['source'] or subprocess.check_output(['git','-C',str(args.ambient_source),'status','--porcelain'],text=True).strip():
+        raise RuntimeError('Ambient source differs from the verified clean build')
+    with zipfile.ZipFile(args.plugin_archive) as plugin:
+        provenance = json.loads(plugin.read('office-plugin-build.json').decode('utf-8-sig'))
+        dll = plugin.read('openrgb_ambient.dll')
+    if provenance['openrgb'] != native_source or provenance['source'] != ambient_commit or provenance['qt'] != '6.8.3':
+        raise RuntimeError('Plugin/native ABI provenance differs')
+    members['plugins/openrgb_ambient.dll'] = dll
+    plugin_manifest = dict(provenance,sha256=hashlib.sha256(dll).hexdigest().upper(),archiveSha256=plugin_digest,ci=receipt['run'])
+    members['plugins/installed-plugin.json'] = json.dumps(plugin_manifest,indent=2).encode()
     members = {name: data for name, data in members.items() if not name.startswith('office/')}
     for name in git('ls-files', 'scripts/office').splitlines():
         members['office/' + Path(name).name] = (root / name).read_bytes()
-    detectors = json.loads(args.detectors.read_text(encoding='utf-8-sig'))
-    if [name for name, enabled in detectors.items() if enabled] != ['Govee']:
-        raise ValueError('Expected verified Govee-only runtime detector inventory')
+    members['office/AMBIENCE.md'] = (args.ambient_source/'OFFICE.md').read_bytes()
+    members['office/ambient-upstream-README.md'] = (args.ambient_source/'README.md').read_bytes()
+    detectors = detector_inventory(root)
+    if not DETECTORS <= detectors.keys():
+        raise ValueError('Required office detector registration missing')
+    detectors = {name:name in DETECTORS for name in detectors}
     members['office/detectors.json'] = json.dumps(detectors, indent=2).encode()
     members['office-govee-specification.md'] = (root / 'office-govee-specification.md').read_bytes()
+    members['office-integration-specification.md'] = (root / 'office-integration-specification.md').read_bytes()
+    for name in git('ls-files','office-validation').splitlines():
+        members[name] = (root/name).read_bytes()
     build.update(source=source, nativeSource=native_source, compiledArtifactSha256=actual,
-                 verificationRun=41729321503)
+                 verificationRun=41752570205,ambientSource=ambient_commit,ambientArchiveSha256=plugin_digest,
+                 ambientVerificationRun=receipt['run'])
     members['office-build.json'] = json.dumps(build, indent=2).encode()
+    # Exact allow-list excludes private state, pairing credentials, captures and
+    # temporary analysis. The native artifact and tracked public scripts/docs
+    # are the only package inputs.
+    if any(name.startswith(('state/','runtime-temp/')) or name.endswith(('.bmp','.png')) for name in members):
+        raise RuntimeError('Unexpected runtime state or capture in release inputs')
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(args.output, 'x', compression=zipfile.ZIP_DEFLATED) as archive:
         for name, data in sorted(members.items()):
