@@ -62,6 +62,9 @@ def main():
     members['Qt6Network.dll'] = network
     members['platforms/qoffscreen.dll'] = offscreen
     members['LICENSE-EDAmbilight-MIT.txt'] = (args.ambient_source/'LICENSE-EDAmbilight-MIT.txt').read_bytes()
+    for name in ('LICENSE-Material-Symbols.txt','LICENSE-Orbitron.txt','LICENSE-Rajdhani.txt'):
+        members[name]=(args.ambient_source/'assets/office'/name).read_bytes()
+    members['office-font-provenance.json']=(args.ambient_source/'assets/office/provenance.json').read_bytes()
     preview_names = subprocess.check_output(['git','-C',str(args.ambient_source),'ls-files','third_party/ed-preview'],text=True).splitlines()
     for name in preview_names:
         members['preview/'+str(Path(name).relative_to('third_party/ed-preview')).replace('\\','/')] = (args.ambient_source/name).read_bytes()

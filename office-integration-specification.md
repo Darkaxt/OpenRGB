@@ -342,8 +342,16 @@ none of the experimental map changes and is waiting for the revised editor.
    navigation, card treatments or control styling. This internal advancement
    blocker is resolved only by reference-led implementation and matching-page
    rendered verification; release cannot complete before that verification.
-   The current user-limited work is the comparison/checklist and asset recovery,
-   before further UI edits. Preserve the functional evidence and private map.
+   The comparison/checklist and asset recovery are completed. The user's "Go
+   ahead and fix them" explicitly authorizes implementation of the recorded
+   differences. Preserve the functional evidence and private map. Current plan
+   within this single ACTIVE stage: implement the shared original fonts/icons,
+   shell and rendered controls; rebuild corresponding Control/Topology/Devices/
+   Settings views and relevant preview/help/loading states; integrate and verify
+   actual native renderings, UI interactions and unchanged live-owner behavior;
+   reconcile each checklist item before closing the stage. These are work items
+   inside stage 8, not concurrent implementation stages. Stage 9 owns final
+   versioned packaging/publication and independent delivery verification.
    Retained evidence is under D:/Tools/OpenRGB/validation/20261104/gui-0.4.0.
    The private map is preserved. Exact spent
    D:/Temp/openrgb-gui-parity-20261104 and E:/Temp/openrgb-gui-parity-20261104

@@ -44,6 +44,7 @@ def private_keys(value):
 for name,data in members.items():
     if name.endswith('.json'): private_keys(json.loads(data))
 assert all(name in members for name in ('office/AMBIENCE.md','office/Start-Office.ps1','office/Stop-Office.ps1','office/Open-Office-Control.ps1','LICENSE','LICENSE-EDAmbilight-MIT.txt'))
+assert all(name in members for name in ('LICENSE-Material-Symbols.txt','LICENSE-Orbitron.txt','LICENSE-Rajdhani.txt','office-font-provenance.json'))
 
 # Corrupt only the plugin's expected digest. The installer must reject the
 # package before creating the destination or extracting any native executable.
