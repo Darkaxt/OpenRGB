@@ -446,17 +446,23 @@ outlines and one group boundary. Keep enable checkboxes independent of selection
     Save/reload preserved the selected laptop group and restored the original
     private map/configuration hashes. Normal and 150% rendered views inspected.
     Evidence: office-validation/gui-0.6.0.md. No feature blocker/deferral remains.
-11. ACTIVE — Integrated 0.6.0 delivery. Depends on stage 10; publish normal
+11. COMPLETE — Integrated 0.6.0 delivery. Depends on stage 10; publish normal
     verified package, independently retrieve/hash/read back, activate installed
     launcher without disturbing an unsaved panel, and clean exact scratch.
     Existing native capture/runtime remains unchanged; 0.5.0 is rollback.
     GitHub run 41876936394 completed successfully after delayed runner
     finalization. The original managed watch observed completion; diagnostics
     and the normal verified-CI download match the same immutable artifact.
-    Final package publication, independent retrieval and installed panel/shortcut
-    verification remain in this ACTIVE delivery stage. The unchanged 0.5.0
-    lighting owner may keep running while the installed 0.6.0 panel is updated;
-    do not restart lighting solely for this GUI revision.
+    Normal release v1.1-office.0.6.0 is published at Core a00488e41f9. The
+    independently downloaded ZIP matches checksum and GitHub digest; all 102
+    members were read back. Installed 0.6.0 panel and desktop shortcut verified;
+    actual installed view export has six devices, live LG preview and no error.
+    Native 0.5.0 owner PID 98884 was retained without restarting lighting; actual
+    six-device output remains approximately 15 FPS. Private maps/configuration
+    were restored exactly before opening the new interactive panel. The exact
+    E:/Temp/openrgb-multiselect-20261104 scratch root was transactionally removed
+    after all consumers exited (739,468,288 bytes). No blocker or deferral remains.
+    Evidence: office-validation/gui-release-0.6.0-20261104.json.
 New disposable work: E:/Temp/openrgb-integration-20261104. Native build scratch,
 if required, uses D:/Temp/openrgb-integration-build-20261104 for I/O; prefer hosted
 compilation to avoid host load. Keep runtime state separate under D:/Tools/OpenRGB.

@@ -1,6 +1,6 @@
 # Device-focused topology and group movement
 
-Feature acceptance COMPLETE; delivery ACTIVE.
+Feature acceptance COMPLETE; delivery COMPLETE.
 
 Ambient source `f4a9881c9d773ea736ac7532ef82b8dc2ff96be1` implements the existing
 editor's multi-zone selection and visibility. No capture, sampling or hardware
@@ -51,7 +51,31 @@ exit 0; `ci-success.log` records passing capture, lifecycle, layout, production
 widget and control checks. The normal verified-CI downloader then validated
 the successful completed run, exact source and immutable artifact digest. It
 matches the artifact already exercised locally. No duplicate CI run or fabricated
-success receipt was used. Final packaging/publication remains ACTIVE.
+success receipt was used.
+
+Normal release [v1.1-office.0.6.0](https://github.com/Darkaxt/OpenRGB/releases/tag/v1.1-office.0.6.0)
+targets Core `a00488e41f9e9c84a27498a129d1597ca2cc0e9d`. Published ZIP SHA-256
+`41a5c34965feaa6ea2080591c46e8b0308d0d4c86ee43cc80b1ac0f42789b968`
+matches independent download, checksum file and GitHub asset digest. Independent
+extraction read back all 102 members. Installed 0.6.0 panel PID 36676 and desktop
+shortcut point to the versioned install. The installed native view export passed
+with actual LG preview and all six retained maps; it was read-only, so its Save
+flags are false rather than duplicating the already-passing exact-binary Save
+test. Actual output observation recorded six online devices at 15.091 FPS.
+
+The working 0.5.0 native owner PID 98884 was intentionally retained: no lighting
+restart was needed for this GUI-only update. The 0.6.0 installed panel works with
+that unchanged authenticated control protocol. Private hashes were verified
+unchanged after the Save check and again before opening the interactive panel;
+later user edits are independent. Published 0.5.0 remains available for rollback.
+
+`delivery-receipt.json`, `installed-owner.json`, `installed-views` and
+`cleanup-applied.json` are retained beside the other local evidence. Exact spent
+`E:/Temp/openrgb-multiselect-20261104` was transactionally deleted after consumer
+exit: 274 members, 739,468,288 bytes, no exclusions/errors/residuals. No temporary
+consumer remains. All T1–T5 and delivery requirements are satisfied; no blocker
+or tracked deferral remains. This closing evidence commit does not alter the
+verified immutable package/source tag.
 
 Scoped design-debt assessment: selection target ownership is centralized in
 MapCanvas::targets; view filtering, tree selection, save restoration and actual
