@@ -450,11 +450,13 @@ outlines and one group boundary. Keep enable checkboxes independent of selection
     verified package, independently retrieve/hash/read back, activate installed
     launcher without disturbing an unsaved panel, and clean exact scratch.
     Existing native capture/runtime remains unchanged; 0.5.0 is rollback.
-    Current delivery blocker: GitHub run 41876936394 reports in_progress with
-    no conclusion although all job steps succeeded and the artifact finalized.
-    External runner finalization must complete before the normal verified-CI
-    packaging/publication gate; preserve the original managed watch. Diagnostics
-    used the digest-verified artifact without fabricating a successful-CI receipt.
+    GitHub run 41876936394 completed successfully after delayed runner
+    finalization. The original managed watch observed completion; diagnostics
+    and the normal verified-CI download match the same immutable artifact.
+    Final package publication, independent retrieval and installed panel/shortcut
+    verification remain in this ACTIVE delivery stage. The unchanged 0.5.0
+    lighting owner may keep running while the installed 0.6.0 panel is updated;
+    do not restart lighting solely for this GUI revision.
 New disposable work: E:/Temp/openrgb-integration-20261104. Native build scratch,
 if required, uses D:/Temp/openrgb-integration-build-20261104 for I/O; prefer hosted
 compilation to avoid host load. Keep runtime state separate under D:/Tools/OpenRGB.

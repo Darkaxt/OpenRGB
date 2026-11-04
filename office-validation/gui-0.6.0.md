@@ -42,9 +42,16 @@ Artifact `13347841390`, run `41876936394`, matches GitHub digest
 Its compiled production widget tests passed locally. All CI steps succeeded,
 but the job remains in_progress without a conclusion at this checkpoint.
 No successful-CI receipt has been synthesized; normal final download/packaging
-and publication remain blocked on external run finalization. The original
-run/watch is retained. Feature stage closure is based on inspected native local
+and publication remained blocked on external run finalization at that checkpoint.
+The original run/watch was retained. Feature stage closure is based on inspected native local
 acceptance; it does not claim completed CI or a delivered 0.6.0 release.
+
+The same run subsequently completed successfully. The original watch returned
+exit 0; `ci-success.log` records passing capture, lifecycle, layout, production
+widget and control checks. The normal verified-CI downloader then validated
+the successful completed run, exact source and immutable artifact digest. It
+matches the artifact already exercised locally. No duplicate CI run or fabricated
+success receipt was used. Final packaging/publication remains ACTIVE.
 
 Scoped design-debt assessment: selection target ownership is centralized in
 MapCanvas::targets; view filtering, tree selection, save restoration and actual
