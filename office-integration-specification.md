@@ -463,6 +463,25 @@ outlines and one group boundary. Keep enable checkboxes independent of selection
     E:/Temp/openrgb-multiselect-20261104 scratch root was transactionally removed
     after all consumers exited (739,468,288 bytes). No blocker or deferral remains.
     Evidence: office-validation/gui-release-0.6.0-20261104.json.
-New disposable work: E:/Temp/openrgb-integration-20261104. Native build scratch,
+## Inverted placement grid (2026-11-04)
+
+The placement grid must invert the image pixels beneath its lines, so it remains
+visible across bright and dark wallpaper. Invert intersections once, keep lines
+crisp at normal/high DPI, and leave non-grid pixels, selection colours, handles,
+spacing, snapping and saved maps unchanged. Show grid off removes the overlay.
+
+12. COMPLETE — Production canvas pixel checks verify exact RGB inversion on
+    light/dark inputs, single inversion at crossings, unchanged non-grid pixels,
+    Show grid off, selection handles and saved maps at 100%/150%/200% rendering.
+    Hosted Windows run 41883193147 passed; its exact production widgets also
+    passed locally with 150% Qt scaling. Connected normal/high-DPI exports show
+    actual LG content and six controllers. No feature blocker/deferral remains.
+13. ACTIVE — Deliver verified 0.6.1 package through the normal release channel,
+    independently retrieve/read back it, update the installed launcher and clean
+    exact scratch. Preserve the user's open mapping draft and running lighting.
+
+New disposable work: E:/Temp/openrgb-inverted-grid-20261104. No native host build
+scratch is needed; compilation uses the existing hosted Windows workflow.
+Earlier integration input: E:/Temp/openrgb-integration-20261104. Native build scratch,
 if required, uses D:/Temp/openrgb-integration-build-20261104 for I/O; prefer hosted
 compilation to avoid host load. Keep runtime state separate under D:/Tools/OpenRGB.
