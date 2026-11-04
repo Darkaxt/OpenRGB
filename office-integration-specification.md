@@ -556,18 +556,26 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     readiness; it did not affect restoration or native output. No feature
     blocker/deferral remains. Closure assessment: the shared 1-pixel GPU pass
     avoids per-LED detection; no required architectural consolidation remains.
-16. ACTIVE — Responsive-preview 0.7.0 release, independent download/readback, native owner/
+16. COMPLETE — Responsive-preview 0.7.0 release, independent download/readback, native owner/
     panel activation and readback. Retire obsolete release directories only after
     consumers/path bindings are migrated, preserve live drafts, and clean scratch.
     This delivery follows stages 14, 15, 17 and 18: the urgent performance correction
     and screensaver/rest policy take implementation priority, but do not authorize
     dropping the previously requested media-border resilience from final delivery.
-    Stage 18 has passed; final delivery resumes. An earlier unpublished local
-    0.7.0 package is superseded by the verified static-work candidate. Retire that
-    package/root after consumer migration, then publish and independently verify
-    the combined final artifact. Obsolete 0.5.0/0.6.1 and previous temporary
-    candidates were transactionally removed. Final publication, installed
-    readback and remaining exact scratch/candidate cleanup are still required.
+    Normal release v1.1-office.0.7.0 was published at Core a9628e6fdeba6c0cfa08883615de5c7835388b49
+    with Ambient cf06cbb7a7e5ed8e16176cf18bb2c9b80495c40a. Independent published
+    ZIP/checksum download, GitHub asset digest, tag/source readback and every one
+    of 107 installed payload members passed verification. SHA-256:
+    c750022ce3c8f512f43152c9287f69325b50d0187758dcf3a74727772809392e.
+    The official owner and panel run from releases/1.1-office.0.7.0, the desktop
+    shortcut points there, six controllers/314 LEDs are online and the final map
+    hash is unchanged. Superseded unpublished 0.7.0 package/root and final test
+    candidate were transactionally removed after consumer migration. Earlier
+    obsolete 0.5.0/0.6.1 folders are gone; only current 0.7.0 remains in releases.
+    All 332 members of this stage's E scratch and the two spent native CI inputs
+    were transactionally removed after required receipts/evidence were retained.
+    No blocker or tracked deferral remains. Final reconciliation reuses the
+    stage-14/15/17/18 closure assessments: no required consolidation is missing.
 
 17. COMPLETE — Screensaver capture and automatic rest (user request 2026-11-04).
     The configured LG screensaver takes capture priority while active. Windows
@@ -639,10 +647,13 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     blocker or deferral remains. Closure assessment: existing capture/device
     ownership suffices; no new service or architectural consolidation is needed.
 
-Current disposable work: E:/Temp/openrgb-grey-context-20261104. Hosted Windows builds;
-no native host build tree. Persistent verification: D:/Tools/OpenRGB/validation/20261104/gui-0.7.0.
+Completed disposable work: E:/Temp/openrgb-grey-context-20261104 was transactionally
+removed after final release verification. Hosted Windows builds; no native host
+build tree. Persistent verification: D:/Tools/OpenRGB/validation/20261104/gui-0.7.0.
 Earlier disposable work: E:/Temp/openrgb-inverted-grid-20261104 was removed. No native host build
 scratch is needed; compilation uses the existing hosted Windows workflow.
-Earlier integration input: E:/Temp/openrgb-integration-20261104. Native build scratch,
+The exact spent native-82f150a2.zip/receipt inputs under the earlier
+E:/Temp/openrgb-integration-20261104 were removed; other pre-existing investigation
+material in that legacy directory was outside this cleanup. Native build scratch,
 if required, uses D:/Temp/openrgb-integration-build-20261104 for I/O; prefer hosted
 compilation to avoid host load. Keep runtime state separate under D:/Tools/OpenRGB.

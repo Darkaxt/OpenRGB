@@ -121,4 +121,32 @@ conservative cadence observed reliable in the static test, not a measured minimu
 refresh requirement; these UDP refreshes are excluded from owner submission
 counters. Native APIs still send a full device frame when the hardware protocol
 requires it. Normal/150% installed exports verify separate clock/device-update
-labels without changing the saved topology. Final delivery remains in stage 16.
+labels without changing the saved topology.
+
+## Published delivery and installed readback
+
+Normal release [v1.1-office.0.7.0](https://github.com/Darkaxt/OpenRGB/releases/tag/v1.1-office.0.7.0)
+was published from Core a9628e6fdeba6c0cfa08883615de5c7835388b49 and Ambient
+cf06cbb7a7e5ed8e16176cf18bb2c9b80495c40a after the combined production checks.
+The published Windows x64 ZIP was independently downloaded, checked against its
+published checksum and GitHub digest, and all 107 payload members matched the
+installed release. SHA-256:
+`c750022ce3c8f512f43152c9287f69325b50d0187758dcf3a74727772809392e`.
+The tag resolves to the expected source commit and the release is neither draft
+nor prerelease. Corrupt plugin/panel negative installer checks also passed.
+
+The installed owner and panel run from `D:/Tools/OpenRGB/releases/1.1-office.0.7.0`;
+the desktop shortcut was migrated and read back. All six controllers/314 LEDs
+are online with fresh wallpaper capture and the original saved-map hash. The
+published payload contains the exact tested Ambient DLL and panel. Delivery
+receipt, CI artifact receipts and sanitized owner evidence are retained beside
+the performance observations in the validation directory.
+
+After native consumers exited and bindings migrated, exact signed cleanup
+tickets removed the superseded unpublished package/root (139,363,791 bytes),
+final static candidate (85,734,528 bytes), stage scratch (2,025,444,419 bytes) and
+spent native build input/receipt (48,013,924 bytes). Earlier obsolete versions and
+candidates had already been removed; only current 0.7.0 remains in `releases`.
+Published recovery packages and live private state remain intact. The older
+integration investigation directory was not swept. All requested stages are
+complete; no required blocker or tracked deferral remains.
