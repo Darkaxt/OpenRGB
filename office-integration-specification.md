@@ -80,7 +80,7 @@ Govee v1.1-office.0.1.0 remains the verified rollback baseline, not overall comp
    960-byte profile response is unchanged after real Direct streaming.
    Retained sanitized evidence: office-validation/device-integration-20261104.json.
    No remaining blockers or tracked deferrals for this stage.
-2. Main-monitor ambience — ACTIVE (A1-A3).
+2. Main-monitor ambience — BLOCKED (A1-A3; external physical/UI acceptance input).
    Stage 1's integrated device set is available. Capture/source switching, temporal
    smoothing, wallpaper refresh, layout and real end-to-end acceptance remain required.
    Selected engine: https://github.com/Darkaxt/OpenRGB-Ambient, canonical checkout
@@ -136,6 +136,10 @@ Govee v1.1-office.0.1.0 remains the verified rollback baseline, not overall comp
    fullscreen/minimize/close and retained-colour transitions still need current
    acceptance. No desktop control is authorized, so those UI actions remain with
    the user. Final release stays dependent on that acceptance, not implied complete.
+   Parking condition: all currently available backend checks have completed. The
+   exact unmet A1/A2 criteria require the user's physical observations and manual
+   source changes under the no-desktop-control constraint. Resume this earliest
+   stage when those observations arrive; do not activate final delivery before it.
    Native probe scratch D:/Temp/openrgb-wgc-native-20261104 was removed after its
    last use: transaction 579efa625a090532b1642530164665f1 APPLIED, 4,026,031 bytes.
 3. Final delivery — NOT STARTED (D1).
