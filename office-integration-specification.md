@@ -293,17 +293,21 @@ none of the experimental map changes and is waiting for the revised editor.
    Verify actual widget mouse paths and native GPU/output settings, plus rendered
    small/normal/large and high-DPI views. Blur must affect sampled RGB, including
    retained static frames, and the mapping view must show its sampling footprint.
-   Verified source f5e81ea: hosted CI 41821574369 passes production GPU sampling,
+   Verified source 8602878: hosted CI 41829071697 passes production GPU sampling,
    mouse resize/cancel/undo/stepper, layout, lifecycle and IPC checks. The candidate
-   is activated from D:/Temp/openrgb-gui-parity-20261104/stage7, owner PID 98872,
-   using unchanged private state. Six controllers are online. External acceptance
+   uses unchanged private state. Five of six saved controllers are currently
+   online; the unavailable identity retains its map. External acceptance
    blocker: Wallpaper Engine's renderer is not running and native source discovery
-   finds no eligible wallpaper or maximized LG window; no live input/output frames.
+   finds no eligible wallpaper or maximized LG window; Windows also reports
+   display standby. Standby output is not evidence of captured image updates.
    The offscreen export (process 105508, shell session 31049) was explicitly
    cancelled after this concrete unavailable-source result; it did not produce
    valid live-preview/save evidence. Resolution: restore an eligible LG source,
    then run connected render/save and native processing acceptance checks. The
    user has been asked about KVM/session state. No completion/release is claimed.
+   Subsequent unavailable-source exports verify all six UI pages at three sizes
+   and a reversible real Save-button name edit; they explicitly report
+   actual_preview=false and do not close the live-source acceptance criterion.
    Stage 8's additional UI/system paths depend on the compiled control interfaces,
    which passed; they do not depend on the currently absent wallpaper renderer.
 8. ACTIVE — Complete screenshot feature reconciliation. Acceptance:
