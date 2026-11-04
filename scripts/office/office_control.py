@@ -45,10 +45,35 @@ class Control:
         info=json.loads((Path(state)/'office-control.json').read_text(encoding='utf-8-sig'))
         if info['protocol']!=1: raise ValueError('Incompatible owner protocol')
         self.token=info['token']; self.serial=0; self.pending=b''
+        self.state=Path(state);self.owner_pid=info['pid']
         self.handle=kernel.CreateFileW('\\\\.\\pipe\\'+info['endpoint'],0xc0000000,0,None,3,0,None)
         if self.handle==C.c_void_p(-1).value: raise C.WinError(C.get_last_error())
     def __enter__(self): return self
     def __exit__(self,*args): kernel.CloseHandle(self.handle)
+    def preview(self):
+        """Await asynchronous preview publication, driven by native status writes or owner exit."""
+        from runtime_control import owned_process
+        native,process=owned_process(self.owner_pid,self.state)
+        native.FindFirstChangeNotificationW.argtypes=[W.LPCWSTR,W.BOOL,W.DWORD]
+        native.FindFirstChangeNotificationW.restype=W.HANDLE
+        native.FindNextChangeNotification.argtypes=[W.HANDLE]
+        native.FindCloseChangeNotification.argtypes=[W.HANDLE]
+        native.WaitForMultipleObjects.argtypes=[W.DWORD,C.POINTER(W.HANDLE),W.BOOL,W.DWORD]
+        notification=native.FindFirstChangeNotificationW(str(self.state),False,0x1b)
+        if notification==C.c_void_p(-1).value:
+            native.CloseHandle(process);raise C.WinError(C.get_last_error())
+        handles=(W.HANDLE*2)(process,notification)
+        try:
+            while True:
+                value=self.call('snapshot',preview=True)
+                if value.get('preview_png'):return value
+                if value.get('preview_error'):raise RuntimeError(value['preview_error'])
+                result=native.WaitForMultipleObjects(2,handles,False,0xffffffff)
+                if result==0:raise RuntimeError('Owner exited before preview publication')
+                if result!=1:raise C.WinError(C.get_last_error())
+                if not native.FindNextChangeNotification(notification):raise C.WinError(C.get_last_error())
+        finally:
+            native.FindCloseChangeNotification(notification);native.CloseHandle(process)
     def call(self,command,**arguments):
         self.serial+=1
         packet=(json.dumps(dict(arguments,command=command,id=self.serial,token=self.token))+'\n').encode()

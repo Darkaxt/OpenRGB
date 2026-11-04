@@ -499,7 +499,52 @@ matching snap positions independently of viewport size, DPI and zoom.
     after all temporary consumers exited. No feature/delivery blocker or deferral
     remains. Evidence: office-validation/gui-release-0.6.1-20261104.json.
 
-New disposable work: E:/Temp/openrgb-inverted-grid-20261104. No native host build
+## Readable topology and media-aware sampling (2026-11-04)
+
+The user has saved the final topology: preserve its exact regions, names, indices
+and settings except explicit user edits. Unselected regions in All devices must
+use the selected-region line geometry/weight in visible neutral grey; selected
+regions remain cyan and render above context. Blur belongs beside the Preview,
+with a synchronized control beside Topology, using the existing saved blur value.
+The independent animation playground remains browser content captured through the
+existing maximized/fullscreen LG policy; do not add another RGB writer.
+
+Black-bar detection must conservatively identify credible media mattes, supported
+by common 4:3, 16:9, 16:10 and cinema ratios. Ratio alone must not crop; require
+consistent near-black borders and positive content evidence. Reject ordinary dark
+edges and retain legitimate black frames. Transform normalized sample coordinates
+without modifying the saved topology. Avoid repeating a whole detection per LED;
+keep image work on the GPU and verify common formats, dark-content rejection,
+format transitions and integrated sampling. Do not redesign unrelated algorithms.
+
+14. ACTIVE — Responsive panel preview, readable topology and shared Preview/Topology blur. Verify real
+    rendered grey/cyan outlines, overlap ordering, synchronized controls and saved
+    map preservation at normal/high DPI; clarify existing algorithms/playground.
+    User priority 2026-11-04: fix the audited output starvation before further
+    media-border implementation. Preview encoding must run outside the lighting
+    event thread and capture mutex, with one bounded/coalesced job and cached
+    generation-aware delivery. Hidden panels must stop image polling; unchanged
+    and metadata-only snapshots must avoid image transfer/decoding. Preserve
+    retained static frames, source changes, valid black, saved maps and shutdown.
+    Prevent duplicate panel instances. Verify actual 15 FPS output with visible
+    Preview and hidden panel, plus native worker/lifecycle regression checks.
+    Immediate user-requested obsolete-release retirement is part of this stage:
+    five duplicate panels exited normally; six unused release directories were
+    transactionally removed (487,069,805 bytes); current 0.5.0 owner and 0.6.1
+    panel remain until replacement. Private saved state hashes are unchanged.
+15. NOT STARTED — Conservative media-border detection integrated with native GPU
+    sampling. Verify format/content evidence, transitions, valid black and actual
+    runtime sampling/performance with the final saved topology retained.
+16. NOT STARTED — Responsive-preview 0.7.0 release, independent download/readback, native owner/
+    panel activation and readback. Retire obsolete release directories only after
+    consumers/path bindings are migrated, preserve live drafts, and clean scratch.
+    This delivery follows stage 14 for the user's urgent performance correction.
+    Stage 15 remains separately outstanding and is not represented as delivered
+    by the performance release; its requirements are retained unchanged.
+
+Current disposable work: E:/Temp/openrgb-grey-context-20261104. Hosted Windows builds;
+no native host build tree. Persistent verification: D:/Tools/OpenRGB/validation/20261104/gui-0.7.0.
+Earlier disposable work: E:/Temp/openrgb-inverted-grid-20261104 was removed. No native host build
 scratch is needed; compilation uses the existing hosted Windows workflow.
 Earlier integration input: E:/Temp/openrgb-integration-20261104. Native build scratch,
 if required, uses D:/Temp/openrgb-integration-build-20261104 for I/O; prefer hosted

@@ -25,7 +25,7 @@ def main():
     p.add_argument('phase',choices=['prepare','restore','observe','exercise'])
     a=p.parse_args()
     with Control(a.state) as client:
-        snapshot=client.call('snapshot',preview=True)
+        snapshot=client.preview()
         assert len(snapshot['layout'])==6 and sum(len(d['regions']) for d in snapshot['layout'])==314
         assert {d['id'] for d in snapshot['layout']}=={'H6609','H8048','Keychron','Legion','Secretlab','Logitech'}
         for device in snapshot['layout']:
