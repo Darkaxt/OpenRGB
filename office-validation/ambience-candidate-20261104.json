@@ -1,0 +1,66 @@
+{
+  "status": "ACTIVE; physical source-switch acceptance and final release remain pending",
+  "native_source": "82f150a276a800c01b6a5aed1de71520b9d138b4",
+  "native_ci": 41752570205,
+  "plugin_source": "ec36299f4a6b4dc16ff0138b49820410a4895c2e",
+  "plugin_ci": 41755069942,
+  "plugin_sha256": "1a5baed1b4cc8d62f77e33ec27db6b4e37c2d0785622677a766f32d08c388c54",
+  "capture": "WGC Progman LG crop, floating window excluded in inspected native probe image",
+  "shader_regression": "production D3D11 WARP check passed: monitor crop, region average, RGB ordering, genuine black",
+  "controllers": {
+    "Logitech": {
+      "leds": 8,
+      "distinct_observed_color_rows": 1,
+      "nonblack_in_all_observations": true
+    },
+    "Keychron": {
+      "leds": 109,
+      "distinct_observed_color_rows": 25,
+      "nonblack_in_all_observations": true
+    },
+    "Legion": {
+      "leds": 109,
+      "distinct_observed_color_rows": 29,
+      "nonblack_in_all_observations": true
+    },
+    "H6609": {
+      "leds": 20,
+      "distinct_observed_color_rows": 21,
+      "nonblack_in_all_observations": true
+    },
+    "H8048": {
+      "leds": 20,
+      "distinct_observed_color_rows": 24,
+      "nonblack_in_all_observations": true
+    },
+    "Secretlab": {
+      "leds": 48,
+      "distinct_observed_color_rows": 11,
+      "nonblack_in_all_observations": true
+    }
+  },
+  "duration_seconds": 30.43738229999144,
+  "observed_output_fps": 15.211557795498406,
+  "total_cpu_percent": 0.16844264314416557,
+  "working_set_mib": 71.93359375,
+  "private_mib": 122.828125,
+  "gpu_3d_percent_two_pdh_samples": [
+    0.79,
+    0.91
+  ],
+  "gpu_processing_ms_median": 0.4269,
+  "gpu_processing_ms_max": 15.2023,
+  "callback_to_native_submit_ms_median": 24.613,
+  "callback_to_native_submit_ms_max": 61.189,
+  "first_wallpaper_frame_ms": 480.6248,
+  "latency_boundary": "callback completion to native controller submission; not photon or hardware acknowledgment latency",
+  "visible_window_created": false,
+  "pending": [
+    "physical six-device wallpaper confirmation",
+    "LG maximized/fullscreen and restore/minimize/close transitions",
+    "other-monitor isolation during maximization",
+    "prompt actual wallpaper replacement",
+    "final delivery"
+  ],
+  "raw_report_sha256": "205e426c3d0b63775d113de091bf8de295edce131f7d0e33f71b7fb592ae9dc8"
+}

@@ -32,8 +32,10 @@ Govee v1.1-office.0.1.0 remains the verified rollback baseline, not overall comp
   behind them. A maximized/fullscreen app on the LG takes priority; restoring,
   minimizing or closing it returns to wallpaper. An unobstructed LG desktop can use
   normal screen capture. Apps maximized only on another monitor do not take over.
-- A2: Use an existing public OpenRGB ambience plugin where it satisfies the behavior,
-  and reuse verified capture code where needed. Keep the last valid image during
+- A2: On 2026-11-04 the user selected krojew/OpenRGB-Ambient as the engine to wire
+  into OpenRGB after local comparison with EDAmbilight. Adapt that native plugin
+  and reuse verified capture code where needed. A separate custom debugging UI
+  was explicitly left for later and is outside this delivery. Keep the last valid image during
   source changes/capture failures until the new source produces a frame. Honour
   genuine dark content. Provide smooth colour adaptation and prompt wallpaper-change
   response; measure the complete capture-to-device path, including source transitions.
@@ -81,8 +83,61 @@ Govee v1.1-office.0.1.0 remains the verified rollback baseline, not overall comp
 2. Main-monitor ambience — ACTIVE (A1-A3).
    Stage 1's integrated device set is available. Capture/source switching, temporal
    smoothing, wallpaper refresh, layout and real end-to-end acceptance remain required.
-   Next: inspect the public OpenRGB ambience plugins and the existing proven
-   capture/source-selection implementation before selecting the smallest integration.
+   Selected engine: https://github.com/Darkaxt/OpenRGB-Ambient, canonical checkout
+   D:/Projects/OpenRGB-Ambient, branch codex/office-ambience, upstream 778fdcbf8a9e20ccb41dbd7e597d361f294c69de.
+   EDAmbilight repository b497e19a29adaa0666b74c89a03a7b82d7b2c922 contains docs;
+   its verified v1.2.0 release includes readable HTML/JS and embedded Python 3.12
+   bytecode (capture/ambilight/OpenRGB modules), rather than original engine sources.
+   Nonexecuting REA inventory and official PyInstaller archive listing are retained
+   at D:/Tools/OpenRGB/validation/20261104. EDEvent2Led is the same author's game
+   event controller and explicitly documents binary-only distribution.
+   Next: integrate native plugin loading without a desktop window, the LG source
+   policy, physical sampling map, retained frames and timing diagnostics; then
+   verify the complete source-to-six-controller workflow and wallpaper replacement.
+   Source selection investigation, 2026-11-04: user clarified that the unresolved
+   case is wallpaper hidden by ordinary windows. Unobstructed/maximized native
+   capture already supplies the standard behavior. Evaluate Wallpaper Engine's
+   Chroma color output was evaluated using UnifiedRGB's native shim. Its native
+   ABI/pipe test passed, but the installed Wallpaper Engine loader checks both
+   Authenticode trust and publisher Razer USA Ltd.; metadata cannot satisfy that.
+   No validation bypass was attempted. The single pilot DLL, originally absent,
+   was removed through reviewed cleanup and the approved administrator broker.
+   Retained source/license and loader evidence: D:/Tools/OpenRGB/validation/20261104.
+   The user selected WGC next and explicitly ruled out composed-monitor DXGI as
+   a wallpaper fallback. Preserve the old BSRGB WorkerW/PrintWindow code unchanged.
+   WGC rejects the actual child renderer HWNDs with E_INVALIDARG; their visible
+   top-level Progman ancestor is capturable and its LG crop excludes the floating
+   app. Real 120-frame tests measured 18.55-27.52 FPS; the run with a floating
+   window covering one third of the LG delivered 18.55 FPS, 98 changing grids,
+   median GPU downscale/readback 0.55 ms, 41.86 MiB RAM and 0.091% host CPU.
+   Read-only captured BMP inspection showed animated wallpaper without the app.
+   User has no desktop icons, so visible-icon exclusion is not verified.
+   No source-to-physical-device latency claim follows from these capture probes.
+   Native host build: 82f150a2, CI 41752570205 SUCCESS. Ambient plugin candidate:
+   ec36299f4a6b4dc16ff0138b49820410a4895c2e, CI 41755069942 SUCCESS. Production
+   D3D11 shader regression passes selected-monitor crop, RGB ordering, regional
+   samples and genuine black. Both archives independently match GitHub SHA256;
+   the installed native executable and plugin members passed readback hashes.
+   Candidate activated without UI at D:/Tools/OpenRGB/releases/candidate-ambience-82f150a2,
+   PID 71804, private state D:/Tools/OpenRGB/state-integration. Previous PID 67736
+   exited normally with code 0. Its previous candidate remains a defined rollback
+   until the final release is accepted. No second lighting writer is running.
+   Real wallpaper-to-controller run observed 15.21 FPS over 30.44 seconds, 71.93 MiB
+   working set, 0.168% whole-machine CPU and two GPU 3D samples 0.79/0.91%.
+   Median GPU processing 0.43 ms; median callback-to-native-submit 24.61 ms,
+   max 61.19 ms. This is software submission latency, not physical LED acknowledgment.
+   First wallpaper frame 480.62 ms; no capture errors in the sustained sample.
+   All six SDK colour rows are nonblack; five changed during this wallpaper sample,
+   while the mouse samples its static lower-right region. No physical appearance
+   or new source-switch acceptance is inferred from those software counters.
+   Retained evidence: office-validation/ambience-candidate-20261104.json.
+   External acceptance input requested: physical six-device appearance, LG app
+   maximize/restore and actual wallpaper replacement. Other-monitor isolation,
+   fullscreen/minimize/close and retained-colour transitions still need current
+   acceptance. No desktop control is authorized, so those UI actions remain with
+   the user. Final release stays dependent on that acceptance, not implied complete.
+   Native probe scratch D:/Temp/openrgb-wgc-native-20261104 was removed after its
+   last use: transaction 579efa625a090532b1642530164665f1 APPLIED, 4,026,031 bytes.
 3. Final delivery — NOT STARTED (D1).
    Requires stages 1 and 2 complete. Package/publish/download/install readback and
    final reconciliation close this stage; the overall request stays active until then.

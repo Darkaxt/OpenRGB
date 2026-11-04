@@ -16,11 +16,12 @@ def metadata(path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run', type=int, required=True)
+    parser.add_argument('--repository', default='Darkaxt/OpenRGB')
     parser.add_argument('--source-commit', required=True)
     parser.add_argument('--artifact', default='OpenRGB-1.1-office.0.2.0-windows-x64')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    root = 'repos/Darkaxt/OpenRGB/actions'
+    root = f'repos/{args.repository}/actions'
     run = metadata(f'{root}/runs/{args.run}')
     if run['status'] != 'completed' or run['conclusion'] != 'success' or run['head_sha'] != args.source_commit:
         raise RuntimeError('CI is not a successful completed run of the requested source')

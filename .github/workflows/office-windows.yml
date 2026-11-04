@@ -2,7 +2,7 @@ name: Office integration Windows
 on:
   push:
     branches: [codex/govee-office]
-    paths-ignore: ['scripts/office/**', 'office-govee-specification.md', 'office-integration-specification.md', '.github/workflows/office-windows.yml']
+    paths-ignore: ['scripts/office/**', 'office-validation/**', 'office-govee-specification.md', 'office-integration-specification.md', '.github/workflows/office-windows.yml']
   workflow_dispatch:
     inputs:
       artifact-run:
