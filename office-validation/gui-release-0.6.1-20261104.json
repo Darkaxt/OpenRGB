@@ -1,0 +1,29 @@
+{
+  "version": "1.1-office.0.6.1",
+  "release": "https://github.com/Darkaxt/OpenRGB/releases/tag/v1.1-office.0.6.1",
+  "draft": false,
+  "prerelease": false,
+  "source": "b0b0906f9841785f17553f43263244b05d561614",
+  "ambient_source": "189588543e633c7bd1664e532a74b6c34ec15ccd",
+  "ambient_ci": 41886233498,
+  "package_sha256": "45900c443b0df02856a3996dfeca8d6db9dd0acdd8a6e39aab72b4662f593e83",
+  "independent_download_digest_verified": true,
+  "published_members_read_back": 104,
+  "installed_members_read_back": 104,
+  "installed_panel_window_verified": true,
+  "desktop_shortcut_verified": true,
+  "lighting_restarted": false,
+  "older_panel_drafts_preserved": true,
+  "private_hashes_unchanged_during_readonly_validation": true,
+  "actual_preview_and_six_devices_verified": true,
+  "normal_and_high_dpi_rendering_verified": true,
+  "inversion_crossings_handles_and_grid_off_verified": true,
+  "exact_percentage_line_counts_and_pointer_snapping_verified": true,
+  "local_evidence": "D:/Tools/OpenRGB/validation/20261104/gui-0.6.1",
+  "scratch_cleanup": {
+    "transaction": "1a754f802e0b0e6bbf0525ff5657779d",
+    "removed_members": 416,
+    "removed_bytes": 1179323669,
+    "residuals": 0
+  }
+}

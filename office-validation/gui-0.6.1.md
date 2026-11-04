@@ -1,6 +1,6 @@
 # Inverted topology placement grid
 
-Feature acceptance COMPLETE; delivery ACTIVE. Final Ambient source:
+Feature acceptance COMPLETE; delivery COMPLETE. Final Ambient source:
 189588543e633c7bd1664e532a74b6c34ec15ccd.
 
 The old grid used a fixed RGB(120,155,175) pen at alpha 24. It disappeared over
@@ -47,3 +47,29 @@ the successful high-DPI export. No duplicate original export was launched.
 Delivery uses the unchanged native capture/hardware owner. Open older panels and
 their unsaved drafts are preserved. Versioned installation and shortcut activation
 will use the new panel without restarting lighting. No capture/output code changed.
+
+Normal release v1.1-office.0.6.1 targets Core b0b0906f9841785f17553f43263244b05d561614.
+The final ZIP SHA-256 is
+45900c443b0df02856a3996dfeca8d6db9dd0acdd8a6e39aab72b4662f593e83.
+An independent GitHub download matches the checksum file and asset digest; all
+104 members were independently extracted/read back. Installed member hashes and
+provenance match. The installed normal/150% view exports show the corrected grid
+with actual LG preview and six controllers; private mapping/device configuration
+hashes before/after those read-only exports match. New interactive panel PID
+124160 has a real window, and the desktop shortcut points to installed 0.6.1.
+Older 0.6.0 panels remain running to preserve their drafts. Native 0.5.0 lighting
+owner PID 98884 was retained without a restart.
+
+The broad legacy owner observation initially failed its >10 FPS assertion, despite
+valid frames, six online devices and no capture/controller error. A scoped read-only
+snapshot measured 6.605 FPS against the existing 15 FPS target while the unchanged
+0.5.0 owner was running. This GUI-only revision does not claim a new throughput
+acceptance or fix that runtime observation; it changes neither the owner binary nor
+capture/output code. Actual grid rendering and map preservation checks passed.
+
+Local delivery-receipt.json, published-release.json, installed-* exports and
+private-state hash receipts record the actual verification. Temporary consumers
+exited before transaction 1a754f802e0b0e6bbf0525ff5657779d removed the exact
+E:/Temp/openrgb-inverted-grid-20261104 root: 416 members, 1,179,323,669 bytes,
+no exclusions/errors/residuals. The published package, versioned installation and
+required validation evidence remain. No feature or delivery blocker/deferral remains.

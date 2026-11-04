@@ -484,12 +484,20 @@ matching snap positions independently of viewport size, DPI and zoom.
     dragging with snapping lands on the visible 1% lines. Final Windows run
     41886233498 and local 150% production widgets pass. Final connected normal/
     high-DPI exports were inspected. No feature blocker/deferral remains.
-13. ACTIVE — Deliver verified 0.6.1 package through the normal release channel,
+13. COMPLETE — Deliver verified 0.6.1 package through the normal release channel,
     independently retrieve/read back it, update the installed launcher and clean
     exact scratch. Preserve the user's open mapping draft and running lighting.
     The first unpublished candidate was transactionally removed after the user's
     spacing correction; its last consumers had exited. The final package must use
     Ambient 189588543e633c7bd1664e532a74b6c34ec15ccd, verified by run 41886233498.
+    Normal release v1.1-office.0.6.1 targets Core b0b0906f984. Independent download
+    matches its checksum and GitHub digest; all 104 installed/downloaded package
+    members were read back. Installed normal/150% views retain actual LG preview,
+    six devices and unchanged private-state hashes. New panel PID 124160 has a
+    real window; desktop shortcut targets 0.6.1. Older panels/drafts and native
+    owner PID 98884 remain intact. Exact E: scratch was transactionally removed
+    after all temporary consumers exited. No feature/delivery blocker or deferral
+    remains. Evidence: office-validation/gui-release-0.6.1-20261104.json.
 
 New disposable work: E:/Temp/openrgb-inverted-grid-20261104. No native host build
 scratch is needed; compilation uses the existing hosted Windows workflow.
