@@ -178,7 +178,7 @@ do not reopen completed stages or permit parallel ACTIVE implementation stages.
    continues from the published release; six-device inventory and fresh wallpaper
    output pass after retirement. Retained evidence: office-validation/signalrgb-retirement-20261104.json.
    No remaining stage blockers or tracked deferrals.
-5. EDAmbilight interface reconstruction — ACTIVE.
+5. EDAmbilight interface reconstruction — COMPLETE.
    Authoritative GUI acceptance (authorized to implement on 2026-11-04):
    U1: provide a usable native Qt control panel using the recovered dark cyan
    visual hierarchy, with Control, Topology, Devices and Diagnostics views.
@@ -227,17 +227,26 @@ do not reopen completed stages or permit parallel ACTIVE implementation stages.
    D:/Tools/OpenRGB/validation/20261104/edambilight-gui-v1.2.0.
    Companion source report: D:/Projects/OpenRGB-Ambient/EDAMBILIGHT-GUI-REVIEW.md.
    Sanitized evidence: office-validation/edambilight-gui-20261104.json.
-   GUI REA is complete at the frontend-contract boundary. The native candidate
-   implements the panel, authenticated mapping/configuration IPC, demand-driven
-   preview, recovery events and corrected telemetry. CI run 41803192079 built
-   ambient source e7e34089 and passed production GPU, map and IPC checks. Installed
-   integration, persistence, rendered UI and final delivery remain current-stage
-   acceptance blockers. No later-stage deferrals; the stage remains ACTIVE.
-   Native stack evidence located a freed controller in SetColor during hotplug;
-   the old office owner ignored resource callbacks. A synchronous removal/output
-   barrier and persisted offline inventory are required before GUI acceptance.
-   Current lighting mappings remain preserved; temporary save tests restore them.
-6. Monthly upstream maintenance — NOT STARTED.
+   U1-U6 passed with ambient/panel da8eda520e4abea88267132e0c83f6b81d5a6449,
+   CI 41813919632. Actual Qt renders at all three viewports, real Save action,
+   malformed/stale rejection, restart persistence and exact baseline restoration
+   passed. Huashu review retained the reference direction and verified readable
+   native controls, selected navigation, growing preview and reserved properties.
+   A native freed-controller mutex deadlock was traced and fixed with synchronous
+   removal/output ownership. The actual KVM disconnect/reconnect retained all six
+   maps and rebound both USB devices without restarting the owner.
+   Normal release v1.1-office.0.3.0 is published at Darkaxt/OpenRGB, package source
+   8ffc2763821373986eb2688fc4737c7724635ae5. Independent public download SHA256:
+   9a5dd07e8687d99564fc0f9b565e97e8a4f6683e52eb800e986e395e00771a86.
+   All 68 downloaded members match the actual installed package. Loaded plugin
+   hash/path verified; active owner PID 103924 runs that version with six online
+   devices and 314 LEDs. Live output measured 15.38 FPS over 29.85 seconds,
+   73.32 MiB working set and 0.227% total-machine CPU. Software timings do not
+   establish physical LED acknowledgment. The Office Ambilight desktop shortcut
+   passed readback; all original maps/settings are restored and 0.2.0 is retained.
+   Evidence: D:/Tools/OpenRGB/validation/20261104/gui-0.3.0 and
+   office-validation/gui-release-0.3.0-20261104.json. No blockers or deferrals.
+6. Monthly upstream maintenance — COMPLETE.
    User requested this after the system/interface work is good and done. Schedule
    a monthly check of the OpenRGB and krojew/OpenRGB-Ambient upstreams, merge and
    verify compatible changes in the maintained forks, remain quiet when unchanged,
@@ -245,6 +254,24 @@ do not reopen completed stages or permit parallel ACTIVE implementation stages.
    introduce an unattended desktop takeover or simultaneous device writer.
    Include the user's requested OpenRGB branch inventory/cleanup: remove verified
    obsolete or merged refs while preserving active work and release/rollback refs.
+   Active Codex heartbeat monthly-openrgb-upstream-maintenance is saved and read
+   back for the first day of each month at 10:00 local time. It owns both fork
+   checks and integrated merge/build/release verification, preserves live state,
+   and stays quiet without actionable changes. It can be paused/deleted in the app.
+   Manual branch inventory and exact apply verification removed 98 branches
+   duplicated in canonical upstream; 104 active/protected or unverified-history
+   branches remain. No force-push, tag deletion or history purge was performed.
+   The helper disables lazy object fetching for future metadata inventories.
+   The user also explicitly retired D:/Tools/Better-SignalRGB-Screen-Capture.
+   Its absence and lack of active/startup/service/task consumers are verified:
+   cleanup d9801efdb7aec09a94aafcb2762077e3 APPLIED, 1,602,216,986 bytes removed.
+   The final OpenRGB owner remains healthy with six online devices; 0.2.0 rollback
+   and the independent SignalRGB recovery archive are preserved. Spent D: GUI
+   candidates/debugger scratch were transactionally removed after consumer exit.
+   Evidence: office-validation/maintenance-20261104.json and retained exact branch
+   manifest at D:/Tools/OpenRGB/validation/20261104/gui-0.3.0/branch-review.json.
+   No required blockers or deferrals remain. Administrative schedule/cleanup
+   records do not change the already delivered 0.3.0 application binaries.
 
 The former LG built-in LED investigation remains parked; Govee is the installed
 monitor-lighting alternative. The unrelated VLC screenshots belong to another chat.

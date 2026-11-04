@@ -1,0 +1,36 @@
+{
+  "automation_id": "monthly-openrgb-upstream-maintenance",
+  "monthly_schedule_verified": true,
+  "unchanged_runs_quiet": true,
+  "branch_inventory": 202,
+  "redundant_branches_removed": 98,
+  "remaining_protected_or_unverified_branches": 104,
+  "active_and_release_history_preserved": true,
+  "better_signalrgb_directory_removed": true,
+  "better_signalrgb_removed_bytes": 1602216986,
+  "active_release": "1.1-office.0.3.0",
+  "active_online_devices": 6,
+  "original_mappings_preserved": true,
+  "cleanup_receipts": {
+    "d9801efdb7aec09a94aafcb2762077e3": {
+      "state": "applied",
+      "bytes": 1602216986
+    },
+    "4d0902b0ca64cf433e97d8ff17b0b8a7": {
+      "state": "applied",
+      "bytes": 81035062
+    },
+    "30e58646b10bcfcbdc2645479b1eb6bc": {
+      "state": "applied",
+      "bytes": 81011017
+    },
+    "84fc05c601ab06692c2dc1f3b95c60d8": {
+      "state": "applied",
+      "bytes": 81035574
+    },
+    "fc772d8b4436bcceb897a0317526cf92": {
+      "state": "applied",
+      "bytes": 27056128
+    }
+  }
+}
