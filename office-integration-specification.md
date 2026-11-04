@@ -436,15 +436,25 @@ and responsive split panes. Replace the ambiguous all-regions switch with a
 compact labelled view choice; selection uses highlighted rows, cyan member
 outlines and one group boundary. Keep enable checkboxes independent of selection.
 
-10. ACTIVE — Selected-device multi-selection feature (T1–T5). Implement and
+10. COMPLETE — Selected-device multi-selection feature (T1–T5). Implement and
     verify production tree/canvas gestures, common-delta bounds, undo/cancel,
     actual Save/readback/restoration, retained offline maps, and screenshots at
-    1000x700/1440x900 with 100%/150% scaling. Internal acceptance blockers: these
-    paths are not yet implemented; resolution is the complete verified feature.
-11. NOT STARTED — Integrated 0.6.0 delivery. Depends on stage 10; publish normal
+    1000x700/1440x900 with 100%/150% scaling. Verified production Qt/QPA tree
+    Ctrl/Shift gestures, parent/device selection, visibility filters, cross-device
+    common-delta movement, bounds, parent/child de-duplication, undo/redo, Escape,
+    arrow movement and retained unselected identities. Actual connected panel
+    Save/reload preserved the selected laptop group and restored the original
+    private map/configuration hashes. Normal and 150% rendered views inspected.
+    Evidence: office-validation/gui-0.6.0.md. No feature blocker/deferral remains.
+11. ACTIVE — Integrated 0.6.0 delivery. Depends on stage 10; publish normal
     verified package, independently retrieve/hash/read back, activate installed
     launcher without disturbing an unsaved panel, and clean exact scratch.
     Existing native capture/runtime remains unchanged; 0.5.0 is rollback.
+    Current delivery blocker: GitHub run 41876936394 reports in_progress with
+    no conclusion although all job steps succeeded and the artifact finalized.
+    External runner finalization must complete before the normal verified-CI
+    packaging/publication gate; preserve the original managed watch. Diagnostics
+    used the digest-verified artifact without fabricating a successful-CI receipt.
 New disposable work: E:/Temp/openrgb-integration-20261104. Native build scratch,
 if required, uses D:/Temp/openrgb-integration-build-20261104 for I/O; prefer hosted
 compilation to avoid host load. Keep runtime state separate under D:/Tools/OpenRGB.
