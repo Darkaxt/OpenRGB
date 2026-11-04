@@ -517,7 +517,7 @@ without modifying the saved topology. Avoid repeating a whole detection per LED;
 keep image work on the GPU and verify common formats, dark-content rejection,
 format transitions and integrated sampling. Do not redesign unrelated algorithms.
 
-14. ACTIVE — Responsive panel preview, readable topology and shared Preview/Topology blur. Verify real
+14. COMPLETE — Responsive panel preview, readable topology and shared Preview/Topology blur. Verify real
     rendered grey/cyan outlines, overlap ordering, synchronized controls and saved
     map preservation at normal/high DPI; clarify existing algorithms/playground.
     User priority 2026-11-04: fix the audited output starvation before further
@@ -532,15 +532,39 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     five duplicate panels exited normally; six unused release directories were
     transactionally removed (487,069,805 bytes); current 0.5.0 owner and 0.6.1
     panel remain until replacement. Private saved state hashes are unchanged.
+    Production Windows run 41903597071 verifies coalescing, retained frames,
+    encoding outside the capture lock/output thread, visibility gating and
+    lifecycle. Installed candidate 600a8f5 holds 14.88 FPS with 29.54 fresh input
+    FPS under five preview requests/second (median request 8.61 ms); metadata-only
+    demand holds 14.80 FPS (median request 2.83 ms). Six devices remain online and
+    the private map hash is unchanged. Normal/150% installed renders verify grey
+    context and synchronized blur. Evidence: gui-0.7.0/candidate-*-performance.json
+    and candidate-state-check.json. Closure assessment: no required consolidation
+    remains beyond final consumer migration/obsolete-directory cleanup in 16.
 15. NOT STARTED — Conservative media-border detection integrated with native GPU
     sampling. Verify format/content evidence, transitions, valid black and actual
     runtime sampling/performance with the final saved topology retained.
 16. NOT STARTED — Responsive-preview 0.7.0 release, independent download/readback, native owner/
     panel activation and readback. Retire obsolete release directories only after
     consumers/path bindings are migrated, preserve live drafts, and clean scratch.
-    This delivery follows stage 14 for the user's urgent performance correction.
+    This delivery follows stages 14 and 17 for the user's performance correction
+    and explicitly requested screensaver/rest policy.
     Stage 15 remains separately outstanding and is not represented as delivered
     by the performance release; its requirements are retained unchanged.
+
+17. ACTIVE — Screensaver capture and automatic rest (user request 2026-11-04).
+    The configured LG screensaver takes capture priority while active. Windows
+    session lock or Windows display sleep forces every controller black and
+    releases capture; calibration/identify and animated standby cannot override
+    rest. Unlock/wake resumes the normal LG wallpaper/maximized-app policy from
+    fresh frames, preserving saved mapping and brightness. Observe desktop-switch,
+    WTS and power events, including startup on a locked/unavailable input desktop.
+    Never switch the user's desktop or capture the secure lock screen. Verify
+    production event/output tests, source selection, recovery, actual installed
+    state and saved-map preservation. Windows session display notifications cover
+    OS display sleep; an independently powered-off panel that Windows still
+    reports connected/awake cannot be inferred from that notification alone.
+    Delivery belongs to 16; 15 remains separately outstanding as recorded above.
 
 Current disposable work: E:/Temp/openrgb-grey-context-20261104. Hosted Windows builds;
 no native host build tree. Persistent verification: D:/Tools/OpenRGB/validation/20261104/gui-0.7.0.
