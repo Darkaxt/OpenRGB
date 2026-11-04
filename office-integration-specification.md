@@ -281,7 +281,7 @@ the six-device native owner, LG-only wallpaper/app policy, physical LED identity
 offline/KVM handling, saved maps and last-valid-frame switching. The user saved
 none of the experimental map changes and is waiting for the revised editor.
 
-7. ACTIVE — Reference-led control and topology vertical slice. Acceptance:
+7. BLOCKED — Reference-led control and topology vertical slice. Acceptance:
    EDAmbilight-style grouped dashboard; readable vector arrows/controls; selectable
    algorithms (mean, percentile, median/dominant, fixed/adaptive with EMA), depth
    and adaptive bounds, black-bar exclusion, scene cut, saturation, brightness
@@ -293,7 +293,20 @@ none of the experimental map changes and is waiting for the revised editor.
    Verify actual widget mouse paths and native GPU/output settings, plus rendered
    small/normal/large and high-DPI views. Blur must affect sampled RGB, including
    retained static frames, and the mapping view must show its sampling footprint.
-8. NOT STARTED — Complete screenshot feature reconciliation. Acceptance:
+   Verified source f5e81ea: hosted CI 41821574369 passes production GPU sampling,
+   mouse resize/cancel/undo/stepper, layout, lifecycle and IPC checks. The candidate
+   is activated from D:/Temp/openrgb-gui-parity-20261104/stage7, owner PID 98872,
+   using unchanged private state. Six controllers are online. External acceptance
+   blocker: Wallpaper Engine's renderer is not running and native source discovery
+   finds no eligible wallpaper or maximized LG window; no live input/output frames.
+   The offscreen export (process 105508, shell session 31049) was explicitly
+   cancelled after this concrete unavailable-source result; it did not produce
+   valid live-preview/save evidence. Resolution: restore an eligible LG source,
+   then run connected render/save and native processing acceptance checks. The
+   user has been asked about KVM/session state. No completion/release is claimed.
+   Stage 8's additional UI/system paths depend on the compiled control interfaces,
+   which passed; they do not depend on the currently absent wallpaper renderer.
+8. ACTIVE — Complete screenshot feature reconciliation. Acceptance:
    device/zone enable, counts, identify-all and edit-topology links; settings for
    connection test/reconnect, runtime/log access and lifecycle; actual live preview
    plus original EDAmbilight procedural preview controls (including local music,
