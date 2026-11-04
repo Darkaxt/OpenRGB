@@ -556,17 +556,18 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     readiness; it did not affect restoration or native output. No feature
     blocker/deferral remains. Closure assessment: the shared 1-pixel GPU pass
     avoids per-LED detection; no required architectural consolidation remains.
-16. BLOCKED — Responsive-preview 0.7.0 release, independent download/readback, native owner/
+16. ACTIVE — Responsive-preview 0.7.0 release, independent download/readback, native owner/
     panel activation and readback. Retire obsolete release directories only after
     consumers/path bindings are migrated, preserve live drafts, and clean scratch.
     This delivery follows stages 14, 15, 17 and 18: the urgent performance correction
     and screensaver/rest policy take implementation priority, but do not authorize
     dropping the previously requested media-border resilience from final delivery.
-    Parked by the user's 2026-11-05 pre-release requirement in 18. The combined
-    0.7.0 package is installed locally and its shortcut migrated; no release was
-    published. Obsolete 0.5.0/0.6.1 and temporary candidates were transactionally
-    removed. Final publication, replacement package/readback and scratch cleanup
-    depend on verified changed-frame/changed-output behavior from 18.
+    Stage 18 has passed; final delivery resumes. An earlier unpublished local
+    0.7.0 package is superseded by the verified static-work candidate. Retire that
+    package/root after consumer migration, then publish and independently verify
+    the combined final artifact. Obsolete 0.5.0/0.6.1 and previous temporary
+    candidates were transactionally removed. Final publication, installed
+    readback and remaining exact scratch/candidate cleanup are still required.
 
 17. COMPLETE — Screensaver capture and automatic rest (user request 2026-11-04).
     The configured LG screensaver takes capture priority while active. Windows
@@ -597,7 +598,7 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     waits were added. No current-stage blocker or deferral remains. Closure
     assessment: existing event/owner architecture suffices; no consolidation needed.
 
-18. ACTIVE — Skip unchanged capture and settled lighting output (user request
+18. COMPLETE — Skip unchanged capture and settled lighting output (user request
     2026-11-05, required before the next release). When no new WGC frame arrives,
     retain the last valid source. When WGC delivers identical LG pixels, determine
     equality on the GPU before mip generation, blur, media detection or LED
@@ -621,6 +622,22 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     Report capture callbacks, processed changes, skipped inputs, output ticks and
     real device submissions distinctly; no claim of 15 new hardware frames for
     static content. Preserve the saved topology and release only after acceptance.
+    Verified Windows run 41924410667 at Ambient cf06cbb: exact LG pixel equality,
+    a one-bit pixel change, other-monitor exclusion, preview reuse, retained-map
+    invalidation, changed LED/device submissions, adaptation convergence, first
+    black, rest and reconnect. Installed six-controller/314-LED candidate passed
+    a documented Wallpaper Engine pause/play test: 65.92 settled seconds, zero
+    sampling passes, LED writes or owner device submissions; playback resumed
+    and the exact saved topology hash was unchanged. User confirmed steady Govee
+    strip/bars without flashes. Existing driver refreshes cached colours after
+    30 seconds of silence (checked every 10 seconds), without B1 stream re-entry
+    for H6609/H8048. This cadence is verified reliable in that observation, not
+    an established absolute device timeout/minimum. Owner counters exclude those
+    independent refreshes and do not imply hardware acknowledgements. Animated
+    demand processed 15.03 changes/sec and skipped 14.55 duplicates/sec, with
+    0.85% total CPU; installed normal/150% clock/update labels fit. No acceptance
+    blocker or deferral remains. Closure assessment: existing capture/device
+    ownership suffices; no new service or architectural consolidation is needed.
 
 Current disposable work: E:/Temp/openrgb-grey-context-20261104. Hosted Windows builds;
 no native host build tree. Persistent verification: D:/Tools/OpenRGB/validation/20261104/gui-0.7.0.

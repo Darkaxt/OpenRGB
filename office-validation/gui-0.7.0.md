@@ -1,6 +1,6 @@
 # Office 0.7.0 integrated verification
 
-Authoritative requirements: `office-integration-specification.md`, stages 14–17.
+Authoritative requirements: `office-integration-specification.md`, stages 14–18.
 Private mappings, pairing state and IPC credentials are excluded from this record.
 
 ## Responsive preview and topology
@@ -81,3 +81,44 @@ bytes were restored, then the owner restarted and all six controllers/314 LEDs
 and the original configuration hash were read back. The readiness helper briefly
 encountered a Windows endpoint-file publication sharing race; actual endpoint
 readiness was subsequently confirmed. Final release/delivery remains pending.
+
+## Static input and changed output
+
+Final Ambient cf06cbb passed hosted Windows run 41924410667. The production GPU
+path compares every cropped LG RGB pixel with the retained input using a compute
+shader and reads back only a four-byte change flag. Identical callbacks return
+before mip generation, matte detection, blur, LED extraction or preview revision.
+Single-pixel changes, including outside mapped regions, are detected; pixels on
+another monitor do not invalidate the LG. No approximate image fingerprint or
+full-resolution CPU bitmap is used. Map/settings changes explicitly resample the
+retained image without waiting for another capture callback.
+
+Output adaptation runs until final byte values settle. Only changed LEDs update
+controller buffers and only affected controllers submit batched output. First
+delivery/reconnection force full state, including black. Windows production
+tests cover exact settling, one changed LED without unrelated-device writes,
+source/resize invalidation, rest, genuine black and reconnection. The shader
+compile diagnostic caught reserved HLSL identifiers before the successful build;
+an older map test was corrected to use production retained-map invalidation.
+
+Installed dynamic demand at five preview requests/sec measured 29.59 callbacks/sec,
+15.03 changed images/sec, 14.55 skipped duplicates/sec and 14.38 output-clock
+ticks/sec over 23.09 seconds (reported clock median 14.96 Hz). Median GPU work was
+0.862 ms, preview request 11.14 ms, total CPU 0.85% on 32 logical CPUs, and working
+set 92.5 MiB. Hardware latency/ACKs are not included in these measurements.
+
+Wallpaper Engine was temporarily paused with its documented pause command and
+resumed in a finally block with play. After settling, the last 65.92 seconds had
+zero input callbacks, zero sampling passes, zero LED writes and zero owner device
+submissions, while 977 output-clock ticks continued servicing events. The user
+confirmed the Govee strip and bars held steady colours without flashes. Resumed
+readback showed all six controllers, 314 LEDs, fresh wallpaper capture and a
+15.12 Hz clock. The private saved map remained byte-identical throughout.
+
+The Govee driver independently resends cached B0 data after 30 seconds of silence,
+checked every ten seconds. H6609/H8048 do not re-enter streaming via B1. This is a
+conservative cadence observed reliable in the static test, not a measured minimum
+refresh requirement; these UDP refreshes are excluded from owner submission
+counters. Native APIs still send a full device frame when the hardware protocol
+requires it. Normal/150% installed exports verify separate clock/device-update
+labels without changing the saved topology. Final delivery remains in stage 16.
