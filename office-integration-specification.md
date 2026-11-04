@@ -541,18 +541,17 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     context and synchronized blur. Evidence: gui-0.7.0/candidate-*-performance.json
     and candidate-state-check.json. Closure assessment: no required consolidation
     remains beyond final consumer migration/obsolete-directory cleanup in 16.
-15. NOT STARTED — Conservative media-border detection integrated with native GPU
+15. ACTIVE — Conservative media-border detection integrated with native GPU
     sampling. Verify format/content evidence, transitions, valid black and actual
     runtime sampling/performance with the final saved topology retained.
 16. NOT STARTED — Responsive-preview 0.7.0 release, independent download/readback, native owner/
     panel activation and readback. Retire obsolete release directories only after
     consumers/path bindings are migrated, preserve live drafts, and clean scratch.
-    This delivery follows stages 14 and 17 for the user's performance correction
-    and explicitly requested screensaver/rest policy.
-    Stage 15 remains separately outstanding and is not represented as delivered
-    by the performance release; its requirements are retained unchanged.
+    This delivery follows stages 14, 15 and 17: the urgent performance correction
+    and screensaver/rest policy take implementation priority, but do not authorize
+    dropping the previously requested media-border resilience from final delivery.
 
-17. ACTIVE — Screensaver capture and automatic rest (user request 2026-11-04).
+17. COMPLETE — Screensaver capture and automatic rest (user request 2026-11-04).
     The configured LG screensaver takes capture priority while active. Windows
     session lock or Windows display sleep forces every controller black and
     releases capture; calibration/identify and animated standby cannot override
@@ -564,7 +563,22 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     state and saved-map preservation. Windows session display notifications cover
     OS display sleep; an independently powered-off panel that Windows still
     reports connected/awake cannot be inferred from that notification alone.
-    Delivery belongs to 16; 15 remains separately outstanding as recorded above.
+    User-reported tray regression: the tray context menu must paint an opaque,
+    readable background with visible selected/disabled items and separators,
+    overriding the general transparent QWidget theme. Verify normal/high DPI.
+    Manual Ctrl+Alt+L on this machine starts WPXSCR~1.SCR on Default while the
+    SPI screensaver flag remains false. Recognize its fullscreen .scr/class window
+    directly, including tool windows spanning monitors, and crop only the LG.
+    Delivery belongs to 16 after the retained stage-15 requirement is verified.
+    Verified: Windows run 41912140012, installed Ctrl+Alt+L source/colour/frame
+    counters and user acceptance of saver/return and actual lock/off/unlock/resume.
+    Owner-only power-message verification covers black/fresh recovery without
+    changing host power. Run 41915198440 verifies opaque tray-menu rendering and
+    selection at 100%/150%/200%. User authorized closing the old hidden panel;
+    no OfficeControl consumer remained when exact retirement was checked.
+    Known scope: capture reconstruction has a measured startup delay; no arbitrary
+    waits were added. No current-stage blocker or deferral remains. Closure
+    assessment: existing event/owner architecture suffices; no consolidation needed.
 
 Current disposable work: E:/Temp/openrgb-grey-context-20261104. Hosted Windows builds;
 no native host build tree. Persistent verification: D:/Tools/OpenRGB/validation/20261104/gui-0.7.0.
