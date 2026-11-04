@@ -295,8 +295,8 @@ none of the experimental map changes and is waiting for the revised editor.
    retained static frames, and the mapping view must show its sampling footprint.
    Verified source 8602878: hosted CI 41829071697 passes production GPU sampling,
    mouse resize/cancel/undo/stepper, layout, lifecycle and IPC checks. The candidate
-   uses unchanged private state. Five of six saved controllers are currently
-   online; the unavailable identity retains its map. External acceptance
+   uses unchanged private state. All six saved controllers are online again;
+   transient unavailable identities retained their maps. External acceptance
    blocker: Wallpaper Engine's renderer is not running and native source discovery
    finds no eligible wallpaper or maximized LG window; Windows also reports
    display standby. Standby output is not evidence of captured image updates.
@@ -310,7 +310,7 @@ none of the experimental map changes and is waiting for the revised editor.
    actual_preview=false and do not close the live-source acceptance criterion.
    Stage 8's additional UI/system paths depend on the compiled control interfaces,
    which passed; they do not depend on the currently absent wallpaper renderer.
-8. ACTIVE — Complete screenshot feature reconciliation. Acceptance:
+8. BLOCKED — Complete screenshot feature reconciliation. Acceptance:
    device/zone enable, counts, identify-all and edit-topology links; settings for
    connection test/reconnect, runtime/log access and lifecycle; actual live preview
    plus original EDAmbilight procedural preview controls (including local music,
@@ -320,6 +320,28 @@ none of the experimental map changes and is waiting for the revised editor.
    the required occlusion-safe source policy instead of adding incompatible
    foreground-capture fallbacks. Record each reference feature and its verified
    native equivalent in the companion GUI review. No inert imitation controls.
+   Source and integration evidence: Ambient 8602878, successful Windows CI
+   41829071697; all six native pages exported at 1000x700, 1440x900 and 1920x1080,
+   both normal and 150% scaling. The real editor Save button persisted a temporary
+   zone-name edit and restored the complete original map. The packaged native
+   restart script stopped the exact owner gracefully, started one replacement,
+   and verified native and authenticated endpoint readiness. The candidate's
+   actual loaded plugin path was verified. Original procedural effects, particle
+   modes, local audio and preset round-trip passed in the packaged browser page.
+   Remaining external blocker: the actual-live-preview criterion cannot pass
+   while Windows reports display standby and Wallpaper Engine's renderer is
+   absent. This also blocks stage 7's installed GPU/output acceptance and stage 9.
+   Resolution: an awake LG session with the selected wallpaper rendering; resume
+   stage 7 first, run check_processing.py and export without AllowUnavailable,
+   then verify this stage's real preview. No required work is deferred or waived.
+   Candidate package/runtime and retained screenshots are under
+   D:/Tools/OpenRGB/validation/20261104/gui-0.4.0 for that concrete remaining test.
+   This is an unreleased candidate, not a replacement published release. The
+   ordinary desktop shortcut and active owner use the published 0.3.0 while this
+   live verification is unavailable. The private map is preserved. Exact spent
+   D:/Temp/openrgb-gui-parity-20261104 and E:/Temp/openrgb-gui-parity-20261104
+   outputs were transactionally removed after consumer exit (251,720,026 and
+   657,827,304 bytes respectively); no candidate runs from Temp.
 9. NOT STARTED — Integrated final release and delivery. Acceptance: all revision
    requirements reconciled, existing lifecycle tests preserved, actual installed
    runtime and private-map continuity checked, normal versioned release published,

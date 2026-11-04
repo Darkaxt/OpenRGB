@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-04",
+  "outcome": "candidate_verified_except_live_LG_capture_acceptance",
+  "released": false,
+  "ambient_source": "86028786fe61561e45c94877c088dd31ea628738",
+  "ambient_ci": 41829071697,
+  "gpu_lifecycle_geometry_widgets_ipc": "passed",
+  "candidate_package_core_source": "9e5d5a5101683174fe79f079a3a4e7a8acfda614",
+  "candidate_package_sha256": "a55b781db1129e22d6140ce1f74051edcd7ba50c633511090596104df69756c7",
+  "package_members_verified": 92,
+  "private_state_excluded": true,
+  "corrupt_plugin_and_panel_rejected_before_install": true,
+  "native_pages": 6,
+  "viewports": [[1000, 700], [1440, 900], [1920, 1080]],
+  "scaling": [1, 1.5],
+  "actual_preview": false,
+  "real_editor_save_and_original_map_restoration": true,
+  "candidate_native_restart_and_endpoint_readiness": true,
+  "candidate_loaded_plugin_path_verified": true,
+  "procedural_preview": {
+    "packaged_browser_path_verified": true,
+    "six_effects": true,
+    "six_particle_modes": true,
+    "local_PCM_audio_playback": true,
+    "preset_save_restore_delete": true,
+    "WebGL_error": 0,
+    "disposable_tab_closed_and_workflow_released": true
+  },
+  "external_blocker": "Windows display standby; Wallpaper Engine renderer absent; no captured LG frames",
+  "next_action": "With awake LG and Wallpaper Engine rendering, activate retained candidate, run check_processing and real-preview export; then finish release gate",
+  "retained_candidate_and_evidence": "D:/Tools/OpenRGB/validation/20261104/gui-0.4.0",
+  "cleanup": {
+    "D_transaction": "a75fa3708b033793b998f177ddca7a16",
+    "D_deleted_bytes": 251720026,
+    "E_transaction": "7874a6202b7ed43140ea783b185c0da7",
+    "E_deleted_bytes": 657827304,
+    "both_applied": true
+  }
+}
