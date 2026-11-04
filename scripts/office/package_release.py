@@ -20,6 +20,7 @@ def main():
     parser.add_argument('--plugin-receipt', type=Path, required=True)
     parser.add_argument('--ambient-source', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--version', required=True)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[2]
 
@@ -51,10 +52,16 @@ def main():
     with zipfile.ZipFile(args.plugin_archive) as plugin:
         provenance = json.loads(plugin.read('office-plugin-build.json').decode('utf-8-sig'))
         dll = plugin.read('openrgb_ambient.dll')
+        panel = plugin.read('OfficeControl.exe')
+        network = plugin.read('Qt6Network.dll')
     if provenance['openrgb'] != native_source or provenance['source'] != ambient_commit or provenance['qt'] != '6.8.3':
         raise RuntimeError('Plugin/native ABI provenance differs')
     members['plugins/openrgb_ambient.dll'] = dll
-    plugin_manifest = dict(provenance,sha256=hashlib.sha256(dll).hexdigest().upper(),archiveSha256=plugin_digest,ci=receipt['run'])
+    members['OfficeControl.exe'] = panel
+    members['Qt6Network.dll'] = network
+    members['LICENSE-EDAmbilight-MIT.txt'] = (args.ambient_source/'LICENSE-EDAmbilight-MIT.txt').read_bytes()
+    plugin_manifest = dict(provenance,sha256=hashlib.sha256(dll).hexdigest().upper(),archiveSha256=plugin_digest,ci=receipt['run'],
+                           panelSha256=hashlib.sha256(panel).hexdigest().upper(),networkSha256=hashlib.sha256(network).hexdigest().upper())
     members['plugins/installed-plugin.json'] = json.dumps(plugin_manifest,indent=2).encode()
     members = {name: data for name, data in members.items() if not name.startswith('office/')}
     for name in git('ls-files', 'scripts/office').splitlines():
@@ -70,7 +77,7 @@ def main():
     members['office-integration-specification.md'] = (root / 'office-integration-specification.md').read_bytes()
     for name in git('ls-files','office-validation').splitlines():
         members[name] = (root/name).read_bytes()
-    build.update(source=source, nativeSource=native_source, compiledArtifactSha256=actual,
+    build.update(version=args.version,source=source, nativeSource=native_source, compiledArtifactSha256=actual,
                  verificationRun=41752570205,ambientSource=ambient_commit,ambientArchiveSha256=plugin_digest,
                  ambientVerificationRun=receipt['run'])
     members['office-build.json'] = json.dumps(build, indent=2).encode()

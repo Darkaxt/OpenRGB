@@ -179,6 +179,35 @@ do not reopen completed stages or permit parallel ACTIVE implementation stages.
    output pass after retirement. Retained evidence: office-validation/signalrgb-retirement-20261104.json.
    No remaining stage blockers or tracked deferrals.
 5. EDAmbilight interface reconstruction — ACTIVE.
+   Authoritative GUI acceptance (authorized to implement on 2026-11-04):
+   U1: provide a usable native Qt control panel using the recovered dark cyan
+   visual hierarchy, with Control, Topology, Devices and Diagnostics views.
+   Qt Widgets is already shipped. Use authenticated per-user named-pipe IPC to
+   the existing plugin; the panel must never be a second RGB/capture engine.
+   U2: load the current six-device map without changing it. Show actual native
+   sample rectangles, hardware LED identities and keyboard matrices, plus an
+   on-demand downscaled capture preview and current LED colours. Support zone
+   names, move/resize, quarter-turn rotation, reverse ordering, selection and
+   individual regions. Save applies the complete validated map atomically,
+   rejects stale edits and survives restart. The user owns tomorrow's mapping.
+   U3: working enable, 1-30 FPS and smoothing-in-ms controls, per-device enable,
+   explicit identify/calibration and deterministic return to ambience. Do not
+   display unsupported EDAmbilight algorithms as functioning native controls.
+   U4: preserve the LG-only wallpaper/app source policy and retained valid frame;
+   correct frame-age versus new-frame submission metrics, transient error
+   recovery and native source/session event handling. Provide explicit capture
+   recovery for an unchanged unavailable source, without arbitrary timed retries.
+   U5: verify actual IPC/configuration/GPU integration, malformed and stale edits,
+   preview/LED identities and live output. Verify the real Qt panel offscreen at
+   1000x700, 1440x900 and 1920x1080 without desktop takeover, including selected
+   and expanded editor state. Retain focused rendered evidence.
+   U6: deliver one verified versioned integrated GUI release and installed
+   launch entry; verify downloaded bytes, actual runtime/module, GUI connection,
+   persistence and existing six-device output. Retain 0.2.0 as rollback.
+   Design contract: recovered #040c14/#020a10 surfaces, #14F5FF accent, 80px
+   navigation rail, readable native text >=14px, labelled controls, central
+   growing map and a reserved properties panel. Native platform controls replace
+   the original Eel/browser runtime; no Chromium/Python capture engine is added.
    Inspect the actual shipped interface/engine through REA and establish a bounded
    authoritative UI specification. Recreate the applicable control surface around
    the existing native backend, including all six devices and the required LG
@@ -196,10 +225,13 @@ do not reopen completed stages or permit parallel ACTIVE implementation stages.
    D:/Tools/OpenRGB/validation/20261104/edambilight-gui-v1.2.0.
    Companion source report: D:/Projects/OpenRGB-Ambient/EDAMBILIGHT-GUI-REVIEW.md.
    Sanitized evidence: office-validation/edambilight-gui-20261104.json.
-   GUI REA is complete at the frontend-contract boundary; the GUI itself is not
-   implemented or installed. Its integration/release and the review's native
-   recovery/telemetry corrections remain current-stage acceptance blockers,
-   not completed work or later-stage deferrals. Native settings are unchanged.
+   GUI REA is complete at the frontend-contract boundary. The native candidate
+   implements the panel, authenticated mapping/configuration IPC, demand-driven
+   preview, recovery events and corrected telemetry. CI run 41803192079 built
+   ambient source e7e34089 and passed production GPU, map and IPC checks. Installed
+   integration, persistence, rendered UI and final delivery remain current-stage
+   acceptance blockers. No later-stage deferrals; the stage remains ACTIVE.
+   Current lighting map and private settings remain unchanged before installation.
 6. Monthly upstream maintenance — NOT STARTED.
    User requested this after the system/interface work is good and done. Schedule
    a monthly check of the OpenRGB and krojew/OpenRGB-Ambient upstreams, merge and

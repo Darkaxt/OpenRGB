@@ -49,6 +49,9 @@ def main():
         plugin = json.loads(files['plugins/installed-plugin.json'][1])
         if plugin['source'] != build['ambientSource'] or plugin['openrgb'] != build['nativeSource'] or digest(files['plugins/openrgb_ambient.dll'][1]) != plugin['sha256']:
             raise ValueError('Packaged plugin provenance differs from the native build')
+        if 'panelSha256' in plugin:
+            if digest(files['officecontrol.exe'][1]) != plugin['panelSha256'] or digest(files['qt6network.dll'][1]) != plugin['networkSha256']:
+                raise ValueError('Packaged control panel provenance differs from the plugin build')
     args.destination.mkdir(parents=True)
     hashes = {}
     for name, data in files.values():
