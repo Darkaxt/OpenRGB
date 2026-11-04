@@ -12,6 +12,8 @@ if (!(Get-Process -Name OpenRGB -ErrorAction SilentlyContinue)) {
     $owner = Get-Content -LiteralPath (Join-Path $StateRoot 'owner.json') -Raw | ConvertFrom-Json
     python -B (Join-Path $PSScriptRoot 'runtime_control.py') --pid $owner.pid --wait-ready --state $StateRoot
     if ($LASTEXITCODE) { throw 'The lighting owner exited before readiness.' }
+    python -B (Join-Path $PSScriptRoot 'office_control.py') --state $StateRoot --wait-ready $owner.pid
+    if ($LASTEXITCODE) { throw 'The lighting control endpoint was not published.' }
 }
 $runtimeTemp = Join-Path $StateRoot 'runtime-temp'
 New-Item -ItemType Directory -Path $runtimeTemp -Force | Out-Null

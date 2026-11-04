@@ -1,7 +1,8 @@
 param(
     [Parameter(Mandatory)][string]$InstallRoot,
     [Parameter(Mandatory)][string]$OutputDirectory,
-    [string]$StateRoot = 'D:/Tools/OpenRGB/state-integration'
+    [string]$StateRoot = 'D:/Tools/OpenRGB/state-integration',
+    [switch]$ExerciseEditor
 )
 $ErrorActionPreference = 'Stop'
 $exe = (Resolve-Path (Join-Path $InstallRoot 'OfficeControl.exe')).Path
@@ -14,6 +15,7 @@ $start.UseShellExecute = $false
 $start.CreateNoWindow = $true
 $start.WorkingDirectory = $StateRoot
 foreach ($argument in @('--state',$StateRoot,'--export-views',$OutputDirectory)) { $start.ArgumentList.Add($argument) }
+if ($ExerciseEditor) { $start.ArgumentList.Add('--exercise-editor') }
 $start.Environment['QT_QPA_PLATFORM'] = 'offscreen'
 $start.Environment['TEMP'] = Join-Path $StateRoot 'runtime-temp'
 $start.Environment['TMP'] = Join-Path $StateRoot 'runtime-temp'
@@ -22,4 +24,5 @@ $process.WaitForExit()
 if ($process.ExitCode) { throw "Native panel export failed: $($process.ExitCode)" }
 $record = Get-Content -LiteralPath (Join-Path $OutputDirectory 'panel-export.json') -Raw | ConvertFrom-Json
 if ($record.devices -ne 6 -or $record.views.Count -ne 12) { throw 'Panel export did not cover all required views.' }
+if ($ExerciseEditor -and !$record.editor_save_roundtrip) { throw 'The real editor save/restore did not pass.' }
 $record | ConvertTo-Json -Depth 5

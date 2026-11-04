@@ -197,6 +197,8 @@ do not reopen completed stages or permit parallel ACTIVE implementation stages.
    correct frame-age versus new-frame submission metrics, transient error
    recovery and native source/session event handling. Provide explicit capture
    recovery for an unchanged unavailable source, without arbitrary timed retries.
+   Handle native controller removal synchronously before its storage is freed;
+   preserve offline maps, keep remaining outputs running and rebind reconnects.
    U5: verify actual IPC/configuration/GPU integration, malformed and stale edits,
    preview/LED identities and live output. Verify the real Qt panel offscreen at
    1000x700, 1440x900 and 1920x1080 without desktop takeover, including selected
@@ -231,7 +233,10 @@ do not reopen completed stages or permit parallel ACTIVE implementation stages.
    ambient source e7e34089 and passed production GPU, map and IPC checks. Installed
    integration, persistence, rendered UI and final delivery remain current-stage
    acceptance blockers. No later-stage deferrals; the stage remains ACTIVE.
-   Current lighting map and private settings remain unchanged before installation.
+   Native stack evidence located a freed controller in SetColor during hotplug;
+   the old office owner ignored resource callbacks. A synchronous removal/output
+   barrier and persisted offline inventory are required before GUI acceptance.
+   Current lighting mappings remain preserved; temporary save tests restore them.
 6. Monthly upstream maintenance — NOT STARTED.
    User requested this after the system/interface work is good and done. Schedule
    a monthly check of the OpenRGB and krojew/OpenRGB-Ambient upstreams, merge and

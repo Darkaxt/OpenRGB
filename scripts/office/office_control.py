@@ -12,6 +12,34 @@ kernel.ReadFile.argtypes=[W.HANDLE,C.c_void_p,W.DWORD,C.POINTER(W.DWORD),C.c_voi
 kernel.WriteFile.argtypes=kernel.ReadFile.argtypes
 kernel.CloseHandle.argtypes=[W.HANDLE]
 
+def wait_ready(state,pid):
+    """Wait for this owner's endpoint publication or actual process exit."""
+    from runtime_control import owned_process
+    native,process=owned_process(pid,state)
+    native.FindFirstChangeNotificationW.argtypes=[W.LPCWSTR,W.BOOL,W.DWORD]
+    native.FindFirstChangeNotificationW.restype=W.HANDLE
+    native.FindNextChangeNotification.argtypes=[W.HANDLE]
+    native.FindCloseChangeNotification.argtypes=[W.HANDLE]
+    native.WaitForMultipleObjects.argtypes=[W.DWORD,C.POINTER(W.HANDLE),W.BOOL,W.DWORD]
+    notification=native.FindFirstChangeNotificationW(str(state),False,0x1b)
+    if notification==C.c_void_p(-1).value:
+        native.CloseHandle(process);raise C.WinError(C.get_last_error())
+    handles=(W.HANDLE*2)(process,notification)
+    try:
+        while True:
+            path=state/'office-control.json'
+            try:
+                with path.open(encoding='utf-8-sig') as file: info=json.load(file)
+            except FileNotFoundError: info={}
+            if info.get('pid')==pid and info.get('protocol')==1:
+                print(json.dumps({'control_ready':True,'pid':pid,'same_owner_endpoint':True}));return
+            result=native.WaitForMultipleObjects(2,handles,False,0xffffffff)
+            if result==0: raise RuntimeError('Native owner exited before the control endpoint was published')
+            if result!=1: raise C.WinError(C.get_last_error())
+            if not native.FindNextChangeNotification(notification): raise C.WinError(C.get_last_error())
+    finally:
+        native.FindCloseChangeNotification(notification);native.CloseHandle(process)
+
 class Control:
     def __init__(self,state):
         info=json.loads((Path(state)/'office-control.json').read_text(encoding='utf-8-sig'))
@@ -43,7 +71,10 @@ def main():
     p.add_argument('--state',type=Path,default=Path('D:/Tools/OpenRGB/state-integration'))
     p.add_argument('--request',type=Path,help='JSON command document, without authentication values')
     p.add_argument('--output',type=Path)
+    p.add_argument('--wait-ready',type=int,metavar='OWNER_PID')
     a=p.parse_args()
+    if a.wait_ready:
+        wait_ready(a.state,a.wait_ready);return
     request=json.loads(a.request.read_text()) if a.request else {'command':'snapshot'}
     with Control(a.state) as client: result=client.call(**request)
     encoded=json.dumps(result,indent=2)
