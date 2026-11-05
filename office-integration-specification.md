@@ -863,7 +863,14 @@ modify display gamma, LightBulb's process/settings, or ScreenBar Halo hardware.
     regression tests and live validation of gamma reads/static-input dimming,
     unchanged baseline/topology, test/rest behavior and resource use. Read-only
     probe observes primary DISPLAY2 at 0.86073 with linear equal-channel ramps.
-    Remaining blocker: integrated feature and acceptance checks not yet complete.
+    Windows integration run 42087443347 passed for ambient 3b73d9b, including
+    retained-frame dimming, toggle, Identify bypass, rest/reconnect and UI tests.
+    Local read-only gamma observation costs 1.006 ms median for both displays;
+    native observation reads just the main display at 1 Hz. Saved settings remain
+    byte-identical (0f393259b7143cd056474139ba6172c3efe1b9bcef5e1652bd7cf003ce31985a).
+    Remaining blocker: live owner/readback comparison while the automatic saver
+    is active. User dismissal requested; no desktop input or saver override used.
+    Candidate owner 30364 is resting with all six controllers online.
     No tracked deferrals.
 28. NOT STARTED — Deliver verified 0.7.5 after stage 27: normal release download
     and installed-payload verification, sole-owner/startup/shortcut activation,
