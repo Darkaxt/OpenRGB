@@ -958,10 +958,30 @@ Preserve office-ambience.json and LightBulb configuration during migration.
     8.5-second hidden-UI observation. Evidence: local validation/20261106/unified-r2.
     No remaining blockers.
     No tracked deferrals.
-30. ACTIVE — Deliver normal 0.8.0 from the verified integrated result;
+30. COMPLETE — Deliver normal 0.8.0 from the verified integrated result;
     independently retrieve/check package and source provenance, activate the
     one-app startup/shortcut/tray, preserve settings, retire obsolete release and
-    disposable artifacts transactionally. No tracked deferrals.
+    disposable artifacts transactionally.
+    Published normal release v1.1-office.0.8.0 targets
+    a4e19a86b0f4f419e965757d6bdb4ca99a751463. Independently downloaded ZIP
+    SHA-256 b0f0f4c73de2203f75a96b457164c85934283d51c92ad094085df7ef2d78f336
+    matches the published checksum, GitHub asset digest and installed manifest.
+    All 117 payload members were verified on installation; native/plugin/runtime
+    provenance and rejection of corrupt packages passed before publication.
+    Official releases/1.1-office.0.8.0 is the sole installed release. The loaded
+    plugin, desktop shortcut and startup binding resolve to it; no separate
+    OfficeControl process or executable is delivered. Scheduled cold start and
+    existing-owner reuse both completed with result 0 in the interactive session,
+    without a visible window, service or settings changes. Main-display capture
+    returned fresh wallpaper imagery at 14.98 FPS with all six controllers online.
+    No new physical lock/display or Windows reboot test is claimed.
+    Candidate r2 and obsolete 0.7.5 installation were removed through transactions
+    6d63a01c47256aafd96f8a8efa0ce5fa and e864cec4d82ccd5ccc785eaade531b21;
+    scratch transaction 4411e7ea4027a9dd25a4690b3fbf6e3e also completed with no
+    residuals. Required delivery/acceptance receipts remain under local
+    validation/20261106/unified-r2. The prior ZIP remains a defined recovery
+    package under packages; private state and ongoing runtime scratch are retained.
+    No remaining blockers or tracked deferrals.
 
 Completed task scratch: E:/Temp/openrgb-primary-display-20261105, transaction
 233478697ae060aaa348c6b5712fcb9d; candidate-office-0.7.3, transaction
