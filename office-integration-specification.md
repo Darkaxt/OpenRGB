@@ -739,7 +739,7 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     under releases. Recovery packages and required acceptance evidence remain.
     No blocker or tracked deferral remains.
 
-23. ACTIVE — Windows main-display capture (2026-11-05 user request, A1/A3).
+23. COMPLETE — Windows main-display capture (2026-11-05 user request, A1/A3).
     Resolve the primary display on source selection and display-change/resume
     events, regardless of legacy saved monitor name. Retain wallpaper-only capture
     behind floating windows and app/manual-saver priority on that display only.
@@ -749,13 +749,36 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     production Windows monitor selection, display-change invalidation, crop
     switching, offline laptop/mouse output and unchanged saved settings. Update
     UI/help/diagnostics to describe and identify the actual main display.
-    Advancement blocker: implementation and integrated verification remain.
-24. NOT STARTED — Deliver 0.7.3 after stage 23: verify normal published/downloaded
+    Implemented in Ambient 59354d4. Windows run 42019153225 passed production GPU,
+    lifecycle, layout, widget and IPC checks: native primary-display resolution,
+    topology event invalidation, different crop origins/resolutions, normalized
+    map preservation, laptop/mouse-only output and rest/recovery are covered.
+    Installed candidate reports primary DISPLAY2 at [0,0,5120,2160], matching
+    Windows. Automatic saver entry correctly rested all lights without capture
+    error. After the user's dismissal, the original live check and export sessions
+    completed: actual wallpaper preview matches native primary bounds, six devices
+    online, all 314 values present and saved configuration byte-identical. Actual
+    app exports cover 21 page/viewport combinations; Control/Help render the new
+    main-display policy correctly. Focused observation measured 15.02 Hz output,
+    1.182 ms median GPU processing and 0.485% whole-machine CPU over 4.33 seconds;
+    this short sample is not a sustained workload benchmark. Physical undocking
+    was not performed; synthetic topology transitions and two-device native output
+    are explicitly distinguished from that observation. No blocker or deferral
+    remains. Closure assessment: existing display events, WGC crop, normalized
+    map and offline inventory satisfy portability without another capture engine.
+24. ACTIVE — Deliver 0.7.3 after stage 23: verify normal published/downloaded
     and installed artifacts, exact source provenance, current main-display output,
     shortcut/sign-in migration, preserved settings and obsolete-release/scratch
     cleanup. Physical undocking is not simulated by changing the user's display
     configuration; distinguish deterministic integration coverage from any actual
     undock observation.
+
+Active task scratch: E:/Temp/openrgb-primary-display-20261105, transaction
+233478697ae060aaa348c6b5712fcb9d. Hosted build inputs and package checks are
+disposable after delivery. Candidate runtime: D:/Tools/OpenRGB/releases/
+candidate-office-0.7.3, transaction da535003603a041f0750fb4552cf34cc, retained only
+until consumer migration to the final release. Persistent acceptance evidence:
+D:/Tools/OpenRGB/validation/20261105/main-display.
 
 Completed disposable work: E:/Temp/openrgb-idle-saver-20261105 (transaction
 64911687cb030386e5d2e789094ec0a6), candidate-office-0.7.2 (transaction
