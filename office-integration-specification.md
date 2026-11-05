@@ -803,15 +803,30 @@ bound retention, and verify readable complete records after abrupt process exit.
 The existing empty pre-crash generic log remains an unresolved evidence gap;
 do not assert a buffering cause or change capture recovery on that assumption.
 
-25. ACTIVE — Implement R25 end-to-end, regression-test abrupt-exit persistence,
+25. COMPLETE — Implement R25 end-to-end, regression-test abrupt-exit persistence,
     rotation/concurrent callback writes and real lifecycle integration. Verify
     the Windows build and live journal/capture while preserving saved settings.
-    Blocker: required journal and its acceptance evidence are not implemented.
-    No tracked deferrals.
-26. NOT STARTED — Deliver verified 0.7.4 after stage 25: publish/retrieve and
+    Ambient ab7286b, Windows run 42055069171: actual process ExitProcess without
+    destructor preserves the last intent, restart appends, concurrent callbacks
+    remain parseable, bounded rotation and observable I/O failure pass. Production
+    session/display/rest/control handlers persist events; existing GPU/layout/IPC
+    behavior passes. Live candidate 92b2cdd records actual capture creation, first
+    frame, health and complete release/recreate pairs with six online devices,
+    unchanged saved settings, 14.91 Hz output and 0.212% total CPU over 12.68 s.
+    Live validation caught an empty source-revision field; ab7286b fixes resolved
+    Git plumbing and adds an exact-revision test. Its capture/journal behavior is
+    unchanged; final installed build/restart identity is verified in stage 26.
+    Generic log emptiness is not attributed to buffering: its source already
+    flushes each record. The independent write-through journal closes that
+    diagnostic gap without modifying capture policy. No blocker or deferral
+    remains. Closure assessment: one small bounded writer serves the existing
+    native owner; no service, new capture engine or per-frame logging is needed.
+26. ACTIVE — Deliver verified 0.7.4 after stage 25: publish/retrieve and
     verify package provenance, install/activate one owner, migrate shortcut and
     sign-in binding, verify current capture plus durable records, clean obsolete
     release and exact scratch after consumers migrate.
+    Blocker: final package publication, installed identity and consumer migration
+    are not verified yet. No tracked deferrals.
 
 Completed task scratch: E:/Temp/openrgb-primary-display-20261105, transaction
 233478697ae060aaa348c6b5712fcb9d; candidate-office-0.7.3, transaction
