@@ -821,12 +821,30 @@ do not assert a buffering cause or change capture recovery on that assumption.
     diagnostic gap without modifying capture policy. No blocker or deferral
     remains. Closure assessment: one small bounded writer serves the existing
     native owner; no service, new capture engine or per-frame logging is needed.
-26. ACTIVE — Deliver verified 0.7.4 after stage 25: publish/retrieve and
+26. COMPLETE — Deliver verified 0.7.4 after stage 25: publish/retrieve and
     verify package provenance, install/activate one owner, migrate shortcut and
     sign-in binding, verify current capture plus durable records, clean obsolete
     release and exact scratch after consumers migrate.
-    Blocker: final package publication, installed identity and consumer migration
-    are not verified yet. No tracked deferrals.
+    Normal v1.1-office.0.7.4 targets 0cf15d067797785aec0cf422007b5a376b029fbe
+    and Ambient ab7286b20969db720c4d9d7b699432bbc431ccd7. Independent download
+    matches the published SHA-256 and all 112 installed payload files. Sole owner
+    PID 19700 records the exact Ambient revision, capture stages, first frames and
+    health alongside prior sessions. Capture matches Windows primary DISPLAY29
+    at 5120x2160 after the NVIDIA update; saved configuration remains identical.
+    Activation observed six controllers online; final read-only preview observed
+    four online, without changing device availability or asserting physical output.
+    Final short measurement: 14.90 Hz output, 0.279% total CPU over 12.42 seconds;
+    this is not a sustained benchmark. Sign-in task returned zero, reused the sole
+    headless owner and launched no panel; shortcut and binding use official 0.7.4.
+    Candidate/obsolete 0.7.3 cleanup transaction f86fc8f266ccfc7c12c9ec768e7189e1
+    and exact E:/Temp/openrgb-journal-20261105 transaction
+    e5be184d1242d560bd2c3a47140c3401 both applied completely. Only 0.7.4 remains
+    under releases; verified recovery packages and incident evidence are retained.
+    Persistent acceptance: D:/Tools/OpenRGB/validation/20261105/journal.
+    No blocker or tracked deferral remains. R25 is reconciled against persisted
+    lifecycle/error/provenance records, abrupt-exit/rotation checks and actual
+    installed output. Prior DirectX incident attribution remains unknown; this
+    delivery improves evidence and does not claim to repair that incident.
 
 Completed task scratch: E:/Temp/openrgb-primary-display-20261105, transaction
 233478697ae060aaa348c6b5712fcb9d; candidate-office-0.7.3, transaction
