@@ -788,6 +788,31 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     No blocker or deferral remains; final reconciliation reuses stage 23's
     existing-event/crop/map ownership assessment, with no further machinery.
 
+### Incident correlation logging — authorized 2026-11-05
+
+R25: Retain a bounded, append-only Ambilight diagnostic journal independent of
+the generic OpenRGB log and replace-in-place status snapshot. Each record must
+identify UTC time, monotonic process time, PID/TID, session and build provenance.
+Record capture/source creation and release intent/completion, first frames,
+capture/Direct3D errors with HRESULT and removal reason, desktop/session/display
+events, rest transitions, control actions and device availability changes.
+Include low-frequency health snapshots, without recording every frame, pixels,
+window titles, credentials or control tokens. Journal errors must be visible
+without changing capture/output policy. Preserve prior records across restart,
+bound retention, and verify readable complete records after abrupt process exit.
+The existing empty pre-crash generic log remains an unresolved evidence gap;
+do not assert a buffering cause or change capture recovery on that assumption.
+
+25. ACTIVE — Implement R25 end-to-end, regression-test abrupt-exit persistence,
+    rotation/concurrent callback writes and real lifecycle integration. Verify
+    the Windows build and live journal/capture while preserving saved settings.
+    Blocker: required journal and its acceptance evidence are not implemented.
+    No tracked deferrals.
+26. NOT STARTED — Deliver verified 0.7.4 after stage 25: publish/retrieve and
+    verify package provenance, install/activate one owner, migrate shortcut and
+    sign-in binding, verify current capture plus durable records, clean obsolete
+    release and exact scratch after consumers migrate.
+
 Completed task scratch: E:/Temp/openrgb-primary-display-20261105, transaction
 233478697ae060aaa348c6b5712fcb9d; candidate-office-0.7.3, transaction
 da535003603a041f0750fb4552cf34cc; obsolete official 0.7.2, transaction
