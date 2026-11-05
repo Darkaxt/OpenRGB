@@ -846,6 +846,30 @@ do not assert a buffering cause or change capture recovery on that assumption.
     installed output. Prior DirectX incident attribution remains unknown; this
     delivery improves evidence and does not claim to repair that incident.
 
+### Main-display dimming follow — authorized 2026-11-05
+
+R26: Investigate read-only Windows gamma-ramp observation before considering any
+LightBulb modification. Follow the Windows main display's applied scalar dimming
+in ordinary ambience output, multiplying the user's existing brightness baseline
+without rewriting it. Brightness changes must affect retained/static captured
+colours without recapture or GPU resampling. Preserve colour hue, topology,
+Identify/calibration and mandatory lock/sleep black output. Add a user-facing
+follow toggle and observable applied factor/read status; unsupported/nonlinear
+readback must not be silently presented as valid. Preserve the last valid factor
+only for the same display on read failure; a display change resets it. Do not
+modify display gamma, LightBulb's process/settings, or ScreenBar Halo hardware.
+
+27. ACTIVE — Implement R26 through native output and panel controls, focused
+    regression tests and live validation of gamma reads/static-input dimming,
+    unchanged baseline/topology, test/rest behavior and resource use. Read-only
+    probe observes primary DISPLAY2 at 0.86073 with linear equal-channel ramps.
+    Remaining blocker: integrated feature and acceptance checks not yet complete.
+    No tracked deferrals.
+28. NOT STARTED — Deliver verified 0.7.5 after stage 27: normal release download
+    and installed-payload verification, sole-owner/startup/shortcut activation,
+    preserved settings and transactional retirement of obsolete binaries/scratch.
+    No tracked deferrals.
+
 Completed task scratch: E:/Temp/openrgb-primary-display-20261105, transaction
 233478697ae060aaa348c6b5712fcb9d; candidate-office-0.7.3, transaction
 da535003603a041f0750fb4552cf34cc; obsolete official 0.7.2, transaction

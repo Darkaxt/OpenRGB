@@ -80,6 +80,19 @@ verifies the panel and its network dependency against packaged provenance.
 
 ## Capture and recovery
 
+Main-display brightness following reads Windows' applied gamma ramps once per
+second, including LightBulb's scalar dimming. The strongest linear channel sets
+the light intensity without applying LightBulb's colour temperature. Your saved
+brightness is the baseline; Control → Advanced options → Output balance can
+disable following and shows the applied factor. This is a measured display
+attenuation, not an exact copy of LightBulb's rounded percentage. The readback
+does not measure the monitor's physical backlight or HDR tone mapping. Nonlinear
+colour-calibration ramps are reported as unsupported; failed reads retain the
+last valid factor only on the same display, otherwise the baseline is used.
+Static captures still react to brightness changes without recapturing/resampling.
+Identify/calibration keep their reference colours, and rest always remains black.
+No display gamma writes or LightBulb configuration changes are made.
+
 The tested WGC target is the top-level Progman wallpaper host; its child renderer
 is not capturable on this machine. GPU processing crops only the main display and reads
 back one RGBA value per LED. Previous valid colours remain during source changes
