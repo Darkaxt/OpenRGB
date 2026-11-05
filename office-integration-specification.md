@@ -690,7 +690,7 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     tickets; only the current release directory remains. Recovery packages and
     required acceptance evidence remain. No blocker or tracked deferral remains.
 
-21. ACTIVE — Automatic idle screensaver rest (2026-11-05 user clarification).
+21. BLOCKED — Automatic idle screensaver rest (2026-11-05 user clarification).
     Distinguish Windows' automatic screensaver state/input desktop from the
     manually launched Ctrl+Alt+L saver. Automatic saver entry must force all
     configured lights off and release stale capture; exit must reacquire fresh
@@ -704,9 +704,28 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     output stayed nonzero (maximum channel 240). Thus inaccessible saver capture
     replayed stale wallpaper colours instead of resting. Preserve this evidence
     separately from the working manual Default-desktop saver path.
+    Implemented and installed candidate a378a2e; final d878b47 changes only its
+    policy documentation. Windows run 41946005515 passed production GPU,
+    lifecycle, widget, layout and IPC checks. All six controllers remain online
+    and the saved custom configuration is byte-identical. Advancement blocker:
+    real corrected automatic entry/off/exit/fresh-resume acceptance is pending
+    the requested natural idle cycle. External condition: the user's PC input
+    keeps resetting idle; do not force a desktop change. Resume this earliest
+    required stage when automatic entry/exit occurs or the user reports the test.
+    Candidate probe uses managed session 46530, recording candidate.jsonl under
+    D:/Tools/OpenRGB/validation/20261105/automatic-saver. Native owner PID126656
+    uses D:/Tools/OpenRGB/releases/candidate-office-0.7.2. The desktop shortcut
+    and sign-in startup.json are bound to that continuing candidate; migrate
+    both before its retirement. Final delivery cannot complete before this test.
 22. NOT STARTED — Deliver verified 0.7.2 after stage 21: published/downloaded and
     installed provenance, saved configuration, desktop shortcut and sign-in
     binding migrated before obsolete runtime retirement; cleanup exact scratch.
+
+Pending task scratch: E:/Temp/openrgb-idle-saver-20261105, transaction
+64911687cb030386e5d2e789094ec0a6, retains verified native/final CI artifacts and
+package inputs needed for the pending delivery. Active candidate retirement
+transaction 792e317edbae9cf3305feed04ef934ae must remain open until its native
+owner, shortcut and sign-in consumers move to the final official release.
 
 Completed disposable work: E:/Temp/openrgb-draft-blur-20261105 (hosted build inputs
 and package checks) was transactionally removed. Persistent acceptance:
