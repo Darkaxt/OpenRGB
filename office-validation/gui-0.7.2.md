@@ -21,13 +21,13 @@ installed for the real automatic cycle. Final source d878b47 only corrects the
 policy description; Windows run 41946005515 also passed all those checks.
 
 Installed candidate readiness, six-device output and package provenance passed.
-The custom configuration remains byte-identical. Corrected automatic entry/exit
-and final delivery verification remain pending the requested natural idle cycle;
-the user is actively using the PC and the test must not force desktop input.
-Stage 21 is parked BLOCKED on this real acceptance boundary; 22 is NOT STARTED.
-The desktop shortcut and sign-in binding select the continuing candidate so a
-restart does not silently return to the old saver behaviour. No final release
-has been published for this change.
+The genuine automatic cycle now passed: Screen-saver/SPI true selected
+automatic-screensaver rest, released capture and held all 314 LED values at zero
+throughout the recorded 16-second saver interval. Dismissal restored Default and
+wallpaper with a fresh frame; all six controllers resumed submissions. The probe
+completed successfully and the user's physical test confirmed off/resume working.
+The custom configuration remains byte-identical. No desktop input was simulated.
+Stage 21 is COMPLETE; final release verification is stage 22.
 Private diagnostic traces and package verification receipts are retained under
 `D:/Tools/OpenRGB/validation/20261105/automatic-saver`; this public record contains
 no topology, credentials or control tokens.

@@ -690,7 +690,7 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     tickets; only the current release directory remains. Recovery packages and
     required acceptance evidence remain. No blocker or tracked deferral remains.
 
-21. BLOCKED — Automatic idle screensaver rest (2026-11-05 user clarification).
+21. COMPLETE — Automatic idle screensaver rest (2026-11-05 user clarification).
     Distinguish Windows' automatic screensaver state/input desktop from the
     manually launched Ctrl+Alt+L saver. Automatic saver entry must force all
     configured lights off and release stale capture; exit must reacquire fresh
@@ -707,17 +707,17 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     Implemented and installed candidate a378a2e; final d878b47 changes only its
     policy documentation. Windows run 41946005515 passed production GPU,
     lifecycle, widget, layout and IPC checks. All six controllers remain online
-    and the saved custom configuration is byte-identical. Advancement blocker:
-    real corrected automatic entry/off/exit/fresh-resume acceptance is pending
-    the requested natural idle cycle. External condition: the user's PC input
-    keeps resetting idle; do not force a desktop change. Resume this earliest
-    required stage when automatic entry/exit occurs or the user reports the test.
-    Candidate probe uses managed session 46530, recording candidate.jsonl under
-    D:/Tools/OpenRGB/validation/20261105/automatic-saver. Native owner PID126656
-    uses D:/Tools/OpenRGB/releases/candidate-office-0.7.2. The desktop shortcut
-    and sign-in startup.json are bound to that continuing candidate; migrate
-    both before its retirement. Final delivery cannot complete before this test.
-22. NOT STARTED — Deliver verified 0.7.2 after stage 21: published/downloaded and
+    and the saved custom configuration is byte-identical. The genuine automatic
+    cycle is now verified: Screen-saver/SPI true selected automatic-screensaver
+    rest, released capture, and all 314 LED values remained zero throughout the
+    recorded 16-second saver interval. Dismissal restored Default/wallpaper with
+    a fresh captured frame and six-controller submissions. Saved configuration
+    remained byte-identical; the user confirmed physical off/resume working.
+    Probe session 46530 completed successfully; candidate.jsonl is retained under
+    D:/Tools/OpenRGB/validation/20261105/automatic-saver. No blocker or deferral
+    remains. Closure assessment: existing lifecycle and native output ownership
+    suffice; no service, timer override or additional capture path is needed.
+22. ACTIVE — Deliver verified 0.7.2 after stage 21: published/downloaded and
     installed provenance, saved configuration, desktop shortcut and sign-in
     binding migrated before obsolete runtime retirement; cleanup exact scratch.
 
