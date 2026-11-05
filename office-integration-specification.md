@@ -859,7 +859,7 @@ readback must not be silently presented as valid. Preserve the last valid factor
 only for the same display on read failure; a display change resets it. Do not
 modify display gamma, LightBulb's process/settings, or ScreenBar Halo hardware.
 
-27. BLOCKED — Implement R26 through native output and panel controls, focused
+27. COMPLETE — Implement R26 through native output and panel controls, focused
     regression tests and live validation of gamma reads/static-input dimming,
     unchanged baseline/topology, test/rest behavior and resource use. Read-only
     probe observes primary DISPLAY2 at 0.86073 with linear equal-channel ramps.
@@ -868,26 +868,25 @@ modify display gamma, LightBulb's process/settings, or ScreenBar Halo hardware.
     Local read-only gamma observation costs 1.006 ms median for both displays;
     native observation reads just the main display at 1 Hz. Saved settings remain
     byte-identical (0f393259b7143cd056474139ba6172c3efe1b9bcef5e1652bd7cf003ce31985a).
-    Remaining external blocker: live owner/readback comparison while Windows is
-    on the automatic saver desktop. User dismissal requested; no desktop input
-    or saver override used. Candidate owner 52532 is resting with six controllers
-    online at D:/Tools/OpenRGB/candidate-brightness-0.7.5/refined. Final panel
-    export and package-provenance/corrupt-payload rejection checks passed; actual
-    preview remains unavailable during intentional rest. Next action after user
-    dismissal: E:/Temp/openrgb-lightbulb-20261105/check_live.py, then activate 27
-    and close its live acceptance before starting release stage 28.
-    Required build inputs and activation/check scripts are retained under exact
-    E:/Temp/openrgb-lightbulb-20261105 (cleanup transaction
-    cc5e483cdd80f2287d192567d8229437); candidate consumer uses D:/Tools/OpenRGB/
-    state-integration/runtime-temp, independently of that scratch. Candidate
-    cleanup transaction 09e28b47ba6b58de91f719facb07f5a6 stays open until final
-    owner migration. Startup/shortcut remain bound to verified 0.7.4; do not
-    retire that release until stage 28 verifies migration. No other work is ACTIVE.
+    User dismissed the saver; live candidate owner 52532 and independent GDI
+    readback agree exactly at 0.843408 on DISPLAY2. Fresh wallpaper preview,
+    all six controllers and 14.92 Hz output verified, with unchanged saved map.
+    Focused 6.64-second observation measured 0.684% whole-machine CPU and 85.3 MB
+    working set. Package-provenance/corrupt-payload rejection and panel export
+    checks passed. No remaining blockers.
     No tracked deferrals.
-28. NOT STARTED — Deliver verified 0.7.5 after stage 27: normal release download
+28. ACTIVE — Deliver verified 0.7.5 after stage 27: normal release download
     and installed-payload verification, sole-owner/startup/shortcut activation,
     preserved settings and transactional retirement of obsolete binaries/scratch.
     No tracked deferrals.
+
+Stage 28 retains E:/Temp/openrgb-lightbulb-20261105 for final build inputs and
+activation/check scripts (cleanup transaction cc5e483cdd80f2287d192567d8229437).
+Candidate D:/Tools/OpenRGB/candidate-brightness-0.7.5 remains an active consumer
+(cleanup transaction 09e28b47ba6b58de91f719facb07f5a6); retire it and old 0.7.4
+after verified migration. Continuing runtime uses state-integration/runtime-temp
+independently of disposable scratch. Required evidence is retained under
+D:/Tools/OpenRGB/validation/20261105/lightbulb.
 
 Completed task scratch: E:/Temp/openrgb-primary-display-20261105, transaction
 233478697ae060aaa348c6b5712fcb9d; candidate-office-0.7.3, transaction
