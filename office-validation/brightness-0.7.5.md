@@ -32,5 +32,14 @@ A 6.64-second live sample measured 14.92 Hz output, 1.301 ms median GPU processi
 0.684% whole-machine CPU and 85.3 MB working set. These are observations of the
 current wallpaper/load, not a universal resource bound or physical LED feedback.
 
-Final delivery is owned by specification stage 28; candidate acceptance does not
-by itself establish publication or installed startup migration.
+Normal published release v1.1-office.0.7.5 targets core commit
+e08914ab7fafcb9075194df47145dfadb85b7d5a. The independent download matches its
+checksum and GitHub asset digest:
+79a9c6de1a6b47a209a25e11da8b4436592108f0549d74f10ebf16759201f44a.
+All 116 installed payload members match, including accepted native/plugin/panel
+binaries. Official owner 34204 reads 0.8433775544593891, matching independent GDI,
+with fresh wallpaper frames and all six controllers online. Existing quiet
+sign-in scheduling reuses that owner with task result 0, and startup/shortcut
+bindings point to 0.7.5. Settings remain byte-identical. Candidates, old installed
+0.7.4 and expendable scratch were transactionally removed; only 0.7.5 remains
+under releases. Published recovery ZIPs remain retained. Stages 27/28 COMPLETE.

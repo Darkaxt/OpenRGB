@@ -875,17 +875,27 @@ modify display gamma, LightBulb's process/settings, or ScreenBar Halo hardware.
     working set. Package-provenance/corrupt-payload rejection and panel export
     checks passed. No remaining blockers.
     No tracked deferrals.
-28. ACTIVE — Deliver verified 0.7.5 after stage 27: normal release download
+28. COMPLETE — Deliver verified 0.7.5 after stage 27: normal release download
     and installed-payload verification, sole-owner/startup/shortcut activation,
     preserved settings and transactional retirement of obsolete binaries/scratch.
     No tracked deferrals.
 
-Stage 28 retains E:/Temp/openrgb-lightbulb-20261105 for final build inputs and
-activation/check scripts (cleanup transaction cc5e483cdd80f2287d192567d8229437).
-Candidate D:/Tools/OpenRGB/candidate-brightness-0.7.5 remains an active consumer
-(cleanup transaction 09e28b47ba6b58de91f719facb07f5a6); retire it and old 0.7.4
-after verified migration. Continuing runtime uses state-integration/runtime-temp
-independently of disposable scratch. Required evidence is retained under
+Stage 28 delivery: normal published v1.1-office.0.7.5 targets e08914ab7fafcb9075194df47145dfadb85b7d5a.
+The independently downloaded ZIP matches GitHub digest and checksum
+79a9c6de1a6b47a209a25e11da8b4436592108f0549d74f10ebf16759201f44a.
+All 116 installed members and accepted runtime binaries match. Owner 34204 runs
+the official 0.7.5 path with valid factor 0.84337755, fresh capture and six online
+controllers. Sign-in task reuses that sole headless owner (result 0); startup and
+shortcut target 0.7.5. Saved settings retain their original hash. No blockers or
+tracked deferrals remain. No implementation stage is ACTIVE.
+E:/Temp/openrgb-lightbulb-20261105 was removed through transaction
+cc5e483cdd80f2287d192567d8229437 (716123770 bytes). Candidate
+D:/Tools/OpenRGB/candidate-brightness-0.7.5 was removed through
+09e28b47ba6b58de91f719facb07f5a6 (171697073 bytes); obsolete 0.7.4 installation
+through bf6d42c1644afc84344e186a25f36ff2 (85828315 bytes). All applied without
+residuals; only 0.7.5 remains under releases. Recovery ZIPs remain intentional
+package outputs. Continuing runtime uses state-integration/runtime-temp
+independently of disposable scratch. Required acceptance receipts remain under
 D:/Tools/OpenRGB/validation/20261105/lightbulb.
 
 Completed task scratch: E:/Temp/openrgb-primary-display-20261105, transaction
