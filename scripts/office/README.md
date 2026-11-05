@@ -62,21 +62,32 @@ Open the installed **Office Ambilight** shortcut, or run:
 pwsh -NoProfile -File D:/Tools/OpenRGB/releases/1.1-office.0.3.0/office/Open-Office-Control.ps1
 ```
 
-The panel connects to the existing owner; it does not run another capture or RGB
-engine. Control adjusts output FPS, smoothing and enable. Topology displays the
+OpenRGB.exe hosts the Office panel and its tray in the same process. Opening the
+shortcut activates the existing application. Sign-in starts it quietly; closing
+the window keeps lighting running when the tray preference is enabled. Exit
+Office Ambilight tears down capture and output. An independent event thread owns
+capture/output, so GUI work cannot starve the lights. Control adjusts output
+FPS, smoothing and enable. Topology displays the
 actual main-display preview, sampling rectangles and live LED colours for all six devices.
 Select a zone or individual LED, then drag or edit its percentage coordinates.
 Rotate and reverse preserve hardware LED identities. Save applies the draft
 atomically; Reload discards it. Opening the panel leaves the existing map intact.
-Devices provides per-controller enable and identify; Status provides diagnostics
-and explicit capture recovery. Calibration stops when requested or on disconnect.
+Devices provides inclusion, Identify, rescan, native profiles and contextual
+OpenRGB hardware details. Native modes expose only supported controls and actual
+driver ranges. Applying a hardware effect hands that device away from ambience;
+Use ambience restores its screen mapping. Hardware profiles and manual device
+memory saves are distinct from the sampling topology. Rest/tests restore the
+selected owner afterward. Geometry changes that would invalidate a mapped device
+are protected. Diagnostics provides explicit capture recovery. Calibration stops
+when requested or on disconnect.
 Disconnected controllers keep their saved regions and appear offline. Native
 removal synchronizes with output before OpenRGB frees a controller; reconnecting
 the same device rebinds it without rearranging hardware LED indexes.
 
-The same-user named pipe uses a random per-process authentication value stored
-only in the private `office-control.json`. Do not publish that file. The launcher
-verifies the panel and its network dependency against packaged provenance.
+Normal UI commands use typed queued calls inside the application. The retained
+same-user diagnostic pipe uses a random per-process authentication value stored
+only in private `office-control.json`; do not publish that file. The launcher and
+installer verify native/plugin/runtime payloads against packaged provenance.
 
 ## Capture and recovery
 

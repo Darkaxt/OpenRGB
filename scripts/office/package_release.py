@@ -16,6 +16,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--archive', type=Path, required=True)
     parser.add_argument('--sha256', required=True)
+    parser.add_argument('--native-receipt', type=Path, required=True)
     parser.add_argument('--plugin-archive', type=Path, required=True)
     parser.add_argument('--plugin-receipt', type=Path, required=True)
     parser.add_argument('--ambient-source', type=Path, required=True)
@@ -36,6 +37,9 @@ def main():
         members = {item.filename: archive.read(item) for item in archive.infolist() if not item.is_dir()}
     build = json.loads(members['office-build.json'].decode('utf-8-sig'))
     native_source = build['source']
+    native_receipt = json.loads(args.native_receipt.read_text())
+    if native_receipt['source'] != native_source or native_receipt['sha256'] != actual:
+        raise RuntimeError('Native CI receipt differs from compiled artifact')
     source = git('rev-parse', 'HEAD')
     changed = git('diff', '--name-only', native_source, source).splitlines()
     for name in changed:
@@ -52,13 +56,12 @@ def main():
     with zipfile.ZipFile(args.plugin_archive) as plugin:
         provenance = json.loads(plugin.read('office-plugin-build.json').decode('utf-8-sig'))
         dll = plugin.read('openrgb_ambient.dll')
-        panel = plugin.read('OfficeControl.exe')
         network = plugin.read('Qt6Network.dll')
         offscreen = plugin.read('plugins/platforms/qoffscreen.dll')
     if provenance['openrgb'] != native_source or provenance['source'] != ambient_commit or provenance['qt'] != '6.8.3':
         raise RuntimeError('Plugin/native ABI provenance differs')
     members['plugins/openrgb_ambient.dll'] = dll
-    members['OfficeControl.exe'] = panel
+    members.pop('OfficeControl.exe', None)
     members['Qt6Network.dll'] = network
     members['platforms/qoffscreen.dll'] = offscreen
     members['LICENSE-EDAmbilight-MIT.txt'] = (args.ambient_source/'LICENSE-EDAmbilight-MIT.txt').read_bytes()
@@ -69,7 +72,7 @@ def main():
     for name in preview_names:
         members['preview/'+str(Path(name).relative_to('third_party/ed-preview')).replace('\\','/')] = (args.ambient_source/name).read_bytes()
     plugin_manifest = dict(provenance,sha256=hashlib.sha256(dll).hexdigest().upper(),archiveSha256=plugin_digest,ci=receipt['run'],
-                           panelSha256=hashlib.sha256(panel).hexdigest().upper(),networkSha256=hashlib.sha256(network).hexdigest().upper(),
+                           applicationModel='unified',networkSha256=hashlib.sha256(network).hexdigest().upper(),
                            offscreenSha256=hashlib.sha256(offscreen).hexdigest().upper())
     members['plugins/installed-plugin.json'] = json.dumps(plugin_manifest,indent=2).encode()
     members = {name: data for name, data in members.items() if not name.startswith('office/')}
@@ -87,7 +90,8 @@ def main():
     for name in git('ls-files','office-validation').splitlines():
         members[name] = (root/name).read_bytes()
     build.update(version=args.version,source=source, nativeSource=native_source, compiledArtifactSha256=actual,
-                 verificationRun=41752570205,ambientSource=ambient_commit,ambientArchiveSha256=plugin_digest,
+                 verificationRun=native_receipt['run'],nativeExecutableSha256=hashlib.sha256(members['OpenRGB.exe']).hexdigest().upper(),
+                 applicationModel='unified',ambientSource=ambient_commit,ambientArchiveSha256=plugin_digest,
                  ambientVerificationRun=receipt['run'])
     members['office-build.json'] = json.dumps(build, indent=2).encode()
     # Exact allow-list excludes private state, pairing credentials, captures and

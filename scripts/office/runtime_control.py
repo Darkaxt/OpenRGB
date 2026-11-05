@@ -79,6 +79,30 @@ def stop_and_wait(pid, state):
         kernel.CloseHandle(process)
 
 
+def show(pid, state):
+    """Activate the verified existing application; no second owner or UI client."""
+    kernel, process = owned_process(pid, state)
+    try:
+        while True:
+            if kernel.WaitForSingleObject(process, 0) == 0:
+                raise RuntimeError('Office application exited before UI readiness')
+            event = kernel.OpenEventW(0x0002, False, f'Local\\OpenRGB.Office.Show.{pid}')
+            if event:
+                try:
+                    kernel.SetEvent.argtypes = [wintypes.HANDLE]
+                    if not kernel.SetEvent(event):
+                        raise ctypes.WinError(ctypes.get_last_error())
+                    print(json.dumps({'activated': pid, 'new_process': False}))
+                    return
+                finally:
+                    kernel.CloseHandle(event)
+            if ctypes.get_last_error() != 2:
+                raise ctypes.WinError(ctypes.get_last_error())
+            kernel.WaitForSingleObject(process, 1000)
+    finally:
+        kernel.CloseHandle(process)
+
+
 def request_shutdown(pid):
     kernel = ctypes.WinDLL('kernel32', use_last_error=True)
     kernel.OpenEventW.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.LPCWSTR]
@@ -100,12 +124,15 @@ if __name__ == '__main__':
     parser.add_argument('--pid', type=int, required=True)
     parser.add_argument('--wait-ready', action='store_true')
     parser.add_argument('--wait-exit', action='store_true')
+    parser.add_argument('--show', action='store_true')
     parser.add_argument('--state', type=Path)
     args = parser.parse_args()
-    if args.wait_ready or args.wait_exit:
+    if args.wait_ready or args.wait_exit or args.show:
         if not args.state:
             parser.error('Process observation requires --state')
-        if args.wait_ready:
+        if args.show:
+            show(args.pid, args.state)
+        elif args.wait_ready:
             wait_ready(args.pid, args.state)
         else:
             stop_and_wait(args.pid, args.state)

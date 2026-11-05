@@ -14,21 +14,27 @@ p.add_argument('--source',required=True)
 p.add_argument('--version',required=True)
 p.add_argument('--ambient-source',required=True)
 p.add_argument('--plugin-receipt',type=Path,required=True)
+p.add_argument('--native-receipt',type=Path,required=True)
+p.add_argument('--native-archive',type=Path,required=True)
 p.add_argument('--work',type=Path,required=True)
 a=p.parse_args()
 with zipfile.ZipFile(a.archive) as z:
     members={item.filename:z.read(item) for item in z.infolist() if not item.is_dir()}
 build=json.loads(members['office-build.json'])
 assert build['source']==a.source and build['version']==a.version
-assert build['nativeSource']=='82f150a276a800c01b6a5aed1de71520b9d138b4'
+native=json.loads(a.native_receipt.read_text())
+assert build['nativeSource']==native['source'] and build['verificationRun']==native['run']
+assert hashlib.sha256(a.native_archive.read_bytes()).hexdigest()==native['sha256']==build['compiledArtifactSha256']
+with zipfile.ZipFile(a.native_archive) as n:
+    assert members['OpenRGB.exe']==n.read('OpenRGB.exe')
 assert build['ambientSource']==a.ambient_source
 receipt=json.loads(a.plugin_receipt.read_text())
 assert receipt['source']==a.ambient_source and receipt['sha256']==build['ambientArchiveSha256']
-assert hashlib.sha256(members['OpenRGB.exe']).hexdigest()=='31ef7f130009d994c97318a7c13e807a9074bf5583f4b2d966d61701704dcf28'
+assert hashlib.sha256(members['OpenRGB.exe']).hexdigest().upper()==build['nativeExecutableSha256']
 plugin=json.loads(members['plugins/installed-plugin.json'])
 assert plugin['source']==a.ambient_source and plugin['archiveSha256']==receipt['sha256']
 assert hashlib.sha256(members['plugins/openrgb_ambient.dll']).hexdigest().upper()==plugin['sha256']
-assert hashlib.sha256(members['OfficeControl.exe']).hexdigest().upper()==plugin['panelSha256']
+assert build['applicationModel']==plugin['applicationModel']=='unified' and 'OfficeControl.exe' not in members
 assert hashlib.sha256(members['Qt6Network.dll']).hexdigest().upper()==plugin['networkSha256']
 assert hashlib.sha256(members['platforms/qoffscreen.dll']).hexdigest().upper()==plugin['offscreenSha256']
 detectors=json.loads(members['office/detectors.json'])
@@ -49,7 +55,7 @@ assert all(name in members for name in ('LICENSE-Material-Symbols.txt','LICENSE-
 # Corrupt only the plugin's expected digest. The installer must reject the
 # package before creating the destination or extracting any native executable.
 a.work.mkdir(parents=True,exist_ok=False)
-for field,message in (('sha256','Packaged plugin provenance differs'),('panelSha256','Packaged control panel provenance differs')):
+for field,message in (('sha256','Packaged plugin provenance differs'),('networkSha256','Packaged runtime provenance differs')):
     corrupt=dict(plugin);corrupt[field]='0'*64
     negative=a.work/f'wrong-{field}.zip'
     with zipfile.ZipFile(negative,'x') as z:
@@ -60,4 +66,4 @@ for field,message in (('sha256','Packaged plugin provenance differs'),('panelSha
         '--source-commit',a.source,'--version',a.version,'--destination',str(target)],capture_output=True,text=True)
     assert result.returncode!=0 and message in result.stderr and not target.exists(),result.stderr
 print(json.dumps({'package_members':len(members),'native_and_plugin_hashes_verified':True,
-    'five_detectors_six_devices':True,'private_state_excluded':True,'corrupt_plugin_and_panel_rejected_before_write':True}))
+    'five_detectors_six_devices':True,'private_state_excluded':True,'corrupt_plugin_and_runtime_rejected_before_write':True,'single_application_package':True}))

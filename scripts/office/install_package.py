@@ -52,6 +52,13 @@ def main():
         if 'panelSha256' in plugin:
             if digest(files['officecontrol.exe'][1]) != plugin['panelSha256'] or digest(files['qt6network.dll'][1]) != plugin['networkSha256'] or digest(files['platforms/qoffscreen.dll'][1]) != plugin['offscreenSha256']:
                 raise ValueError('Packaged control panel provenance differs from the plugin build')
+        if build.get('applicationModel') == 'unified':
+            if 'officecontrol.exe' in files or plugin.get('applicationModel') != 'unified':
+                raise ValueError('Unified package must not contain a separate control application')
+            if digest(exe) != build['nativeExecutableSha256']:
+                raise ValueError('Packaged native executable provenance differs')
+            if digest(files['qt6network.dll'][1]) != plugin['networkSha256'] or digest(files['platforms/qoffscreen.dll'][1]) != plugin['offscreenSha256']:
+                raise ValueError('Packaged runtime provenance differs from the plugin build')
     args.destination.mkdir(parents=True)
     hashes = {}
     for name, data in files.values():

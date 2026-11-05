@@ -2,9 +2,17 @@ param(
     [Parameter(Mandatory)][string]$InstallRoot,
     [Parameter(Mandatory)][string]$StateRoot,
     [switch]$AllDevices,
-    [switch]$Ambience
+    [switch]$Ambience,
+    [string]$ExportDirectory,
+    [ValidateSet('1','1.5','2')][string]$ScaleFactor = '1',
+    [switch]$ExerciseEditor,
+    [switch]$AllowUnavailable
 )
 $ErrorActionPreference = 'Stop'
+$launchMutex = [Threading.Mutex]::new($false, 'Local\OpenRGB.Office.OwnerLaunch')
+$launchOwned = $false
+try {
+try { $launchOwned = $launchMutex.WaitOne() } catch [Threading.AbandonedMutexException] { $launchOwned = $true }
 if (Get-Process -Name SignalRgb,OpenRGB -ErrorAction SilentlyContinue) { throw 'Exit SignalRGB/OpenRGB before starting this exclusive Govee trial.' }
 $exe = (Resolve-Path (Join-Path $InstallRoot 'OpenRGB.exe')).Path
 $manifest = Get-Content -LiteralPath (Join-Path $InstallRoot 'installed-manifest.json') -Raw | ConvertFrom-Json
@@ -35,6 +43,18 @@ $start.Environment['TEMP'] = $runtimeTemp
 $start.Environment['TMP'] = $runtimeTemp
 if ($AllDevices) { $start.Environment['OPENRGB_OFFICE_SHUTDOWN'] = '1' }
 if ($Ambience) { $start.Environment['OPENRGB_OFFICE_PLUGIN'] = $plugin }
+if ($ExportDirectory) {
+    if (!$Ambience) { throw 'Rendered export requires the integrated application.' }
+    $start.Environment['OPENRGB_OFFICE_EXPORT'] = [IO.Path]::GetFullPath($ExportDirectory)
+    $start.Environment['QT_QPA_PLATFORM'] = 'offscreen'
+    $start.Environment['QT_SCALE_FACTOR'] = $ScaleFactor
+    if ($ExerciseEditor) { $start.Environment['OPENRGB_OFFICE_EXERCISE_EDITOR'] = '1' }
+    if ($AllowUnavailable) { $start.Environment['OPENRGB_OFFICE_ALLOW_UNAVAILABLE'] = '1' }
+}
 $process = [Diagnostics.Process]::Start($start)
 @{pid=$process.Id;startUtcTicks=$process.StartTime.ToUniversalTime().Ticks;executable=$exe;graceful=[bool]$AllDevices} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $StateRoot 'owner.json')
 [pscustomobject]@{pid=$process.Id;executable=$exe;configuration=$StateRoot;headless=$true} | ConvertTo-Json
+} finally {
+    if ($launchOwned) { $launchMutex.ReleaseMutex() }
+    $launchMutex.Dispose()
+}
