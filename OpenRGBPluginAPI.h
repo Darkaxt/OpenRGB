@@ -85,6 +85,7 @@ public:
     nlohmann::json                          GetSettings(std::string settings_key);
     void                                    SaveSettings();
     void                                    SetSettings(std::string settings_key, nlohmann::json new_settings);
+    bool                                    SaveProfile(std::string profile_name) override;
 
     /*-----------------------------------------------------*\
     | RGBControllers registered by plugin                   |

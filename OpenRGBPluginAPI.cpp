@@ -186,6 +186,11 @@ bool OpenRGBPluginAPI::LoadProfile(std::string profile_name)
     return(profile_manager->LoadProfile(profile_name));
 }
 
+bool OpenRGBPluginAPI::SaveProfile(std::string profile_name)
+{
+    return profile_manager->SaveProfile(profile_name);
+}
+
 bool OpenRGBPluginAPI::SaveProfileFromPlugin(std::string profile_name, std::string plugin_name, nlohmann::json plugin_data)
 {
     return(profile_manager->SaveProfileFromPlugin(profile_name, plugin_name, plugin_data));

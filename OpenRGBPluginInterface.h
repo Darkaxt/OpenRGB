@@ -30,7 +30,7 @@
 | 4:    OpenRGB 1.0rc2  Resizable effects-only zones, zone flags                                        |
 | 5:    OpenRGB 1.0     RGBController API overhaul, protected members, features TBD                     |
 \*-----------------------------------------------------------------------------------------------------*/
-#define OPENRGB_PLUGIN_API_VERSION  5
+#define OPENRGB_PLUGIN_API_VERSION  6
 
 /*---------------------------------------------------------*\
 | Plugin Tab Location Values                                |
@@ -136,6 +136,9 @@ public:
     virtual nlohmann::json                          GetSettings(std::string settings_key)                                                                   = 0;
     virtual void                                    SaveSettings()                                                                                          = 0;
     virtual void                                    SetSettings(std::string settings_key, nlohmann::json new_settings)                                      = 0;
+    // Office's integrated device manager saves real native hardware profiles;
+    // SaveProfileFromPlugin only writes a plugin's section, not controller data.
+    virtual bool                                    SaveProfile(std::string profile_name)                                                                  = 0;
 };
 
 class OpenRGBPluginInterface
