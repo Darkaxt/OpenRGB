@@ -32,7 +32,21 @@ visually inspected. A focused 4.33-second sample measured 15.02 Hz output,
 was not performed; topology/offline-device integration tests are not represented
 as a physical travel/undock observation.
 
-Stage 23 is COMPLETE. Stage 24 owns final publication, independently downloaded
-and installed verification, startup/shortcut rebinding and exact obsolete-output
-cleanup. Private acceptance traces, CI logs and package receipts live under
+Stages 23 and 24 are COMPLETE. Normal release
+[v1.1-office.0.7.3](https://github.com/Darkaxt/OpenRGB/releases/tag/v1.1-office.0.7.3)
+targets 6b77dde9e2441a85a64032ea05348128236cf68a. Its independently downloaded ZIP
+matches the checksum, GitHub digest and all 111 installed payload files:
+`0af054ebc5a212b2ebf3e94c1adeef57f37ba0a646dd8e001247c95b0b7b03c4`.
+Native/plugin/panel binaries and the capture-check script exactly match the live
+accepted candidate. Package provenance and corrupt-payload rejection passed.
+
+Windows was locked during final runtime observation: all six controllers are
+online and all 314 values are black, with capture released and no error. The
+optional live observer was cancelled because intentional rest has no image;
+stage 23 supplies the genuine live acceptance for the identical binaries. Saved
+settings remain byte-identical. Shortcut/startup bind official 0.7.3; manually
+invoking the sign-in task returned zero and reused the sole headless owner in the
+interactive session. Candidate, obsolete 0.7.2 and exact task scratch were removed
+through reviewed cleanup tickets. Only official 0.7.3 remains under releases.
+No blocker or tracked deferral remains. Private acceptance traces, CI logs and package receipts live under
 D:/Tools/OpenRGB/validation/20261105/main-display, outside the public package.

@@ -766,18 +766,33 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     are explicitly distinguished from that observation. No blocker or deferral
     remains. Closure assessment: existing display events, WGC crop, normalized
     map and offline inventory satisfy portability without another capture engine.
-24. ACTIVE — Deliver 0.7.3 after stage 23: verify normal published/downloaded
+24. COMPLETE — Deliver 0.7.3 after stage 23: verify normal published/downloaded
     and installed artifacts, exact source provenance, current main-display output,
     shortcut/sign-in migration, preserved settings and obsolete-release/scratch
     cleanup. Physical undocking is not simulated by changing the user's display
     configuration; distinguish deterministic integration coverage from any actual
     undock observation.
+    Normal release v1.1-office.0.7.3 targets 6b77dde9e2441a85a64032ea05348128236cf68a
+    with Ambient 59354d4. Independently downloaded ZIP/checksum match the GitHub
+    asset digest; all 111 installed payload files and tested candidate runtime
+    binaries match. Package provenance and corrupt-plugin/panel rejection passed.
+    Official owner is the sole native writer, with six controllers online; saved
+    configuration remains byte-identical. Windows was locked during final native
+    observation, correctly releasing capture and resting all 314 LED values.
+    Live acceptance uses stage 23's identical runtime binaries, rather than
+    claiming a locked-session preview. Shortcut/sign-in bind official 0.7.3;
+    the manually invoked scheduled task returned zero and reused one headless
+    interactive-session owner. Candidate and obsolete 0.7.2 installations and
+    exact E: scratch were transactionally removed. Only official 0.7.3 remains
+    under releases. Required acceptance/CI receipts and recovery packages remain.
+    No blocker or deferral remains; final reconciliation reuses stage 23's
+    existing-event/crop/map ownership assessment, with no further machinery.
 
-Active task scratch: E:/Temp/openrgb-primary-display-20261105, transaction
-233478697ae060aaa348c6b5712fcb9d. Hosted build inputs and package checks are
-disposable after delivery. Candidate runtime: D:/Tools/OpenRGB/releases/
-candidate-office-0.7.3, transaction da535003603a041f0750fb4552cf34cc, retained only
-until consumer migration to the final release. Persistent acceptance evidence:
+Completed task scratch: E:/Temp/openrgb-primary-display-20261105, transaction
+233478697ae060aaa348c6b5712fcb9d; candidate-office-0.7.3, transaction
+da535003603a041f0750fb4552cf34cc; obsolete official 0.7.2, transaction
+53280ea20dc448eb4fd06548f758bb28. All were removed after last use and verified
+consumer migration to official 0.7.3. Persistent acceptance evidence:
 D:/Tools/OpenRGB/validation/20261105/main-display.
 
 Completed disposable work: E:/Temp/openrgb-idle-saver-20261105 (transaction
