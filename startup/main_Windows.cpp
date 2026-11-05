@@ -568,9 +568,11 @@ static void WaitWhileServerOnline(NetworkServer* srv, int argc, char* argv[])
     }
     if(office_stop && GetEnvironmentVariableW(L"OPENRGB_OFFICE_PLUGIN", NULL, 0) != 0)
     {
-        // Plugins need a Qt event loop, but this explicit office host must never
-        // construct QApplication, GetWidget(), a tray menu or a visible window.
-        QCoreApplication app(argc, argv);
+        // One application hosts the Office window/tray. The plugin constructs
+        // capture and output on its dedicated worker; GUI work cannot starve it.
+        QApplication app(argc, argv);
+        app.setApplicationName("Office Ambilight");
+        app.setQuitOnLastWindowClosed(false);
         PluginManager plugins;
         ResourceManager::get()->SetPluginManager(&plugins);
         QWinEventNotifier shutdown(office_stop);
@@ -591,8 +593,21 @@ static void WaitWhileServerOnline(NetworkServer* srv, int argc, char* argv[])
             }
             else
             {
-                LOG_INFO("[Office] Native headless ambience plugin loaded");
+                QWidget* panel = plugins.ActivePlugins.front().plugin->GetWidget();
+                if(!panel) throw std::runtime_error("Office application widget unavailable");
+                // Start quietly at sign-in. An identity-checked launcher signals
+                // this event to activate the existing owner, without a UI client.
+                const std::wstring show_name = L"Local\\OpenRGB.Office.Show." + std::to_wstring(GetCurrentProcessId());
+                HANDLE show = CreateEventW(NULL, FALSE, FALSE, show_name.c_str());
+                if(!show) throw std::runtime_error("Cannot create Office activation event");
+                QWinEventNotifier activate(show);
+                QObject::connect(&activate, &QWinEventNotifier::activated, panel, [panel]() {
+                    panel->showNormal(); panel->raise(); panel->activateWindow();
+                });
+                LOG_INFO("[Office] Unified application and independent lighting owner loaded");
                 app.exec();
+                activate.setEnabled(false);
+                CloseHandle(show);
             }
         }
         catch(const std::exception& error)

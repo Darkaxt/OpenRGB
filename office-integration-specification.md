@@ -898,6 +898,61 @@ package outputs. Continuing runtime uses state-integration/runtime-temp
 independently of disposable scratch. Required acceptance receipts remain under
 D:/Tools/OpenRGB/validation/20261105/lightbulb.
 
+### Unified Office application — authorized 2026-11-05
+
+R27: OpenRGB.exe hosts the existing Office UI and its single tray. Ordinary UI
+requests use in-process, queued calls rather than the authenticated local pipe.
+Construct the capture/output owner on its own Qt thread (including COM, native
+event windows and timers); a stalled GUI must not stall lighting. Keep diagnostic
+IPC and its authentication, controller-removal barriers, single-owner startup,
+quiet sign-in, graceful exit and the existing capture/rest/recovery semantics.
+Opening the shortcut activates the existing application; it must not start a
+second hardware owner. Normal delivery has no separate OfficeControl executable.
+
+R28: Integrate applicable OpenRGB hardware management deliberately, using the
+existing Office visual system. Devices owns discovery/rescan, connection and
+hardware identity, native hardware zones, supported modes and their actual
+speed/brightness/direction/colour capabilities, hardware save when supported,
+and driver-specific configuration. Hardware mode is an explicit per-device
+alternative to ambience, retained across reconnect/restart. Temporary tests and
+lock/display/saver rest must restore the selected owner afterwards. Never let
+the frame sender overwrite a hardware effect. Capability-dependent controls
+must be absent/disabled with an explanation when unsupported, not simulated.
+Keep saved offline maps and reject stale device identities or geometry changes
+that would invalidate a live map. Discovery uses OpenRGB's existing detector
+configuration; this change does not add hardware protocols or enable unsafe
+detectors. Native profiles are coordinated hardware snapshots on Devices, not
+sampling-layout presets. Preserve existing device inclusion and Identify.
+
+Feature placement/design contract:
+| Area | Integration decision |
+| --- | --- |
+| Control | Keep capture/source policy, algorithms, sampling, smoothing, brightness following and ambience presets. Device switches remain ambience inclusion. |
+| Topology | Keep sampling groups, individual LED regions, selection/resize/rotation/grid; native hardware geometry is inspected/configured in Devices, never mistaken for a screen region. |
+| Devices | Replace shallow hardware cards with selectable native details and contextual mode/zone/driver controls; retain topology shortcuts, availability and Identify. Place rescan and native profiles here. |
+| Settings | Replace the ordinary pipe connection form with integrated engine/application lifecycle; keep preferences and diagnostics access. SDK server remains supported by OpenRGB. |
+| Preview | Keep live capture, submitted LED overlay, spatial blur and animation playground. No second capture/output writer. |
+| Diagnostics/Help | Explain the single process, output ownership, actual capabilities and recovery. Retain journal and authenticated external diagnostics. |
+| Tray/shortcut | One tray, show/hide Office UI, return from tests, exit entire app; sign-in stays hidden. |
+
+Use existing Orbitron/Rajdhani typography, Material Symbols, dark cards/cyan
+controls, accessible names and responsive scrolling. Verify real app-owned
+renders at 1000x700, 1440x900 and 1920x1080; relevant 150%/200% scaling and
+hardware detail states must remain usable. No desktop takeover is required.
+Preserve office-ambience.json and LightBulb configuration during migration.
+
+29. ACTIVE — Implement and integrate R27/R28 as a complete single-process
+    workflow, including contextual native device controls and independent output.
+    Acceptance: focused lifecycle/removal/mode/rest/profile/UI regressions;
+    rendered design evidence; one real integrated owner with unchanged topology,
+    live capture and observed hardware availability; GUI isolation demonstrated.
+    Advancement blockers: implementation and acceptance evidence pending.
+    No tracked deferrals.
+30. NOT STARTED — Deliver normal 0.8.0 from the verified integrated result;
+    independently retrieve/check package and source provenance, activate the
+    one-app startup/shortcut/tray, preserve settings, retire obsolete release and
+    disposable artifacts transactionally. No tracked deferrals.
+
 Completed task scratch: E:/Temp/openrgb-primary-display-20261105, transaction
 233478697ae060aaa348c6b5712fcb9d; candidate-office-0.7.3, transaction
 da535003603a041f0750fb4552cf34cc; obsolete official 0.7.2, transaction
