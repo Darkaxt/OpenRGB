@@ -31,3 +31,24 @@ Stage 21 is COMPLETE; final release verification is stage 22.
 Private diagnostic traces and package verification receipts are retained under
 `D:/Tools/OpenRGB/validation/20261105/automatic-saver`; this public record contains
 no topology, credentials or control tokens.
+
+Final delivery — COMPLETE: normal release
+[v1.1-office.0.7.2](https://github.com/Darkaxt/OpenRGB/releases/tag/v1.1-office.0.7.2)
+targets 22b58b057239545d82cc8403bd3bd05189738256, with Ambient d878b47.
+The independently downloaded ZIP matches its checksum and GitHub asset digest:
+`8f9f483384da084d80b3b5b570ab3e0e358dac6a50b069cc0643e7dddea01ff1`.
+All 109 installed payload members match the downloaded package. Package validation
+passed, including corrupt-plugin/panel rejection before writes. Saved configuration
+is unchanged. The official owner reports all six controllers online, and all 314
+LED values are black while Windows is locked, with capture released and no error.
+The optional final live-preview observer was cancelled because this intentional
+rest state has no image; genuine automatic recovery was already verified above.
+Final installed offscreen exports covered 21 page/viewport combinations, including
+the unavailable-source state; these do not claim live captured imagery while locked.
+
+The desktop shortcut and sign-in binding point to official 0.7.2. The registered
+task completed with result zero, reusing one headless owner in interactive session
+1. The candidate installation and obsolete 0.7.1 root were removed through reviewed
+cleanup tickets; only 0.7.2 remains under releases. Task scratch was also removed
+after retaining required CI, package provenance and delivery receipts. Stage 22 is
+COMPLETE, with no blocker or tracked deferral.

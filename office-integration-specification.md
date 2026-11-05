@@ -717,15 +717,31 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     D:/Tools/OpenRGB/validation/20261105/automatic-saver. No blocker or deferral
     remains. Closure assessment: existing lifecycle and native output ownership
     suffice; no service, timer override or additional capture path is needed.
-22. ACTIVE — Deliver verified 0.7.2 after stage 21: published/downloaded and
+22. COMPLETE — Deliver verified 0.7.2 after stage 21: published/downloaded and
     installed provenance, saved configuration, desktop shortcut and sign-in
     binding migrated before obsolete runtime retirement; cleanup exact scratch.
+    Published normal release v1.1-office.0.7.2 at source 22b58b05 with Ambient
+    d878b47. Independently downloaded ZIP/checksum, verified tag commit and GitHub
+    digest, all 109 installed payload members and package provenance/rejection
+    checks. The official owner reports six online controllers/314 LED values;
+    Windows was locked during final observation, so capture was correctly released
+    and every output value was black, without capture errors. Genuine automatic
+    off/resume acceptance is recorded in stage 21; no fresh-preview claim is made
+    for this locked-session observation. Final installed panel exports covered
+    all 21 page/viewport combinations. Desktop shortcut and sign-in binding use
+    official 0.7.2; manually invoked sign-in task completed with result zero and
+    reused the sole headless owner in the interactive user session. Saved custom
+    configuration is byte-identical. Candidate and obsolete 0.7.1 installations
+    and exact E: scratch were transactionally removed; only official 0.7.2 remains
+    under releases. Recovery packages and required acceptance evidence remain.
+    No blocker or tracked deferral remains.
 
-Pending task scratch: E:/Temp/openrgb-idle-saver-20261105, transaction
-64911687cb030386e5d2e789094ec0a6, retains verified native/final CI artifacts and
-package inputs needed for the pending delivery. Active candidate retirement
-transaction 792e317edbae9cf3305feed04ef934ae must remain open until its native
-owner, shortcut and sign-in consumers move to the final official release.
+Completed disposable work: E:/Temp/openrgb-idle-saver-20261105 (transaction
+64911687cb030386e5d2e789094ec0a6), candidate-office-0.7.2 (transaction
+792e317edbae9cf3305feed04ef934ae) and obsolete official 0.7.1 (transaction
+ff74ae783d5d046022c85a4375574b96) were removed after consumer migration and
+independent delivery verification. Persistent acceptance and CI receipts:
+D:/Tools/OpenRGB/validation/20261105/automatic-saver.
 
 Completed disposable work: E:/Temp/openrgb-draft-blur-20261105 (hosted build inputs
 and package checks) was transactionally removed. Persistent acceptance:
