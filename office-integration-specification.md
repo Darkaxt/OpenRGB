@@ -690,6 +690,24 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     tickets; only the current release directory remains. Recovery packages and
     required acceptance evidence remain. No blocker or tracked deferral remains.
 
+21. ACTIVE — Automatic idle screensaver rest (2026-11-05 user clarification).
+    Distinguish Windows' automatic screensaver state/input desktop from the
+    manually launched Ctrl+Alt+L saver. Automatic saver entry must force all
+    configured lights off and release stale capture; exit must reacquire fresh
+    imagery and resume. Preserve manual saver capture, lock/display rest, saved
+    custom settings/topology and the sign-in task. Verify the native six-device
+    output path, a genuine automatic entry/exit observation and recovery. Do not
+    alter the user's idle timeout or simulate desktop input. Existing source only
+    treats both saver cases as capture sources, so automatic entry has no explicit
+    rest policy. The read-only probe caught Screen-saver/SPI true, the .scr window,
+    zero captured frames and WGC "The parameter is incorrect" while retained
+    output stayed nonzero (maximum channel 240). Thus inaccessible saver capture
+    replayed stale wallpaper colours instead of resting. Preserve this evidence
+    separately from the working manual Default-desktop saver path.
+22. NOT STARTED — Deliver verified 0.7.2 after stage 21: published/downloaded and
+    installed provenance, saved configuration, desktop shortcut and sign-in
+    binding migrated before obsolete runtime retirement; cleanup exact scratch.
+
 Completed disposable work: E:/Temp/openrgb-draft-blur-20261105 (hosted build inputs
 and package checks) was transactionally removed. Persistent acceptance:
 D:/Tools/OpenRGB/validation/20261105/gui-0.7.1. The continuing owner/panel use
