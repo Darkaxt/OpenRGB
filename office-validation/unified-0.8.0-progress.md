@@ -1,50 +1,57 @@
-# Unified Office application — implementation in progress
+# Unified Office application — verified integration
 
-The user explicitly resumed this task. Stage 29 is ACTIVE; stage 30 is NOT
-STARTED. No candidate is activated: installed 0.7.5 remains the sole owner.
-Its saved topology/settings remain untouched. These notes do not claim delivery.
+Stage 29 is COMPLETE; stage 30 is ACTIVE. Publication and installed delivery
+remain required; this record alone is not release completion.
 
-Implemented integration: OpenRGB.exe hosts Office's existing pages and one tray;
-typed queued UI calls replace the ordinary pipe client. Capture, OS notifications
-and output are constructed and destroyed on a dedicated Qt event thread.
-Synchronous controller removal still waits for in-flight output. Diagnostic IPC
-remains authenticated. Normal packages exclude OfficeControl.exe.
+OpenRGB.exe hosts Office's existing pages and one tray with the genuine OpenRGB
+application icon. Typed queued UI calls replace the ordinary pipe client.
+Capture, OS notifications and output run on a dedicated Qt event thread.
+Synchronous removal waits for in-flight output; external diagnostics remain
+authenticated. Packages exclude the separate OfficeControl executable.
 
-Devices adds rescan, native profiles, metadata, contextual mode controls, actual
-hardware zones and schema-backed driver options. Capability flags/ranges control
-the editor; mapped hardware geometry is protected. Native mode ownership persists
-across reconnect/restart, excluding those devices from ambience writes. Rest and
-tests temporarily take over and then restore the hardware selection. Hardware
-memory save requires a successfully applied supported mode, not just a dropdown
-selection. Settings controls the integrated engine without a second process.
+Devices integrates rescan, native profiles, identity, supported hardware modes,
+actual speed/brightness/direction/colour ranges, physical zones and driver
+configuration. Mapped geometry is protected. Explicit hardware ownership
+survives restart/reconnect, excluding the frame writer; temporary tests/rest
+restore the chosen owner. Device memory Save requires a supported applied mode.
+Control/Topology/Preview retain their sampling and ambience responsibilities.
+Settings now controls the integrated engine. Existing design assets are retained.
 
-Native API 6/build a185a35130b2a9cfe869c6b4241ba27bd6e0c85c passed Windows CI
-42113774830, including SDK-to-wire/idle checks. Downloaded CI artifact digest:
-5d155a0845f3121bff7638bf93b6f640542d4cc937c539a3f0313cbe3bd829f2.
-Ambient 971263d compiled successfully. Its runtime test demonstrated output
-while the GUI loop was blocked, synchronous removal, worker affinity and actual
-worker teardown. The hardware editor test rejected an invalid empty snapshot
-from its fixture; the fixture is corrected in aac9ffd. That revision also adds
-profile/test/pause restoration checks and the genuine OpenRGB icon. The Windows
-workflow for the complete current result must still be inspected.
+Native API 6/source a185a35130b2a9cfe869c6b4241ba27bd6e0c85c passed Windows CI
+42113774830. Ambient c39ef18dd14bbc9598e1ebb449d39a679124d7ed passed Windows CI
+42124655464, including output while the GUI loop is blocked, removal, teardown,
+native ownership/profile/rest contracts and rendered widget interaction.
 
-Support scripts now use the existing process's identity-addressed Show event.
-Shortcut and sign-in launches serialize on the same named owner-launch mutex.
-Export renders the actual unified application offscreen; package/install checks
-bind native/plugin/runtime hashes and reject a separate panel executable.
-Syntax checks pass; package integration/activation/render acceptance is pending.
+Actual application exports under local validation/20261106/unified-r2 cover
+1000x700, 1440x900, 1920x1080 at 100/150/200% plus 24 native hardware tab views.
+Inspected renders retain dark cards/cyan typography and opaque hardware dialogs.
+Real group/rotation/name Save/reload restores the original document exactly:
+0f393259b7143cd056474139ba6172c3efe1b9bcef5e1652bd7cf003ce31985a.
+An earlier export exposed default/alias injection during Save; corrected in the
+verified build. The exact original bytes were recovered and restored, not guessed.
 
-Remaining stage-29 acceptance: successful complete current Windows regressions;
-package and installer rejection checks; actual app-owned page/hardware renders
-and scaling; live sole-owner capture, mode/return/profile/rescan, process reuse,
-settings preservation, quiet startup/tray lifecycle. Fix any failures before
-closing the stage. No tracked deferrals. Stage 30 owns final publication,
-independent release download, installed provenance/startup verification and
-transactional retirement of obsolete releases/scratch.
+Live checks: all six controllers, correct Windows-main-display WGC bounds and
+fresh imagery; native handoff/return and stale identity rejection; actual native
+profile Save/Load; completed rescan retaining maps; hardware ownership persistence
+through restart. Repeated Show requests activate the same process. No desktop
+input was used. Profile test artifact was removed with the cleanup helper.
+An 8.5-second hidden-UI observation measured 14.83 FPS, 0.373% whole-machine CPU
+and 99.3 MiB working set. These are software/native submission measurements;
+no new physical lock/display test is claimed for this release.
 
-Disposable inputs are confined to E:/Temp/openrgb-unified-20261105, registered
-before creation with cleanup transaction 4411e7ea4027a9dd25a4690b3fbf6e3e.
-No host native build tree is used; Windows compilation runs in hosted CI.
-Persistent runtime scratch remains state-integration/runtime-temp, independent
-of expendable task files. Retained final evidence will use a named validation
-directory under D:/Tools/OpenRGB, with no pixels or credentials published.
+The startup helper now waits for the host's existing post-construction Show
+marker before reading endpoint metadata, preventing a Windows publication race.
+The resource observer reuses the existing Win32 counter helper, with no psutil
+dependency. Both were verified against the running candidate.
+
+Stage 30 owns normal 0.8.0 publication, independent delivered ZIP/provenance
+checks, official installed-payload/startup/shortcut verification and cleanup.
+No tracked deferrals. Source-to-native build differences remain limited to
+reviewed scripts/documentation; compiled native provenance remains explicit.
+
+Disposable E:/Temp/openrgb-unified-20261105 uses cleanup transaction
+4411e7ea4027a9dd25a4690b3fbf6e3e. First candidate was removed through
+30a8bc84a0aa33713ca18b8f74d88c1f. Candidate r2 is registered under
+6d63a01c47256aafd96f8a8efa0ce5fa and remains the current acceptance consumer.
+Persistent runtime scratch is state-integration/runtime-temp, independent of
+task scratch. Credentials and capture pixels remain local and outside packages.

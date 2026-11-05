@@ -941,14 +941,24 @@ renders at 1000x700, 1440x900 and 1920x1080; relevant 150%/200% scaling and
 hardware detail states must remain usable. No desktop takeover is required.
 Preserve office-ambience.json and LightBulb configuration during migration.
 
-29. ACTIVE — Implement and integrate R27/R28 as a complete single-process
+29. COMPLETE — Implement and integrate R27/R28 as a complete single-process
     workflow, including contextual native device controls and independent output.
     Acceptance: focused lifecycle/removal/mode/rest/profile/UI regressions;
     rendered design evidence; one real integrated owner with unchanged topology,
     live capture and observed hardware availability; GUI isolation demonstrated.
-    Advancement blockers: implementation and acceptance evidence pending.
+    Verified native CI 42113774830 and Ambient CI 42124655464. Actual unified
+    renders cover all seven pages at three sizes and 100/150/200% scaling, plus
+    four hardware tabs for each controller. Real editor group/rotation/name
+    Save/reload preserves the exact original settings digest. Live native mode
+    handoff, stale identity rejection, profile Save/Load, six-device rescan and
+    native-selection persistence across restart passed. Repeated Show activation
+    reused the sole process. Worker tests prove output while the GUI is stalled,
+    synchronous removal and actual teardown. Main-display preview and all six
+    controllers verified; 14.83 FPS, 0.373% total CPU, 99.3 MiB working set in an
+    8.5-second hidden-UI observation. Evidence: local validation/20261106/unified-r2.
+    No remaining blockers.
     No tracked deferrals.
-30. NOT STARTED — Deliver normal 0.8.0 from the verified integrated result;
+30. ACTIVE — Deliver normal 0.8.0 from the verified integrated result;
     independently retrieve/check package and source provenance, activate the
     one-app startup/shortcut/tray, preserve settings, retire obsolete release and
     disposable artifacts transactionally. No tracked deferrals.

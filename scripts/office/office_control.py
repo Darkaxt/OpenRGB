@@ -13,32 +13,18 @@ kernel.WriteFile.argtypes=kernel.ReadFile.argtypes
 kernel.CloseHandle.argtypes=[W.HANDLE]
 
 def wait_ready(state,pid):
-    """Wait for this owner's endpoint publication or actual process exit."""
-    from runtime_control import owned_process
-    native,process=owned_process(pid,state)
-    native.FindFirstChangeNotificationW.argtypes=[W.LPCWSTR,W.BOOL,W.DWORD]
-    native.FindFirstChangeNotificationW.restype=W.HANDLE
-    native.FindNextChangeNotification.argtypes=[W.HANDLE]
-    native.FindCloseChangeNotification.argtypes=[W.HANDLE]
-    native.WaitForMultipleObjects.argtypes=[W.DWORD,C.POINTER(W.HANDLE),W.BOOL,W.DWORD]
-    notification=native.FindFirstChangeNotificationW(str(state),False,0x1b)
-    if notification==C.c_void_p(-1).value:
-        native.CloseHandle(process);raise C.WinError(C.get_last_error())
-    handles=(W.HANDLE*2)(process,notification)
-    try:
-        while True:
-            path=state/'office-control.json'
-            try:
-                with path.open(encoding='utf-8-sig') as file: info=json.load(file)
-            except FileNotFoundError: info={}
-            if info.get('pid')==pid and info.get('protocol')==1:
-                print(json.dumps({'control_ready':True,'pid':pid,'same_owner_endpoint':True}));return
-            result=native.WaitForMultipleObjects(2,handles,False,0xffffffff)
-            if result==0: raise RuntimeError('Native owner exited before the control endpoint was published')
-            if result!=1: raise C.WinError(C.get_last_error())
-            if not native.FindNextChangeNotification(notification): raise C.WinError(C.get_last_error())
-    finally:
-        native.FindCloseChangeNotification(notification);native.CloseHandle(process)
+    """Wait for completed plugin/UI construction before reading its endpoint.
+
+    The host creates Show only after the worker has constructed the engine and
+    committed its private QSaveFile. Directory notifications can arrive while
+    that file is still being replaced; they are not a publication barrier.
+    """
+    from runtime_control import wait_ready as native_ready
+    native_ready(pid,state,event_name='Show')
+    info=json.loads((state/'office-control.json').read_text(encoding='utf-8-sig'))
+    if info.get('pid')!=pid or info.get('protocol')!=1:
+        raise RuntimeError('Ready application published a different control endpoint')
+    print(json.dumps({'control_ready':True,'pid':pid,'same_owner_endpoint':True}))
 
 class Control:
     def __init__(self,state):

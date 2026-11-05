@@ -40,12 +40,12 @@ def owned_process(pid, state):
         raise
 
 
-def wait_ready(pid, state):
+def wait_ready(pid, state, event_name='Shutdown'):
     """Observe this process's native ready event, or its actual exit."""
     kernel, process = owned_process(pid, state)
     try:
         while True:
-            event = kernel.OpenEventW(0x100000, False, f'Local\\OpenRGB.Office.Shutdown.{pid}')
+            event = kernel.OpenEventW(0x100000, False, f'Local\\OpenRGB.Office.{event_name}.{pid}')
             if event:
                 kernel.CloseHandle(event)
                 print(json.dumps({'ready': True, 'pid': pid, 'native_event_observed': True}))
