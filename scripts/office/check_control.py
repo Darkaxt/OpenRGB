@@ -34,7 +34,7 @@ def main():
         if a.phase=='prepare':
             request=dict(command='save',revision=snapshot['revision'],settings=snapshot['settings'],layout=snapshot['layout'])
             invalid=copy.deepcopy(request);invalid['layout'][0]['regions'][0]=[0,0,2,1]
-            rejected(client,invalid,'inside the LG')
+            rejected(client,invalid,'inside the main display')
             invalid=copy.deepcopy(request);invalid['revision']+=1
             rejected(client,invalid,'another panel')
             invalid=copy.deepcopy(request);invalid['layout'][0]['led_names'][0]='incorrect'

@@ -29,7 +29,7 @@ def main():
         value = MonitorInfo()
         value.size = C.sizeof(value)
         if user.GetMonitorInfoW(handle, C.byref(value)):
-            monitors.append({'name': value.device, 'bounds': [value.monitor.left, value.monitor.top, value.monitor.right, value.monitor.bottom]})
+            monitors.append({'name': value.device, 'primary': bool(value.flags & 1), 'bounds': [value.monitor.left, value.monitor.top, value.monitor.right, value.monitor.bottom]})
         return True
 
     @WINDOWPROC

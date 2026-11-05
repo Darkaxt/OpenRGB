@@ -27,10 +27,12 @@ Govee v1.1-office.0.1.0 remains the verified rollback baseline, not overall comp
   The user explicitly moved onboard-memory button/DPI configuration to later on
   2026-11-04; exact mouse input-profile reproduction is outside this delivery.
   Preserve the saved G HUB profile for that later work, without resetting it.
-- A1: Deliver screen ambience for the main LG DISPLAY2, 5120x2160, only. With ordinary
+- A1: Deliver screen ambience for the Windows main display, resolved live rather
+  than pinned to the LG or a DISPLAY number (user scope change, 2026-11-05).
+  Originally this was LG DISPLAY2, 5120x2160 only. With ordinary
   non-maximized windows covering it, capture the rendered Wallpaper Engine wallpaper
-  behind them. A maximized/fullscreen app on the LG takes priority; restoring,
-  minimizing or closing it returns to wallpaper. An unobstructed LG desktop can use
+  behind them. A maximized/fullscreen app on the main display takes priority; restoring,
+  minimizing or closing it returns to wallpaper. An unobstructed main desktop can use
   normal screen capture. Apps maximized only on another monitor do not take over.
 - A2: On 2026-11-04 the user selected krojew/OpenRGB-Ambient as the engine to wire
   into OpenRGB after local comparison with EDAmbilight. Adapt that native plugin
@@ -43,7 +45,8 @@ Govee v1.1-office.0.1.0 remains the verified rollback baseline, not overall comp
 - A3: Map the current physical arrangement into the ambience canvas: monitor edges,
   two vertical bars, desk strip, external keyboard, laptop on the left and mouse
   on the right. The laptop follows the main monitor for this delivery; independent
-  laptop-screen ambience remains outside scope.
+  laptop-screen ambience remains outside scope. When undocked, the laptop's main
+  display drives its connected lights using the same normalized saved regions.
 - D1: Finish integration, physical acceptance and resource checks, then commit and
   deliver one proper verified final release for this complete outcome. Verify its
   published/downloaded and installed package, activation and rollback. No intermediate
@@ -735,6 +738,24 @@ format transitions and integrated sampling. Do not redesign unrelated algorithms
     and exact E: scratch were transactionally removed; only official 0.7.2 remains
     under releases. Recovery packages and required acceptance evidence remain.
     No blocker or tracked deferral remains.
+
+23. ACTIVE — Windows main-display capture (2026-11-05 user request, A1/A3).
+    Resolve the primary display on source selection and display-change/resume
+    events, regardless of legacy saved monitor name. Retain wallpaper-only capture
+    behind floating windows and app/manual-saver priority on that display only.
+    Preserve automatic-saver/lock/display rest, saved topology/custom processing,
+    offline device maps and the single native owner. Resolution/main-display
+    changes must refresh the crop without rewriting normalized regions. Verify
+    production Windows monitor selection, display-change invalidation, crop
+    switching, offline laptop/mouse output and unchanged saved settings. Update
+    UI/help/diagnostics to describe and identify the actual main display.
+    Advancement blocker: implementation and integrated verification remain.
+24. NOT STARTED — Deliver 0.7.3 after stage 23: verify normal published/downloaded
+    and installed artifacts, exact source provenance, current main-display output,
+    shortcut/sign-in migration, preserved settings and obsolete-release/scratch
+    cleanup. Physical undocking is not simulated by changing the user's display
+    configuration; distinguish deterministic integration coverage from any actual
+    undock observation.
 
 Completed disposable work: E:/Temp/openrgb-idle-saver-20261105 (transaction
 64911687cb030386e5d2e789094ec0a6), candidate-office-0.7.2 (transaction

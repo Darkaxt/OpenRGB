@@ -28,6 +28,6 @@ $process.WaitForExit()
 if ($process.ExitCode) { throw "Native panel export failed: $($process.ExitCode)" }
 $record = Get-Content -LiteralPath (Join-Path $OutputDirectory 'panel-export.json') -Raw | ConvertFrom-Json
 if ($record.devices -ne 6 -or $record.views.Count -ne 21) { throw 'Panel export did not cover all required views, including Help.' }
-if (!$AllowUnavailable -and !$record.actual_preview) { throw 'No actual LG preview was rendered.' }
+if (!$AllowUnavailable -and !$record.actual_preview) { throw 'No actual main display preview was rendered.' }
 if ($ExerciseEditor -and !$record.editor_save_roundtrip) { throw 'The real editor save/restore did not pass.' }
 $record | ConvertTo-Json -Depth 5

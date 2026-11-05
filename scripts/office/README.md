@@ -1,9 +1,12 @@
 # OpenRGB office ambience 1.1-office.0.3.0
 
 This package includes the native six-controller OpenRGB build and the adapted
-OpenRGB-Ambient plugin. It captures the LG's rendered Wallpaper Engine wallpaper
-behind ordinary windows; maximized/fullscreen LG apps take priority. Apps on the
-laptop display do not take over. All six devices follow the LG in this release.
+OpenRGB-Ambient plugin. It captures the Windows main display's rendered Wallpaper
+Engine wallpaper behind ordinary windows; maximized/fullscreen apps on that
+display take priority. Apps on other displays do not take over. Main-display and
+resolution changes refresh capture automatically, including when undocking to
+the laptop. Connected lights retain their normalized maps; desk devices can stay
+offline. Legacy saved DISPLAY names no longer pin capture to a disconnected LG.
 
 Supported office controllers: H6609 (20 regions, perimeter 3/7/4/6), H8048 (left
 10/right 10), Secretlab NL72S2 (48), Keychron Q6 HE ISO SRGBmods (109), Legion Pro
@@ -21,7 +24,7 @@ public package. That directory already contains the verified device addresses,
 locally reused Secretlab credential and `office-ambience.json`:
 
 ```json
-{"monitor":"\\\\.\\DISPLAY2","fps":15,"smoothing_ms":140}
+{"monitor":"primary","fps":15,"smoothing_ms":140}
 ```
 
 After installing the hash-verified package into its versioned release directory:
@@ -61,7 +64,7 @@ pwsh -NoProfile -File D:/Tools/OpenRGB/releases/1.1-office.0.3.0/office/Open-Off
 
 The panel connects to the existing owner; it does not run another capture or RGB
 engine. Control adjusts output FPS, smoothing and enable. Topology displays the
-actual LG preview, sampling rectangles and live LED colours for all six devices.
+actual main-display preview, sampling rectangles and live LED colours for all six devices.
 Select a zone or individual LED, then drag or edit its percentage coordinates.
 Rotate and reverse preserve hardware LED identities. Save applies the draft
 atomically; Reload discards it. Opening the panel leaves the existing map intact.
@@ -78,7 +81,7 @@ verifies the panel and its network dependency against packaged provenance.
 ## Capture and recovery
 
 The tested WGC target is the top-level Progman wallpaper host; its child renderer
-is not capturable on this machine. GPU processing crops only DISPLAY2 and reads
+is not capturable on this machine. GPU processing crops only the main display and reads
 back one RGBA value per LED. Previous valid colours remain during source changes
 and capture failures. Genuine black content is honored. Visible desktop-icon
 exclusion is not verified: the current desktop has no icons, and a nonempty
