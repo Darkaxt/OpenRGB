@@ -1143,6 +1143,14 @@ on maximize, Windows snap hit testing, keyboard access and existing close-to-tra
 unsaved-change/Exit behavior. Interactive header controls must not become drag
 regions. Retain the native window taskbar identity and one process/tray.
 
+R37 (explicit user clarification, 2026-11-06): G502 mouse, Keychron keyboard and
+Legion laptop lighting are optional when disconnected. Their absence alone must
+not block delivery/maintenance or prompt for reconnection. Preserve their saved
+maps and existing removal/reconnect behavior; do not disable their integration.
+Wireless lighting availability (Govee H6609, Govee H8048, Nanoleaf/Secretlab MAGRGB)
+remains significant for the delivery/maintenance check. This applies to stage34
+and the existing monthly maintenance task; screen/gamma checks remain required.
+
 Design contract: existing dark/cyan EDAmbilight rail, fonts and cards remain.
 Use LightBulb's muted blue day, amber night and warm transition sundial colors;
 180-DIP dial, legible state/time readouts and adjacent sunrise/sunset labels.
@@ -1169,7 +1177,8 @@ interpolation. No screen/gamma/capture lifecycle or scheduling redesign.
     D:/Tools/OpenRGB/validation/20261106/screen-visuals-0.9.2. Closure assessment:
     cycle geometry and window activation each have one owner; no required debt,
     blockers or tracked deferrals remain for this stage.
-34. BLOCKED — Deliver normal 0.9.2 after stage33. Commit/push verified source,
+34. COMPLETE — Deliver normal 0.9.2 after stage33, using R37 for device availability.
+    Commit/push verified source,
     use matching successful native/Ambient artifacts (including native activation
     through the same Windows system-command path as the caption), independently
     retrieve/check published package/source/checksum/assets,
@@ -1183,11 +1192,12 @@ interpolation. No screen/gamma/capture lifecycle or scheduling redesign.
     root, result0, one headless owner101132, no standalone LightBulb startup/process;
     both-display gamma, capture, original configuration hashes and shortcut passed.
     Candidate and E scratch were transactionally removed with no residuals.
-    External blocker: final six-device online readback is4/6; physical G502 X PLUS
-    (VID046D/PIDC095) and Keychron Q6 HE (VID3434/PID0B61) are absent from current
-    Windows PnP inventory. The same native/plugin binaries verified6/6 during
-    candidate acceptance. Do not classify this as a source regression or silently
-    waive the final criterion. Resolution: physical devices return to this PC and
-    actual owner reports6/6, or the user explicitly confirms intentional
-    disconnection and revises that current-hardware expectation. User clarification
-    is pending. Only that delivery criterion remains; no tracked deferrals.
+    Final reconnection readback: the same owner101132 reports6/6 online,314 LEDs,
+    valid capture and both-display gamma. Original configuration digest comparison
+    passed. Earlier4/6 observation was physical USB absence, now resolved; R37 also
+    explicitly removes local-device presence as a delivery gate. The monthly task's
+    saved prompt now distinguishes optional local devices from required wireless
+    lighting; status, schedule, target and quiet notification intent are preserved.
+    Stage/final debt assessment remains unchanged: no required refactoring,
+    unresolved blockers or tracked deferrals. Shipped binaries/assets are unchanged;
+    subsequent receipts/specification updates record delivery and user policy only.

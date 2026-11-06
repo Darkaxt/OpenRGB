@@ -1,6 +1,7 @@
 # Office Screen integration and 0.9.2 visual update
 
-Current R35/R36 request: stage33 COMPLETE; stage34 BLOCKED. Source-derived
+Current R35/R36 request and R37 availability clarification: stage33 COMPLETE;
+stage34 COMPLETE. Source-derived
 LightBulb sundial, state cues and exact-field slider companions passed integrated
 acceptance, alongside the native48-DIP header. Matching native0f2004caa4002542e4d548c47f2d88c6ecfdd264/
 CI42230209667 and Ambient e30f9256394ab201809df8f0177e17befc80ebda/
@@ -23,17 +24,19 @@ native process/tray, same limited interactive/IgnoreNew/PT0S settings. Actual
 loaded plugin, capture and both-display gamma, original configuration digest
 comparison, standalone startup absence and final bulb shortcut all passed.
 
-Only remaining delivery criterion is external: final owner currently reports4/6
-online. Windows PnP no longer lists physical G502 X PLUS VID046D/PIDC095 or Keychron
-Q6 HE VID3434/PID0B61; both were online in original baseline and final-binary
-candidate acceptance. No speculative device resets or code changes. User question
-pending: reconnect/switch those devices back to this PC, or confirm intentional
-disconnection. Next action: read fresh actual online/PnP state, preserve baseline
-configuration hashes and complete/reconcile the final hardware readback. Stage34
-remains BLOCKED until resolved; software release/installation is already verified.
+Final hardware readback passed after reconnection: same owner101132 now reports6/6
+online,314 LEDs, healthy main-display capture and both-display gamma. All original
+configuration digests match. Earlier4/6 observation was physical USB absence; no
+device resets, app restart or software changes were required for reconnection.
+The user explicitly clarified that mouse, keyboard and laptop availability is
+optional when disconnected; only wireless lighting availability is significant.
+R37 records this without removing their integrations or changing reconnect logic.
+Monthly maintenance's saved prompt now uses that distinction and preserves its
+existing active status, schedule, target and quiet notification intent. No blockers,
+tracked deferrals or required refactoring remain. Both requested stages are complete.
 
 Private evidence/rollback: D:/Tools/OpenRGB/validation/20261106/screen-visuals-0.9.2,
-including delivery-readback.json (honest all_six_online_verified=false), retained
+including updated delivery-readback.json and final-hardware-readback.json, retained
 CI receipts, startup verification, galleries, preview and caption records,
 configuration hashes without private values, reviewed cleanup manifests and
 ROLLBACK.txt. Existing0.9.1 release/package and original LightBulb files retained.
@@ -46,11 +49,10 @@ compile error; corrected. Run42228519139 verified sundial/slider/motion, capture
 policy and existing behavior but caught native restore failure. Qt6.8.3 source
 setWindowState_sys proves frameless restore uses MoveWindow while Windows snap
 uses WS_MAXIMIZE. Caption/tray actions now use one native system-command owner;
-the same restore regression and tray reopen must pass before activation.
-Native af664a16c462d72e8602b53c3ee5b2c64ff13653 has authoritative R35/R36 and
-scripts/office/Verify-Office-Visuals.ps1 and check_screen_visuals.py. Next: observe
-the original CI run, retrieve verified artifact, prepare exact candidate, stop
-one native owner, export all scales and run owner preview; preserve settings.
+the same restore regression, tray reopen and shared native activation helper passed
+the matching final builds above. Native af664a16c462d72e8602b53c3ee5b2c64ff13653
+introduced authoritative R35/R36 and the integrated visual/preview checks; all
+subsequent acceptance and final delivery work is closed as recorded above.
 
 Cleanup COMPLETE: native runtime candidate D:/Tools/OpenRGB/candidate-office-0.9.2,
 D: sustained/native-I/O exception, transaction0cfebc579c976bbc6110b29c2bcc04ba,
