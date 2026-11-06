@@ -6,9 +6,16 @@ in office-integration-specification.md.
 - Stage37 ACTIVE: implementation and integrated/native acceptance. Internal
   advancement blocker: rest latch, regression proof and natural idle acceptance
   remain. Resolve within this stage. Stage38 depends on this result.
-  Rest gate integrated at Ambient73095f1; CI pending. One existing output cadence
+  Rest gate integrated at Ambientd1de7eb4ea0b5b17db8fac65de813d87b4f75c77;
+  final CI42301506705 passed actual Windows lifecycle/native power-request
+  regression and existing capture/UI/control checks. Initial CI42300645027
+  also passed pure persistence/failure/input-token regressions. One output cadence
   observes the session input token while held. Atomic private office-rest.json
   preserves the gate through restart. No hooks, global settings or input contents.
+  Live acceptance remains: candidate installation, natural saver entry, removal
+  of the temporary pause while held, black output without that pause, then actual
+  input/fresh-frame resume. Black submitted output is distinct from unacknowledged
+  physical radio delivery.
 - Stage38 NOT STARTED: one final0.9.4 release, independent download, cold installed
   owner, module/settings/wireless checks and exact cleanup. No tracked deferrals.
 
