@@ -1120,3 +1120,49 @@ defect), independently retrieve/check it, activate one-app startup and verify de
     exact D candidates, spent debugger cache/original OS dump and E task scratch
     were transactionally removed after consumer exit; required local evidence,
     published packages and rollback remain. No blockers or tracked deferrals.
+
+## LightBulb visual controls and integrated window header (2026-11-06)
+
+Authorization: already_authorized by the user's requests to incorporate LightBulb's
+rotating GUI elements and Helium-style window controls. Preserve R29-R34 and all
+existing capture, gamma, topology, tray and startup ownership contracts.
+
+R35: Adapt the actual pinned LightBulb DashboardView sundial, Arc/ArcPoint and
+cycle-state icon behavior into the native Screen page. Show day/night/transition
+arcs, the moving current-time marker, effective time, sunrise/sunset, applied
+temperature/brightness and day/night/transition/paused/disabled cues. Full-day
+preview must drive the same owner's clock and settings as gamma, never a second
+independent simulation. Add temperature/brightness slider companions to the
+existing exact-value controls. Preserve keyboard operation, save semantics,
+private imported settings and offset reset. Keep source/license mapping current.
+
+R36: Integrate minimize, maximize/restore and close into the existing 48-DIP header,
+following the user's Helium reference. No separate OS title strip. Preserve real
+Windows caption drag/double-click/system menu, all resize edges, work-area bounds
+on maximize, Windows snap hit testing, keyboard access and existing close-to-tray/
+unsaved-change/Exit behavior. Interactive header controls must not become drag
+regions. Retain the native window taskbar identity and one process/tray.
+
+Design contract: existing dark/cyan EDAmbilight rail, fonts and cards remain.
+Use LightBulb's muted blue day, amber night and warm transition sundial colors;
+180-DIP dial, legible state/time readouts and adjacent sunrise/sunset labels.
+Caption buttons occupy 46 x 48 DIP each at the far right, with a red close hover.
+Check actual native pages at 1000x700, 1440x900 and 1920x1080, plus 150/200% DPI.
+Screen tabs remain scrollable at the minimum size. Motion must respect the existing
+reduced-motion preference and stop when hidden; preview remains usable without
+interpolation. No screen/gamma/capture lifecycle or scheduling redesign.
+
+33. ACTIVE — Complete R35/R36 native UI integration and acceptance. Verify real
+    owner-clock preview binding, rendered day/night/transition/paused states,
+    slider/exact-value/save synchronization, hidden/reduced-motion lifecycle,
+    caption hit regions and window actions, all size/scaling renders and unchanged
+    real owner/settings/gamma/RGB state. Internal advancement blocker: requested
+    visual/header integration and its acceptance evidence remain to be completed;
+    resolved by implementing/verifying the coherent UI feature. Stage34 depends
+    on this acceptance. No tracked deferrals.
+34. NOT STARTED — Deliver normal 0.9.2 after stage33. Commit/push verified source,
+    use the established native56a094a artifact and a matching successful Ambient
+    build, independently retrieve/check published package/source/checksum/assets,
+    install and cold-activate through existing startup, verify actual owner and
+    loaded plugin, UI/gamma/devices/private-state preservation, and transactionally
+    clean spent outputs. Record the final release receipt and rollback binding.
