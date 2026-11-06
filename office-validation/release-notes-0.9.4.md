@@ -13,3 +13,7 @@ screensaver settings, saved RGB topology and screen adjustments are preserved.
 Existing Awake controls and manual pause menus are retained. Output resumes using
 a fresh captured frame after valid activity. The prior0.9.3 release is retained
 for rollback.
+
+Windows regression/native-request and installed-candidate checks passed. At the
+user's request, the next natural screensaver cycle will be reviewed through the
+new resume-state/input-timestamp logs; that live cycle is not yet verified.

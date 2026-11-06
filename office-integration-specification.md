@@ -1314,12 +1314,28 @@ synthesize input, alter the saver
 timeout or introduce a second RGB owner. Verify black output state and controller
 submission separately from unacknowledged physical hardware delivery.
 
-37. ACTIVE — R42/R43 complete correction and acceptance. Add one rest-state owner
+Authorized verification scope change (2026-11-07): user requested "Just try to
+fix it and we will verify with the logs next time" while actively using this PC.
+Natural host idle/no-input/resume acceptance is removed from this release gate;
+it remains explicitly unverified until a future real occurrence is reviewed.
+Complete current regression/native-owner, packaging and delivery checks now.
+Cancel the owned passive natural-cycle observer, retain its incomplete evidence,
+and restore the original none lighting pause after the fixed delivery. The user's
+"currently everything is off" confirms the temporary protection's physical
+effect, not acceptance of the new automatic-rest policy. Do not attribute that
+off state to the fix or claim natural-cycle verification was performed.
+
+37. COMPLETE — R42/R43 complete correction and acceptance. Add one rest-state owner
     to existing source/output lifecycle and diagnostics, regression tests, real
-    owner natural idle/rest/no-input/resume and preserved-state checks. Internal
-    advancement blocker: implementation and acceptance remain. Stage38 depends
-    on this result. No tracked deferrals.
-38. NOT STARTED — Single normal0.9.4 final release and delivery. Exact CI sources,
+    owner and preserved-state checks under the authorized verification change.
+    Ambientd1de7eb4ea0b5b17db8fac65de813d87b4f75c77; CI42301506705 passed the
+    recorded no-input Windows replay, actual power-request release/reacquisition,
+    persistence/query/storage-failure and input-token cases. Candidate105940 had
+    all141 files and loaded module verified, real control expiry, gamma, caption,
+    wireless and unchanged settings checks. Original none pause restored. Native
+    natural-cycle observer was cancelled at the user's instruction; no live
+    natural-cycle acceptance claim. No current blockers or tracked deferrals.
+38. ACTIVE — Single normal0.9.4 final release and delivery. Exact CI sources,
     package provenance, independent retrieval, installed/cold startup and loaded
     module checks, state preservation and required wireless availability. Preserve
     0.9.3 rollback, existing sign-in task/shortcut and cleanup guarantees.
