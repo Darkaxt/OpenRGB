@@ -1269,8 +1269,17 @@ with R38/R39. Complete this extension before the single final0.9.3 release.
     modes/expiry, actual cold-restart deadline restoration, unchanged settings/
     power preferences, valid gamma and required wireless availability. Evidence:
     D:/Tools/OpenRGB/validation/20261106/awake-0.9.3. No blockers or deferrals.
-36. ACTIVE — Final0.9.3 delivery (R40). Publish once stage35 passes; verify
+36. COMPLETE — Final0.9.3 delivery (R40). Publish once stage35 passes; verify
     actual release/assets/source, independently retrieve, install/cold-activate
     existing task/shortcut and read back actual owner/request/gamma/wireless state.
     Preserve maps/imported state and0.9.2 rollback. Clean spent scratch through
     exact-target transactions. No tracked deferrals.
+    Published v1.1-office.0.9.3 at9678d98d13b05989a6cc9c5566fd581adbf86966;
+    independent download SHA256f813da4e8434ad7e4f56fa5a1df5ed75c32f0493d671dd51d5d7915bac60be60.
+    Both assets/source/normal publication verified; all137 installed members and
+    the actually loaded plugin matched. Existing sign-in task cold-started one
+    headless owner with result0, unchanged task policy and updated shortcut.
+    Delivered owner passed manual modes/expiry, Automatic readback, preserved
+    state and wireless/gamma checks. Exact cleanup transaction applied172 members
+    /844156371 bytes with no residuals. Previous0.9.2 install/package preserved.
+    Final R38–R41 reconciliation: all satisfied and verified; blockers0, deferrals0.
