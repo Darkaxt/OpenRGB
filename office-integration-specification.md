@@ -1072,10 +1072,11 @@ double dimming. Verify actual app-owned Screen/tray renders at 1000x700, 1440x90
 1920x1080 with representative 150%/200% scaling and accessible labelled controls.
 Use existing hosted Windows checks and diagnostic IPC/offscreen exports; no desktop
 takeover or extra RGB/gamma writer. Retain focused evidence and clean expendable
-scratch through transactional-cleanup. Deliver a normal verified 0.9.0 release,
-    independently retrieve/check it, activate its one-app startup and verify delivery.
+scratch through transactional-cleanup. Deliver a normal verified 0.9.1 release
+(superseding the 0.9.0 candidate whose delivery exposed an inherited SDK shutdown
+defect), independently retrieve/check it, activate one-app startup and verify delivery.
 
-31. ACTIVE — Complete integrated Screen controls and independent tray pauses
+31. COMPLETE — Complete integrated Screen controls and independent tray pauses
     (R29-R33, feature verification R34). First real workflow: imported schedule →
     native display gamma → applied brightness → RGB follow exactly once, controlled
     by the Screen UI and exact tray menu. Finish all required controls, ownership,
@@ -1093,14 +1094,18 @@ scratch through transactional-cleanup. Deliver a normal verified 0.9.0 release,
     stop exited 0xc0000005 after completed gamma/capture teardown. Dump plus source
     identifies SDK accept(-1) converted to unsigned SOCKET, missed by '<0'; invalid
     client destruction skips sender join, freeing its mutex beneath the thread.
-    Internal acceptance blocker for graceful process lifecycle (R30/R34): fix
-    socket admission/thread ownership, verify real SDK shutdown and rebuild exact
-    native/plugin provenance. Existing Screen/gamma/UI evidence remains applicable
-    to unchanged code. No tracked deferrals.
-32. BLOCKED — Final 0.9.1 patch delivery and activation (R32/R34). Requires renewed
-    stage 31 closure. Published 0.9.0 failed local shutdown delivery acceptance;
-    startup binding remains stable 0.8.0. Normal 0.9.1 supersedes 0.9.0 after the
-    complete verified fix; do not mutate the published tag or call it delivered.
+    That blocker is resolved by native 56a094a, compiled run 42220324884 and
+    matching Ambient691b57b/run42220395237; additional actual SDK-to-Govee graceful
+    teardown run42222210668 passed. Real Office host verification of no/idle/
+    disconnecting SDK clients exited zero each time and restored exact display
+    baselines. Fresh Screen/gamma/map checks and current app renders passed;
+    unchanged source retains earlier capture/hotkey/exclusion/preview/DPI evidence.
+    Evidence: D:/Tools/OpenRGB/validation/20261106/screen-0.9.1. No blockers or
+    tracked deferrals.
+32. ACTIVE — Final 0.9.1 patch delivery and activation (R32/R34). Stage31 passed.
+    Published 0.9.0 is explicitly prerelease/not-latest after failed local shutdown
+    acceptance; its tag/assets are preserved. Normal 0.9.1 delivers the corrected
+    complete outcome. Startup binding remains 0.8.0 until final activation.
     Commit/push verified sources; publish normal package with licenses/source pins;
     independently download and verify package, activate one-app startup, retire
     standalone LightBulb startup/runtime after acceptance, verify rollback and
