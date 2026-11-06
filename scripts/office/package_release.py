@@ -82,6 +82,7 @@ def main():
     for name in git('ls-files', 'scripts/office').splitlines():
         members['office/' + Path(name).name] = (root / name).read_bytes()
     members['office/AMBIENCE.md'] = (args.ambient_source/'OFFICE.md').read_bytes()
+    members['office/AWAKE.md'] = (args.ambient_source/'AWAKE.md').read_bytes()
     members['office/ambient-upstream-README.md'] = (args.ambient_source/'README.md').read_bytes()
     detectors = detector_inventory(root)
     if not DETECTORS <= detectors.keys():
@@ -97,6 +98,7 @@ def main():
                  applicationModel='unified',ambientSource=ambient_commit,ambientArchiveSha256=plugin_digest,
                  ambientVerificationRun=receipt['run'])
     build['lightbulbUpstream']='f74285784be7bc191872c06b1b5e644eb209b98b'
+    build['powerToysAwakeReference']='ba946c9885d189dda9b40e2990c5cbf3b4835bbc'
     build['lightbulbIconSha256']=hashlib.sha256(members['office/lightbulb.ico']).hexdigest().upper()
     members['office-build.json'] = json.dumps(build, indent=2).encode()
     # Exact allow-list excludes private state, pairing credentials, captures and

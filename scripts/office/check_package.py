@@ -31,6 +31,7 @@ assert build['ambientSource']==a.ambient_source
 assert build['lightbulbUpstream']=='f74285784be7bc191872c06b1b5e644eb209b98b'
 assert hashlib.sha256(members['office/lightbulb.ico']).hexdigest().upper()==build['lightbulbIconSha256']
 assert 'LICENSE-LightBulb-MIT.txt' in members and 'office/LIGHTBULB.md' in members
+assert 'office/AWAKE.md' in members and build['powerToysAwakeReference']=='ba946c9885d189dda9b40e2990c5cbf3b4835bbc'
 receipt=json.loads(a.plugin_receipt.read_text())
 assert receipt['source']==a.ambient_source and receipt['sha256']==build['ambientArchiveSha256']
 assert hashlib.sha256(members['OpenRGB.exe']).hexdigest().upper()==build['nativeExecutableSha256']

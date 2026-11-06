@@ -1201,3 +1201,72 @@ interpolation. No screen/gamma/capture lifecycle or scheduling redesign.
     Stage/final debt assessment remains unchanged: no required refactoring,
     unresolved blockers or tracked deferrals. Shipped binaries/assets are unchanged;
     subsequent receipts/specification updates record delivery and user policy only.
+
+## Main-display application awake policy (2026-11-06)
+
+Authorization: already_authorized. The user reports Helium fullscreen playback
+still triggering the automatic screensaver, asks to inspect PowerToys Awake, and
+requires preventing screensaver mode whenever any app is maximized/fullscreen on
+Windows' main display. Preserve R35-R37, private settings and the single owner.
+
+R38: In the default Automatic mode, reuse the real main-display application selection for a native awake request.
+Any visible, non-minimized, non-cloaked application maximized or covering the main
+display qualifies, including Helium fullscreen without relying on browser media
+signals or foreground focus. Floating/windowed apps, secondary-display-only apps,
+desktop/wallpaper hosts and screensaver windows do not qualify. Release immediately
+when the last qualifying main-display app is restored/minimized/closed/moved away.
+Do not persistently change screensaver, lock, power-plan or user-input settings.
+
+R39: PowerToys Awake source pin ba946c9885d189dda9b40e2990c5cbf3b4835bbc uses
+SetThreadExecutionState. Microsoft's API documentation explicitly says that API
+does not stop screen savers. Use the documented handle-scoped PowerCreateRequest /
+PowerSetRequest DisplayRequired plus SystemRequired instead; Windows documents
+that DisplayRequired prevents automatic screensaver activation. Scope requests
+to the existing worker/process with deterministic clear/close on ineligibility,
+lock, suspend/display-off/secure desktop, shutdown and constructor failure. Respect
+manual sleep/lock and manually launched savers. Preserve existing automatic idle
+rest (lights off) when no qualifying main-display app is present. No extra process,
+tray, polling thread, synthetic input, persistent system setting or idle deadline.
+
+R40: Verify the full native policy through real window/monitor selection and native
+request acquisition/release, lifecycle events, optional local hardware, untouched
+screen/power configuration and a real owner readback. Expose request state/error in
+existing diagnostics and record source provenance. Required release is normal0.9.3,
+with matching verified plugin/native sources, independently retrieved package,
+installed/cold-started owner and unchanged state/rollback/cleanup guarantees.
+
+R41 (user extension, 2026-11-06): Integrate the supplied PowerToys Awake tray
+controls into an Awake submenu of the single Office tray: interval submenu,
+expiration date/time chooser, indefinitely, Off (selected power plan), and Keep
+screen on. Add Automatic as the initial mode for R38; an explicit manual mode
+overrides Automatic. User clarification: place Automatic in this same Awake
+submenu as the single control for automatic protection, rather than a separate
+settings toggle. Off releases all Office awake requests; timed/expiration modes
+return to Off when their user-selected deadline expires. Manual Keep screen on
+controls display/screensaver inhibition; unchecked still prevents system sleep.
+An unchecked manual mode retains its system-only request while the display is
+off; R39's display-off release applies to Automatic and display-on requests.
+Automatic always keeps the display on and disables that checkbox. Preserve the
+existing lighting/screen pause submenus and Open/Exit behavior. Use PowerToys'
+actual default intervals (30 minutes/1 hour/2 hours), importing this user's existing
+KeepDisplayOn/custom interval preferences without changing their PowerToys files.
+Persist Office awake mode/deadline/preferences separately and atomically, restore
+valid active deadlines after restart, and expire past deadlines immediately.
+The existing PowerToys Awake is currently Off under the shared PowerToys runner;
+do not terminate or disable unrelated PowerToys utilities. New source reference
+includes TrayHelper.cs and GetDefaultTrayOptions in Manager.cs. Verify real Qt
+menu/dialog actions, checks/enabling, owner dispatch, persistence and expiry along
+with R38/R39. Complete this extension before the single final0.9.3 release.
+
+35. ACTIVE — Implement R38/R39/R41 and complete feature acceptance from R40: existing
+    window selection → scoped native requests → restore/minimize/close/secondary/
+    session/power transitions → deterministic release and preserved idle rest.
+    Complete native manual modes/tray controls, persistence and explicit-deadline
+    expiry. Focused actual Windows tests plus real installed owner/settings readback.
+    Internal advancement blocker: feature and acceptance evidence remain; resolve
+    within this stage. Stage36 depends on this acceptance. No tracked deferrals.
+36. NOT STARTED — Final0.9.3 delivery (R40). Publish once stage35 passes; verify
+    actual release/assets/source, independently retrieve, install/cold-activate
+    existing task/shortcut and read back actual owner/request/gamma/wireless state.
+    Preserve maps/imported state and0.9.2 rollback. Clean spent scratch through
+    exact-target transactions. No tracked deferrals.
