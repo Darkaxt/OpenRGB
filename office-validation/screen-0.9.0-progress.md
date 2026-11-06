@@ -1,13 +1,22 @@
 # Office Screen integration and 0.9.2 visual update
 
-Current R35/R36 request: stage33 ACTIVE; stage34 NOT STARTED. Source-derived
-LightBulb sundial, state cues and exact-field slider companions are integrated;
-native 48-DIP header controls are integrated. Acceptance remains pending Windows
-caption regression, installed render/DPI and real owner full-day preview checks.
-No tracked deferrals. Advancement blocker is internal acceptance work; stage34
-cannot advance until it passes. Existing live/startup binding remains0.9.1.
+Current R35/R36 request: stage33 COMPLETE; stage34 ACTIVE. Source-derived
+LightBulb sundial, state cues and exact-field slider companions passed integrated
+acceptance, alongside the native48-DIP header. Matching native0f2004caa4002542e4d548c47f2d88c6ecfdd264/
+CI42230209667 and Ambient e30f9256394ab201809df8f0177e17befc80ebda/
+CI42230279239 passed production UI/capture/lifecycle, native window actions,
+all eight actual host resize edges, real editor Save/restore, minimum/default/large
+renders at100/150/200% and the actual full-day owner preview. Owner clock5999.87x
+and gamma target agree. Original private settings/map/pauses/offsets/import source
+and two-display gamma preserved. Installed module readback matches candidate.
+Closure assessment: source-derived cycle geometry shared with gamma; native
+caption and launcher share one state helper. No required consolidation, stage33
+blockers or tracked deferrals. Next: publish normal0.9.2, independently download/
+verify, cold-activate existing sign-in task, verify owner/module/private state,
+record receipt/rollback and clean exact spent outputs. Startup binding remains
+0.9.1 until final installation; candidate98876 owns current validation runtime.
 
-Checkpoint: Ambient534bd00c7eb68421ea361434fc356a296bd910e3,
+Earlier diagnostic checkpoint: Ambient534bd00c7eb68421ea361434fc356a296bd910e3,
 Windows run42229330586. Earlier run42227721465 found a test-only Qt QObject lookup
 compile error; corrected. Run42228519139 verified sundial/slider/motion, capture,
 policy and existing behavior but caught native restore failure. Qt6.8.3 source

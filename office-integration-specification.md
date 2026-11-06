@@ -1152,18 +1152,30 @@ Screen tabs remain scrollable at the minimum size. Motion must respect the exist
 reduced-motion preference and stop when hidden; preview remains usable without
 interpolation. No screen/gamma/capture lifecycle or scheduling redesign.
 
-33. ACTIVE — Complete R35/R36 native UI integration and acceptance. Verify real
+33. COMPLETE — Complete R35/R36 native UI integration and acceptance. Verify real
     owner-clock preview binding, rendered day/night/transition/paused states,
     slider/exact-value/save synchronization, hidden/reduced-motion lifecycle,
     caption hit regions and window actions, all size/scaling renders and unchanged
-    real owner/settings/gamma/RGB state. Internal advancement blocker: requested
-    visual/header integration and its acceptance evidence remain to be completed;
-    resolved by implementing/verifying the coherent UI feature. Stage34 depends
-    on this acceptance. No tracked deferrals.
-34. NOT STARTED — Deliver normal 0.9.2 after stage33. Commit/push verified source,
+    real owner/settings/gamma/RGB state. Passed matching native0f2004caa4002542e4d548c47f2d88c6ecfdd264/
+    build42230209667 and Ambient e30f9256394ab201809df8f0177e17befc80ebda/
+    build42230279239. Native caption regression includes the actual shared launcher
+    helper, snap hit regions, maximize/work area, restore, minimize, double-click,
+    tray reopen and normal close. Actual host verifies all eight resize edges
+    without changing visibility or desktop focus. Real app galleries at every
+    required size/scale, real editor Save/restore, slider/exact-field saves,
+    hidden/reduced-motion interpolation and rendered cycle states passed. Full
+    owner preview completed natively at5999.87x; applied gamma matches its target,
+    original map/settings/pauses/offsets/imported file remain preserved. Evidence:
+    D:/Tools/OpenRGB/validation/20261106/screen-visuals-0.9.2. Closure assessment:
+    cycle geometry and window activation each have one owner; no required debt,
+    blockers or tracked deferrals remain for this stage.
+34. ACTIVE — Deliver normal 0.9.2 after stage33. Commit/push verified source,
     use matching successful native/Ambient artifacts (including native activation
-    through the same Windows system-command path as the caption) and a matching
-    build, independently retrieve/check published package/source/checksum/assets,
+    through the same Windows system-command path as the caption), independently
+    retrieve/check published package/source/checksum/assets,
     install and cold-activate through existing startup, verify actual owner and
     loaded plugin, UI/gamma/devices/private-state preservation, and transactionally
     clean spent outputs. Record the final release receipt and rollback binding.
+    Internal advancement blocker: publication, independent final package retrieval,
+    cold startup activation and spent-output cleanup remain. Resolve through the
+    established release channel and exact-target helpers; no tracked deferrals.
