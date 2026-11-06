@@ -1075,15 +1075,22 @@ takeover or extra RGB/gamma writer. Retain focused evidence and clean expendable
 scratch through transactional-cleanup. Deliver a normal verified 0.9.0 release,
 independently retrieve/check it, activate its one-app startup and verify delivery.
 
-31. ACTIVE — Complete integrated Screen controls and independent tray pauses
+31. COMPLETE — Complete integrated Screen controls and independent tray pauses
     (R29-R33, feature verification R34). First real workflow: imported schedule →
     native display gamma → applied brightness → RGB follow exactly once, controlled
     by the Screen UI and exact tray menu. Finish all required controls, ownership,
-    lifecycle and migration preparation before acceptance validation. Current
-    acceptance blockers: implementation and verification remain outstanding;
-    internal, resolved by completing the specified integrated behavior. Stage 32
-    depends on this closure. No tracked deferrals.
-32. NOT STARTED — Final 0.9.0 delivery and activation (R32/R34). Requires stage 31.
+    lifecycle and migration preparation before acceptance validation. Verified:
+    Windows build 42216299806 at Ambient 322da9f; source-derived policy and native
+    UI/lifecycle regressions; exact imported settings; 100/150/200% actual Qt
+    renders; all pause choices and real output independence; two-display gamma
+    readback, native event/hotkey/exclusion paths and exact exit restoration;
+    persistent deadlines/offsets through native restarts; complete cycle preview;
+    live main-display capture and existing topology Save/restore. Local evidence:
+    D:/Tools/OpenRGB/validation/20261106/screen-0.9.0. User made the screen available
+    and authorized killing standalone LightBulb; exact native PID/start/path/version
+    was broker-verified before its exit. Original settings/startup/app preserved.
+    R33 automation updated/read back. No blockers or tracked deferrals.
+32. ACTIVE — Final 0.9.0 delivery and activation (R32/R34). Stage 31 passed.
     Commit/push verified sources; publish normal package with licenses/source pins;
     independently download and verify package, activate one-app startup, retire
     standalone LightBulb startup/runtime after acceptance, verify rollback and
