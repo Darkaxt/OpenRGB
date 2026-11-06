@@ -10,6 +10,7 @@ import ctypes as C
 from ctypes import wintypes as W
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 from office_control import Control
 from inspect_gamma import inspect
@@ -33,6 +34,14 @@ def main():
         evidence['all_original_settings_imported'] = True
         if a.guard_only:
             assert not original['managed']
+            processes = subprocess.check_output(['tasklist', '/FI', 'IMAGENAME eq LightBulb.exe', '/FO', 'CSV', '/NH'], text=True)
+            if 'lightbulb.exe' not in processes.lower():
+                # A user may gracefully exit it while rendered validation runs.
+                # Preserve an earlier guard receipt; never enable gamma merely
+                # to test rejection when there is no competing owner.
+                print(json.dumps({'competing_owner_guard': 'not applicable: standalone already exited',
+                                  'gamma_ownership_changed': False}))
+                return
             try:
                 client.call('screen', action='managed', enabled=True)
             except ValueError as error:
