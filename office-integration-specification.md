@@ -1335,7 +1335,17 @@ off state to the fix or claim natural-cycle verification was performed.
     wireless and unchanged settings checks. Original none pause restored. Native
     natural-cycle observer was cancelled at the user's instruction; no live
     natural-cycle acceptance claim. No current blockers or tracked deferrals.
-38. ACTIVE — Single normal0.9.4 final release and delivery. Exact CI sources,
+38. COMPLETE — Single normal0.9.4 final release and delivery. Exact CI sources,
     package provenance, independent retrieval, installed/cold startup and loaded
     module checks, state preservation and required wireless availability. Preserve
     0.9.3 rollback, existing sign-in task/shortcut and cleanup guarantees.
+    Published v1.1-office.0.9.4 at6dc070f63d9ca52de0328fe3c68c69bcde765af6.
+    Independent asset download matched SHA256a9883ceb202a6d218d2a8431edfb67256b371ad4a7b416db73cc54138395e218;
+    both assets/tag/source/normal publication verified. All141 installed files
+    and actual loaded plugin matched. Existing sign-in task cold-started one
+    headless owner107256 with result0 and unchanged Interactive/Limited/IgnoreNew/
+    PT0S policy. Shortcut/root updated. Delivered controls/expiry, gamma, required
+    wireless devices and settings/power preferences verified; original none pause
+    restored. Cleanup applied182 members/671121970 bytes, no residuals. Prior0.9.3
+    install/package preserved. R42/R43 satisfied under the explicit user scope
+    change; no natural-cycle acceptance claim. Current blockers0/deferrals0.
