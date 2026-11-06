@@ -1169,13 +1169,25 @@ interpolation. No screen/gamma/capture lifecycle or scheduling redesign.
     D:/Tools/OpenRGB/validation/20261106/screen-visuals-0.9.2. Closure assessment:
     cycle geometry and window activation each have one owner; no required debt,
     blockers or tracked deferrals remain for this stage.
-34. ACTIVE — Deliver normal 0.9.2 after stage33. Commit/push verified source,
+34. BLOCKED — Deliver normal 0.9.2 after stage33. Commit/push verified source,
     use matching successful native/Ambient artifacts (including native activation
     through the same Windows system-command path as the caption), independently
     retrieve/check published package/source/checksum/assets,
     install and cold-activate through existing startup, verify actual owner and
     loaded plugin, UI/gamma/devices/private-state preservation, and transactionally
     clean spent outputs. Record the final release receipt and rollback binding.
-    Internal advancement blocker: publication, independent final package retrieval,
-    cold startup activation and spent-output cleanup remain. Resolve through the
-    established release channel and exact-target helpers; no tracked deferrals.
+    Normal/latest0.9.2 published at source535947fb787f088d85df875cceea47ecde5ad7d6;
+    downloaded SHA2567f4bbf9ff3f119c692f3f85d9c062a2f3f32c81e4f8479f72fdbff1bae9852a5
+    matches published digest/checksum. All132 installed members and the actual
+    native/plugin modules verified. Existing quiet sign-in task cold-started final
+    root, result0, one headless owner101132, no standalone LightBulb startup/process;
+    both-display gamma, capture, original configuration hashes and shortcut passed.
+    Candidate and E scratch were transactionally removed with no residuals.
+    External blocker: final six-device online readback is4/6; physical G502 X PLUS
+    (VID046D/PIDC095) and Keychron Q6 HE (VID3434/PID0B61) are absent from current
+    Windows PnP inventory. The same native/plugin binaries verified6/6 during
+    candidate acceptance. Do not classify this as a source regression or silently
+    waive the final criterion. Resolution: physical devices return to this PC and
+    actual owner reports6/6, or the user explicitly confirms intentional
+    disconnection and revises that current-hardware expectation. User clarification
+    is pending. Only that delivery criterion remains; no tracked deferrals.

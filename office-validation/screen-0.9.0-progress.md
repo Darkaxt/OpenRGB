@@ -1,6 +1,6 @@
 # Office Screen integration and 0.9.2 visual update
 
-Current R35/R36 request: stage33 COMPLETE; stage34 ACTIVE. Source-derived
+Current R35/R36 request: stage33 COMPLETE; stage34 BLOCKED. Source-derived
 LightBulb sundial, state cues and exact-field slider companions passed integrated
 acceptance, alongside the native48-DIP header. Matching native0f2004caa4002542e4d548c47f2d88c6ecfdd264/
 CI42230209667 and Ambient e30f9256394ab201809df8f0177e17befc80ebda/
@@ -11,10 +11,34 @@ and gamma target agree. Original private settings/map/pauses/offsets/import sour
 and two-display gamma preserved. Installed module readback matches candidate.
 Closure assessment: source-derived cycle geometry shared with gamma; native
 caption and launcher share one state helper. No required consolidation, stage33
-blockers or tracked deferrals. Next: publish normal0.9.2, independently download/
-verify, cold-activate existing sign-in task, verify owner/module/private state,
-record receipt/rollback and clean exact spent outputs. Startup binding remains
-0.9.1 until final installation; candidate98876 owns current validation runtime.
+blockers or tracked deferrals. Normal/latest0.9.2 is published, independently
+downloaded and installed at D:/Tools/OpenRGB/releases/1.1-office.0.9.2, source
+535947fb787f088d85df875cceea47ecde5ad7d6. Package SHA256
+7f4bbf9ff3f119c692f3f85d9c062a2f3f32c81e4f8479f72fdbff1bae9852a5.
+All132 members and actual native/plugin modules passed. Native executable SHA256
+1648f3555dbccf3fb92e2e90225d3a0a1e46653dc39c0fca986728b190b5b03a;
+plugin BB71414C19E5B7675EC0D76D859B122E7A8B7194CF9BA9ABB16A7B23574FB1FE.
+Existing quiet task cold-started final root: owner101132, result0, one headless
+native process/tray, same limited interactive/IgnoreNew/PT0S settings. Actual
+loaded plugin, capture and both-display gamma, original configuration digest
+comparison, standalone startup absence and final bulb shortcut all passed.
+
+Only remaining delivery criterion is external: final owner currently reports4/6
+online. Windows PnP no longer lists physical G502 X PLUS VID046D/PIDC095 or Keychron
+Q6 HE VID3434/PID0B61; both were online in original baseline and final-binary
+candidate acceptance. No speculative device resets or code changes. User question
+pending: reconnect/switch those devices back to this PC, or confirm intentional
+disconnection. Next action: read fresh actual online/PnP state, preserve baseline
+configuration hashes and complete/reconcile the final hardware readback. Stage34
+remains BLOCKED until resolved; software release/installation is already verified.
+
+Private evidence/rollback: D:/Tools/OpenRGB/validation/20261106/screen-visuals-0.9.2,
+including delivery-readback.json (honest all_six_online_verified=false), retained
+CI receipts, startup verification, galleries, preview and caption records,
+configuration hashes without private values, reviewed cleanup manifests and
+ROLLBACK.txt. Existing0.9.1 release/package and original LightBulb files retained.
+No competing gamma writer/startup entry introduced. Post-tag documentation changes
+record actual verification status and do not change the shipped software.
 
 Earlier diagnostic checkpoint: Ambient534bd00c7eb68421ea361434fc356a296bd910e3,
 Windows run42229330586. Earlier run42227721465 found a test-only Qt QObject lookup
@@ -28,12 +52,13 @@ scripts/office/Verify-Office-Visuals.ps1 and check_screen_visuals.py. Next: obse
 the original CI run, retrieve verified artifact, prepare exact candidate, stop
 one native owner, export all scales and run owner preview; preserve settings.
 
-Scratch: E:/Temp/openrgb-lightbulb-visuals-20261106 (transaction
-ee237c8cfd9d4142ad0a3f1ec7e00888). Native runtime candidate
-D:/Tools/OpenRGB/candidate-office-0.9.2 uses D: for sustained/native runtime I/O
-(transaction0cfebc579c976bbc6110b29c2bcc04ba); remove immediately after its last
-consumer exits and final release supersedes it. Retained acceptance destination:
-D:/Tools/OpenRGB/validation/20261106/screen-visuals-0.9.2.
+Cleanup COMPLETE: native runtime candidate D:/Tools/OpenRGB/candidate-office-0.9.2,
+D: sustained/native-I/O exception, transaction0cfebc579c976bbc6110b29c2bcc04ba,
+143 members/86,511,486 bytes removed after actual exit and final activation.
+E:/Temp/openrgb-lightbulb-visuals-20261106 transaction
+ee237c8cfd9d4142ad0a3f1ec7e00888:28 members/632,729,592 bytes removed after evidence
+retention and last use. Both tickets APPLIED without exclusions, errors or
+residuals. Owner runtime-temp remains independent under private state on D:.
 
 ## Previously completed 0.9.1 delivery
 
