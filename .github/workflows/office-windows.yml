@@ -42,6 +42,9 @@ jobs:
       - name: Verify SDK to UDP stream and idle refresh
         shell: pwsh
         run: ./scripts/office/Check-Wire.ps1 -Executable D:/office-build/release/OpenRGB.exe -Work D:/office-wire-check
+      - name: Verify native SDK shutdown ownership
+        shell: pwsh
+        run: python -B scripts/office/check_sdk_shutdown.py --exe D:/office-build/release/OpenRGB.exe --source . --work D:/office-wire-check-shutdown
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always() && steps.compile.outcome == 'success'
         with:

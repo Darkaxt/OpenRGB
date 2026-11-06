@@ -1073,9 +1073,9 @@ double dimming. Verify actual app-owned Screen/tray renders at 1000x700, 1440x90
 Use existing hosted Windows checks and diagnostic IPC/offscreen exports; no desktop
 takeover or extra RGB/gamma writer. Retain focused evidence and clean expendable
 scratch through transactional-cleanup. Deliver a normal verified 0.9.0 release,
-independently retrieve/check it, activate its one-app startup and verify delivery.
+    independently retrieve/check it, activate its one-app startup and verify delivery.
 
-31. COMPLETE — Complete integrated Screen controls and independent tray pauses
+31. ACTIVE — Complete integrated Screen controls and independent tray pauses
     (R29-R33, feature verification R34). First real workflow: imported schedule →
     native display gamma → applied brightness → RGB follow exactly once, controlled
     by the Screen UI and exact tray menu. Finish all required controls, ownership,
@@ -1089,8 +1089,18 @@ independently retrieve/check it, activate its one-app startup and verify deliver
     D:/Tools/OpenRGB/validation/20261106/screen-0.9.0. User made the screen available
     and authorized killing standalone LightBulb; exact native PID/start/path/version
     was broker-verified before its exit. Original settings/startup/app preserved.
-    R33 automation updated/read back. No blockers or tracked deferrals.
-32. ACTIVE — Final 0.9.0 delivery and activation (R32/R34). Stage 31 passed.
+    R33 automation updated/read back. Reopened during delivery: final candidate
+    stop exited 0xc0000005 after completed gamma/capture teardown. Dump plus source
+    identifies SDK accept(-1) converted to unsigned SOCKET, missed by '<0'; invalid
+    client destruction skips sender join, freeing its mutex beneath the thread.
+    Internal acceptance blocker for graceful process lifecycle (R30/R34): fix
+    socket admission/thread ownership, verify real SDK shutdown and rebuild exact
+    native/plugin provenance. Existing Screen/gamma/UI evidence remains applicable
+    to unchanged code. No tracked deferrals.
+32. BLOCKED — Final 0.9.1 patch delivery and activation (R32/R34). Requires renewed
+    stage 31 closure. Published 0.9.0 failed local shutdown delivery acceptance;
+    startup binding remains stable 0.8.0. Normal 0.9.1 supersedes 0.9.0 after the
+    complete verified fix; do not mutate the published tag or call it delivered.
     Commit/push verified sources; publish normal package with licenses/source pins;
     independently download and verify package, activate one-app startup, retire
     standalone LightBulb startup/runtime after acceptance, verify rollback and

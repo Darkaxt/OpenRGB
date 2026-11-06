@@ -16,7 +16,7 @@ if ((Get-FileHash -LiteralPath $jomZip -Algorithm SHA256).Hash -ne $expected) { 
 Expand-Archive -LiteralPath $jomZip -DestinationPath (Join-Path $BuildRoot 'jom')
 Push-Location $BuildRoot
 try {
-    & (Join-Path $QtRoot 'bin/qmake.exe') (Join-Path $sourceRoot 'OpenRGB.pro') CONFIG-=debug_and_release CONFIG+=release OFFICE_VERSION=office.0.8.0
+    & (Join-Path $QtRoot 'bin/qmake.exe') (Join-Path $sourceRoot 'OpenRGB.pro') CONFIG-=debug_and_release CONFIG+=release OFFICE_VERSION=office.0.9.1
     if ($LASTEXITCODE) { throw "qmake failed: $LASTEXITCODE" }
     & (Join-Path $BuildRoot 'jom/jom.exe') -j2
     if ($LASTEXITCODE) { throw "build failed: $LASTEXITCODE" }
@@ -30,7 +30,7 @@ try {
     Copy-Item -LiteralPath (Join-Path $sourceRoot 'office-integration-specification.md') -Destination (Join-Path $BuildRoot 'release')
     Copy-Item -LiteralPath $PSScriptRoot -Destination (Join-Path $BuildRoot 'release/office') -Recurse
     $commit = & git -C $sourceRoot rev-parse HEAD
-    @{version='1.1-office.0.8.0';source=$commit;upstream='8f3ee202f7abe171e26372cfdc53256593d03ff3'} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $BuildRoot 'release/office-build.json')
+    @{version='1.1-office.0.9.1';source=$commit;upstream='8f3ee202f7abe171e26372cfdc53256593d03ff3'} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $BuildRoot 'release/office-build.json')
     python (Join-Path $PSScriptRoot 'govee_trial.py') detectors --source $sourceRoot --output (Join-Path $BuildRoot 'release/office/detectors.json')
     if ($LASTEXITCODE) { throw 'Detector inventory failed.' }
 } finally { Pop-Location }

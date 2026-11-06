@@ -1,7 +1,7 @@
 param(
     [Parameter(Mandatory)][ValidateSet('Capture','Retire','RestoreStartup')][string]$Mode,
     [string]$StateRoot='D:/Tools/OpenRGB/state-integration',
-    [string]$InstallRoot='D:/Tools/OpenRGB/releases/1.1-office.0.9.0'
+    [string]$InstallRoot='D:/Tools/OpenRGB/releases/1.1-office.0.9.1'
 )
 $ErrorActionPreference='Stop'
 $runKey='HKCU:\Software\Microsoft\Windows\CurrentVersion\Run'
@@ -24,7 +24,7 @@ if($Mode -eq 'Retire') {
     $process=Get-Process -Id $owner.pid -ErrorAction Stop
     if($process.Path -ne (Join-Path $InstallRoot 'OpenRGB.exe')){throw 'Verified final Office release is not the active owner.'}
     $manifest=Get-Content -LiteralPath (Join-Path $InstallRoot 'installed-manifest.json') -Raw | ConvertFrom-Json
-    if($manifest.version -ne '1.1-office.0.9.0'){throw 'Expected the completed 0.9.0 release.'}
+    if($manifest.version -ne '1.1-office.0.9.1'){throw 'Expected the completed 0.9.1 release.'}
     $status=Get-Content -LiteralPath (Join-Path $StateRoot 'office-ambience-status.json') -Raw | ConvertFrom-Json
     if(!$status.screen.managed -or !$status.screen.gamma_valid){throw 'Integrated gamma ownership/readback has not passed.'}
     if($existing -ne $record.original_startup){throw 'Standalone LightBulb startup binding changed after capture; preserve it.'}

@@ -103,42 +103,35 @@ NetworkClientInfo::NetworkClientInfo()
 
 NetworkClientInfo::~NetworkClientInfo()
 {
+    // Thread ownership is independent of socket validity. In particular, an
+    // invalid socket must never allow a sender to outlive its queue and mutex.
+    if(client_send_thread)
+    {
+        {
+            std::lock_guard<std::mutex> queue_lock(client_send_mutex);
+            client_send_running = false;
+        }
+        if(client_sock != INVALID_SOCKET)
+        {
+            shutdown(client_sock, SD_BOTH);
+        }
+        client_send_cv.notify_all();
+        client_send_thread->join();
+        delete client_send_thread;
+        client_send_thread = nullptr;
+    }
+    for(auto& entry : client_send_queue)
+    {
+        delete[] entry.data;
+    }
+    client_send_queue.clear();
+    client_send_coalesce.clear();
+    delete client_listen_thread;
+
     if(client_sock != INVALID_SOCKET)
     {
         LOG_INFO("[%s] Closing server connection: %s", NETWORKSERVER, client_ip.c_str());
-
-        /*-------------------------------------------------*\
-        | Stop the send thread before closing the socket.   |
-        | SD_BOTH (not just SD_RECEIVE) unblocks a send     |
-        | stuck on a slow client, so the join cannot hang.  |
-        \*-------------------------------------------------*/
-        if(client_send_thread)
-        {
-            client_send_running = false;
-            shutdown(client_sock, SD_BOTH);
-            client_send_cv.notify_all();
-            client_send_thread->join();
-            delete client_send_thread;
-            client_send_thread = nullptr;
-
-            /*---------------------------------------------*\
-            | Free any packets still queued; the entries    |
-            | own their data pointers.                      |
-            \*---------------------------------------------*/
-            for(std::list<NetworkServerClientSendQueueEntry>::iterator entry = client_send_queue.begin(); entry != client_send_queue.end(); entry++)
-            {
-                delete[] entry->data;
-            }
-
-            client_send_queue.clear();
-            client_send_coalesce.clear();
-        }
-        else
-        {
-            shutdown(client_sock, SD_RECEIVE);
-        }
-
-        delete client_listen_thread;
+        shutdown(client_sock, SD_BOTH);
         closesocket(client_sock);
     }
 }
@@ -582,7 +575,6 @@ void NetworkServer::StartServer()
     for(int curr_socket = 0; curr_socket < socket_count; curr_socket++)
     {
         ConnectionThread[curr_socket] = new std::thread(&NetworkServer::ConnectionThreadFunction, this, curr_socket);
-        ConnectionThread[curr_socket]->detach();
     }
 }
 
@@ -612,6 +604,7 @@ void NetworkServer::StopServer()
     {
         if(ConnectionThread[curr_socket])
         {
+            ConnectionThread[curr_socket]->join();
             delete ConnectionThread[curr_socket];
             ConnectionThread[curr_socket] = nullptr;
         }
@@ -976,6 +969,7 @@ void NetworkServer::ConnectionThreadFunction(int socket_idx)
         \*---------------------------------------------------------*/
         if(listen(server_sock[socket_idx], 10) < 0)
         {
+            delete client_info;
             LOG_INFO("[%s] Connection thread closed", NETWORKSERVER);
             server_online = false;
 
@@ -991,8 +985,11 @@ void NetworkServer::ConnectionThreadFunction(int socket_idx)
         \*-------------------------------------------------*/
         client_info->client_sock = accept_select((int)server_sock[socket_idx]);
 
-        if(client_info->client_sock < 0)
+        // SOCKET is unsigned on Windows: '< 0' admits INVALID_SOCKET and
+        // starts threads after a failed accept, including shutdown wakeups.
+        if(client_info->client_sock == INVALID_SOCKET)
         {
+            delete client_info;
             LOG_INFO("[%s] Connection thread closed", NETWORKSERVER);
             server_online = false;
 
@@ -1046,6 +1043,15 @@ void NetworkServer::ConnectionThreadFunction(int socket_idx)
         | We need to lock before the thread could possibly finish   |
         \*---------------------------------------------------------*/
         ServerClientsMutex.lock();
+
+        // StopServer may have closed admission while accept completed. The
+        // joined connection thread cannot publish a client beyond that barrier.
+        if(!server_online)
+        {
+            ServerClientsMutex.unlock();
+            delete client_info;
+            return;
+        }
 
         /*---------------------------------------------------------*\
         | Start a listener thread for the new client socket         |
