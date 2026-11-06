@@ -65,6 +65,9 @@ def main():
     members['Qt6Network.dll'] = network
     members['platforms/qoffscreen.dll'] = offscreen
     members['LICENSE-EDAmbilight-MIT.txt'] = (args.ambient_source/'LICENSE-EDAmbilight-MIT.txt').read_bytes()
+    members['LICENSE-LightBulb-MIT.txt'] = (args.ambient_source/'LICENSE-LightBulb-MIT.txt').read_bytes()
+    members['office/lightbulb.ico'] = (args.ambient_source/'assets/office/lightbulb.ico').read_bytes()
+    members['office/LIGHTBULB.md'] = (args.ambient_source/'LIGHTBULB.md').read_bytes()
     for name in ('LICENSE-Material-Symbols.txt','LICENSE-Orbitron.txt','LICENSE-Rajdhani.txt'):
         members[name]=(args.ambient_source/'assets/office'/name).read_bytes()
     members['office-font-provenance.json']=(args.ambient_source/'assets/office/provenance.json').read_bytes()
@@ -75,7 +78,7 @@ def main():
                            applicationModel='unified',networkSha256=hashlib.sha256(network).hexdigest().upper(),
                            offscreenSha256=hashlib.sha256(offscreen).hexdigest().upper())
     members['plugins/installed-plugin.json'] = json.dumps(plugin_manifest,indent=2).encode()
-    members = {name: data for name, data in members.items() if not name.startswith('office/')}
+    members = {name: data for name, data in members.items() if not name.startswith('office/') or name in ('office/lightbulb.ico','office/LIGHTBULB.md')}
     for name in git('ls-files', 'scripts/office').splitlines():
         members['office/' + Path(name).name] = (root / name).read_bytes()
     members['office/AMBIENCE.md'] = (args.ambient_source/'OFFICE.md').read_bytes()
@@ -93,6 +96,8 @@ def main():
                  verificationRun=native_receipt['run'],nativeExecutableSha256=hashlib.sha256(members['OpenRGB.exe']).hexdigest().upper(),
                  applicationModel='unified',ambientSource=ambient_commit,ambientArchiveSha256=plugin_digest,
                  ambientVerificationRun=receipt['run'])
+    build['lightbulbUpstream']='f74285784be7bc191872c06b1b5e644eb209b98b'
+    build['lightbulbIconSha256']=hashlib.sha256(members['office/lightbulb.ico']).hexdigest().upper()
     members['office-build.json'] = json.dumps(build, indent=2).encode()
     # Exact allow-list excludes private state, pairing credentials, captures and
     # temporary analysis. The native artifact and tracked public scripts/docs

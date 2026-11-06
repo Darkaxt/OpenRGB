@@ -1011,3 +1011,80 @@ E:/Temp/openrgb-integration-20261104 were removed; other pre-existing investigat
 material in that legacy directory was outside this cleanup. Native build scratch,
 if required, uses D:/Temp/openrgb-integration-build-20261104 for I/O; prefer hosted
 compilation to avoid host load. Keep runtime state separate under D:/Tools/OpenRGB.
+
+## Integrated screen adjustment and tray — authorized 2026-11-06
+
+Authorization: user requested LightBulb integration, corrected the exact tray menu,
+then said "go ahead". The user also requested adding upstream LightBulb changes
+to the existing monthly maintenance task. Scope is already_authorized, including
+normal verified final release and necessary local activation/startup migration.
+
+R29: Integrate LightBulb's functional screen controls in the existing native Qt
+Office application: day/night temperature and brightness, location-based/manual
+sunrise/sunset, transition duration/offset, smoothing, fullscreen/application
+exclusions, editable global hotkeys, offsets/reset and cycle preview. Adapt the
+actual MIT source at Tyrrrz/LightBulb f74285784be7bc191872c06b1b5e644eb209b98b;
+retain attribution, exact source pin and a feature/source map. Keep one application,
+one tray and the existing dark/cyan design; global startup/update/UI preferences
+belong to Office settings rather than a second application's updater or tray.
+
+R30: Display gamma is owned once, on the existing worker, independently of RGB
+capture/output and GUI responsiveness. Apply to the connected displays as LightBulb
+does. Preserve native gamma baselines, restore safely on graceful exit, handle
+display/power/session/timezone changes, surface failures and avoid competing gamma
+writers. Do not copy unexplained timed retries. Keep actual applied screen brightness
+separate from RGB's manual baseline; integrated brightness following must apply
+the dimming factor exactly once, including static frames. Preserve hue behavior.
+
+R31: Use the official LightBulb bulb icon for the tray and unified application.
+Exact top-level tray menu: Open; Disable lighting submenu; Disable screen adjustments
+submenu; separator; Exit. Both submenus provide Until enabled again, Until sunrise,
+1/5/15/30 minutes, 1/3/6/12 hours and 1 day. When disabled, offer the corresponding
+Enable action. No Screen wrapper or extra Open/Exit wording. Disable lighting
+blacks all owned RGB outputs (including selected native effects) while preserving
+maps, device modes and baseline; resuming restores the selected owners. Screen
+disable follows the configured neutral/daytime behavior. The two pause states are
+independent; screen fullscreen exclusion never disables Ambilight app capture.
+Explicit duration/deadline behavior must survive restart and handle system clock,
+timezone and sleep/resume changes deterministically. Lock/display/saver black
+output continues to take precedence over manual RGB enable and temporary tests.
+
+R32: Import the user's existing LightBulb settings, including location, exclusions
+and hotkeys, without overwriting the source settings or Office topology. Current
+LightBulb 2.7.2 source a23b129 uses 6600K day/night, 100%/85% brightness, automatic
+solar times, 3-hour transitions and fullscreen pause. Verify actual local values
+at migration. Retire the separate LightBulb runtime/startup binding only after
+the integrated candidate is verified; preserve a concrete rollback to standalone
+LightBulb and Office 0.8.0. Never silently elevate or change system gamma-range
+policy. Do not publish private location, settings, tokens or captures.
+
+R33: Extend the existing monthly-openrgb-upstream-maintenance heartbeat to monitor
+and implement compatible Tyrrrz/LightBulb upstream changes in this native integration,
+alongside both Office forks. Track the incorporated pin and adaptations. Preserve
+its timing, destination, status, quiet/no-change behavior, signing/provenance checks,
+verified release requirement and existing branch-retirement safeguards. Preserve
+current Windows-main-display capture behavior (supersedes old LG-only wording).
+
+R34: Verify complete integrated feature behavior: source-derived solar/cycle/gamma
+contracts, imported settings, all pause choices and independent owners, persistence,
+hotkeys/exclusions, real gamma readback/restoration and live RGB output without
+double dimming. Verify actual app-owned Screen/tray renders at 1000x700, 1440x900,
+1920x1080 with representative 150%/200% scaling and accessible labelled controls.
+Use existing hosted Windows checks and diagnostic IPC/offscreen exports; no desktop
+takeover or extra RGB/gamma writer. Retain focused evidence and clean expendable
+scratch through transactional-cleanup. Deliver a normal verified 0.9.0 release,
+independently retrieve/check it, activate its one-app startup and verify delivery.
+
+31. ACTIVE — Complete integrated Screen controls and independent tray pauses
+    (R29-R33, feature verification R34). First real workflow: imported schedule →
+    native display gamma → applied brightness → RGB follow exactly once, controlled
+    by the Screen UI and exact tray menu. Finish all required controls, ownership,
+    lifecycle and migration preparation before acceptance validation. Current
+    acceptance blockers: implementation and verification remain outstanding;
+    internal, resolved by completing the specified integrated behavior. Stage 32
+    depends on this closure. No tracked deferrals.
+32. NOT STARTED — Final 0.9.0 delivery and activation (R32/R34). Requires stage 31.
+    Commit/push verified sources; publish normal package with licenses/source pins;
+    independently download and verify package, activate one-app startup, retire
+    standalone LightBulb startup/runtime after acceptance, verify rollback and
+    package behavior, and clean spent scratch. No tracked deferrals.

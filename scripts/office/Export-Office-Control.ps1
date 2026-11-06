@@ -14,7 +14,7 @@ $owner = Get-Content -LiteralPath (Join-Path $StateRoot 'owner.json') -Raw | Con
 $process = Get-Process -Id $owner.pid -ErrorAction SilentlyContinue
 if ($process) { $process.WaitForExit(); if ($process.ExitCode) { throw "Integrated application export failed: $($process.ExitCode)" } }
 $record = Get-Content -LiteralPath (Join-Path $OutputDirectory 'panel-export.json') -Raw | ConvertFrom-Json
-if ($record.devices -ne 6 -or $record.views.Count -ne 21) { throw 'Panel export did not cover all required views, including Help.' }
+if ($record.devices -ne 6 -or $record.views.Count -ne 24) { throw 'Panel export did not cover all required views, including Screen and Help.' }
 if (!$AllowUnavailable -and !$record.actual_preview) { throw 'No actual main display preview was rendered.' }
 if ($ExerciseEditor -and !$record.editor_save_roundtrip) { throw 'The real editor save/restore did not pass.' }
 $record | ConvertTo-Json -Depth 5

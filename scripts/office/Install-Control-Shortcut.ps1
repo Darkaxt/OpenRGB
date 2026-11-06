@@ -15,7 +15,7 @@ $shortcut = $shell.CreateShortcut($path)
 $shortcut.TargetPath = $powershell
 $shortcut.Arguments = '-NoProfile -WindowStyle Hidden -File "' + $launcher + '" -InstallRoot "' + $InstallRoot + '" -StateRoot "' + $StateRoot + '"'
 $shortcut.WorkingDirectory = $StateRoot
-$shortcut.IconLocation = (Join-Path $InstallRoot 'OpenRGB.exe') + ',0'
+$shortcut.IconLocation = (Join-Path $InstallRoot 'office/lightbulb.ico') + ',0'
 $shortcut.Description = 'Native OpenRGB Office Ambilight control panel'
 $shortcut.Save()
 $saved = $shell.CreateShortcut($path)

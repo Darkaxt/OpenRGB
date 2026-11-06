@@ -28,6 +28,9 @@ assert hashlib.sha256(a.native_archive.read_bytes()).hexdigest()==native['sha256
 with zipfile.ZipFile(a.native_archive) as n:
     assert members['OpenRGB.exe']==n.read('OpenRGB.exe')
 assert build['ambientSource']==a.ambient_source
+assert build['lightbulbUpstream']=='f74285784be7bc191872c06b1b5e644eb209b98b'
+assert hashlib.sha256(members['office/lightbulb.ico']).hexdigest().upper()==build['lightbulbIconSha256']
+assert 'LICENSE-LightBulb-MIT.txt' in members and 'office/LIGHTBULB.md' in members
 receipt=json.loads(a.plugin_receipt.read_text())
 assert receipt['source']==a.ambient_source and receipt['sha256']==build['ambientArchiveSha256']
 assert hashlib.sha256(members['OpenRGB.exe']).hexdigest().upper()==build['nativeExecutableSha256']
@@ -43,7 +46,7 @@ assert not any(Path(name).name.casefold() in ('openrgb.json','owner.json','offic
 assert not any(name.endswith(('.bmp','.png')) for name in members)
 def private_keys(value):
     if isinstance(value,dict):
-        assert not {'auth_token','private_key','password'} & value.keys()
+        assert not {'auth_token','private_key','password','Latitude','Longitude','WhitelistedApplications'} & value.keys()
         for child in value.values(): private_keys(child)
     elif isinstance(value,list):
         for child in value: private_keys(child)
