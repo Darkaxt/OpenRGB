@@ -1283,3 +1283,43 @@ with R38/R39. Complete this extension before the single final0.9.3 release.
     state and wireless/gamma checks. Exact cleanup transaction applied172 members
     /844156371 bytes with no residuals. Previous0.9.2 install/package preserved.
     Final R38–R41 reconciliation: all satisfied and verified; blockers0, deferrals0.
+
+## Screensaver resume correction (2026-11-06)
+
+R42: Fix the observed0.9.3 nighttime resume. At21:16:55Z Windows reported
+Default/automatic_saver=false; at21:16:59Z output resumed while the user remained
+asleep. The upstream cause of that Windows transition is unconfirmed; do not
+change Windows/Wallpaper Engine settings or attribute it without evidence.
+Once an automatic screensaver is observed, keep every device black and Awake
+released until both a usable normal desktop and a new session input event have
+been observed. Desktop/display/topology events, capture frames and elapsed time
+alone must not clear this state. Preserve it across native app restarts through
+separate atomic private runtime state. GetLastInputInfo is a session input signal,
+not proof that input is physical; record only event timestamps/state, no keys,
+window titles or device input contents. Query/storage failures must be visible
+and must not permit unverified resume. Preserve manual screensaver capture,
+manual lighting/screen pauses, gamma settings, topology and existing Awake modes.
+After valid resume, discard pre-rest imagery and require a fresh captured frame.
+
+R43: Regression verification must replay saver-active → Default without changed
+input → display/topology changes → restart → unchanged input (all black/no Awake),
+then changed input on a normal desktop → fresh capture/output. This no-input
+state-clear condition is replayed in the Windows regression fixture; the natural
+host cycle separately verifies actual idle entry, sustained black and input resume.
+Include query
+failure, first valid sample, non-incremental/32-bit wrapped input timestamps and
+unchanged saved settings. Verify the integrated actual Windows owner on a natural
+idle/screensaver cycle and actual input resume; diagnostic observations must not
+synthesize input, alter the saver
+timeout or introduce a second RGB owner. Verify black output state and controller
+submission separately from unacknowledged physical hardware delivery.
+
+37. ACTIVE — R42/R43 complete correction and acceptance. Add one rest-state owner
+    to existing source/output lifecycle and diagnostics, regression tests, real
+    owner natural idle/rest/no-input/resume and preserved-state checks. Internal
+    advancement blocker: implementation and acceptance remain. Stage38 depends
+    on this result. No tracked deferrals.
+38. NOT STARTED — Single normal0.9.4 final release and delivery. Exact CI sources,
+    package provenance, independent retrieval, installed/cold startup and loaded
+    module checks, state preservation and required wireless availability. Preserve
+    0.9.3 rollback, existing sign-in task/shortcut and cleanup guarantees.
