@@ -32,7 +32,7 @@ NetworkServer.cpp admitted accept(-1) because SOCKET is unsigned on Windows and
 its '<0' check was false; invalid socket destruction skipped sender join. Native
 cleanup ran concurrently with that late invalid client. This is inherited native
 SDK code, not gamma teardown. Retained dump crash-88724.dmp SHA256
-f6cff79a813cbf4fdd23fc60eaec11573525a0f26f80cfeccce76f94b738d7e99
+f6cff79a813cbf4fdd23fc60eaec11573525a0f26f80cfecce76f94b738d7e99
 and crash-analysis.log/crash-thread.log substantiate the diagnosis.
 
 Native fix 56a094a924391d7a0478adc1f3efdd27080b5da2 rejects INVALID_SOCKET,
