@@ -1102,11 +1102,21 @@ defect), independently retrieve/check it, activate one-app startup and verify de
     unchanged source retains earlier capture/hotkey/exclusion/preview/DPI evidence.
     Evidence: D:/Tools/OpenRGB/validation/20261106/screen-0.9.1. No blockers or
     tracked deferrals.
-32. ACTIVE — Final 0.9.1 patch delivery and activation (R32/R34). Stage31 passed.
+32. COMPLETE — Final 0.9.1 patch delivery and activation (R32/R34). Stage31 passed.
     Published 0.9.0 is explicitly prerelease/not-latest after failed local shutdown
     acceptance; its tag/assets are preserved. Normal 0.9.1 delivers the corrected
-    complete outcome. Startup binding remains 0.8.0 until final activation.
+    complete outcome. Verified normal/latest release v1.1-office.0.9.1 points to
+    ebceeac7164a3dd887cdee6d6f2ce3394b83b766. Independently downloaded ZIP hash
+    143b9813102857eae1e880d3707d40ef490b9a39a8adf8ef21b023772fb6cd3c matches
+    published asset/checksum. All installed members, exact loaded native/plugin,
+    cold quiet sign-in, real main-display capture, six devices/314 LEDs, both
+    display gamma ramps, imported settings and unchanged map passed readback.
+    One process/tray remains; standalone LightBulb Run binding retired after
+    acceptance, original application/settings and concrete rollback retained.
     Commit/push verified sources; publish normal package with licenses/source pins;
     independently download and verify package, activate one-app startup, retire
     standalone LightBulb startup/runtime after acceptance, verify rollback and
-    package behavior, and clean spent scratch. No tracked deferrals.
+    package behavior, and clean spent scratch. All those criteria passed. Three
+    exact D candidates, spent debugger cache/original OS dump and E task scratch
+    were transactionally removed after consumer exit; required local evidence,
+    published packages and rollback remain. No blockers or tracked deferrals.
