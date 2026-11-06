@@ -1161,7 +1161,8 @@ interpolation. No screen/gamma/capture lifecycle or scheduling redesign.
     resolved by implementing/verifying the coherent UI feature. Stage34 depends
     on this acceptance. No tracked deferrals.
 34. NOT STARTED — Deliver normal 0.9.2 after stage33. Commit/push verified source,
-    use the established native56a094a artifact and a matching successful Ambient
+    use matching successful native/Ambient artifacts (including native activation
+    through the same Windows system-command path as the caption) and a matching
     build, independently retrieve/check published package/source/checksum/assets,
     install and cold-activate through existing startup, verify actual owner and
     loaded plugin, UI/gamma/devices/private-state preservation, and transactionally

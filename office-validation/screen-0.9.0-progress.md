@@ -1,4 +1,32 @@
-# Office Screen integration: completed 0.9.1 delivery
+# Office Screen integration and 0.9.2 visual update
+
+Current R35/R36 request: stage33 ACTIVE; stage34 NOT STARTED. Source-derived
+LightBulb sundial, state cues and exact-field slider companions are integrated;
+native 48-DIP header controls are integrated. Acceptance remains pending Windows
+caption regression, installed render/DPI and real owner full-day preview checks.
+No tracked deferrals. Advancement blocker is internal acceptance work; stage34
+cannot advance until it passes. Existing live/startup binding remains0.9.1.
+
+Checkpoint: Ambient534bd00c7eb68421ea361434fc356a296bd910e3,
+Windows run42229330586. Earlier run42227721465 found a test-only Qt QObject lookup
+compile error; corrected. Run42228519139 verified sundial/slider/motion, capture,
+policy and existing behavior but caught native restore failure. Qt6.8.3 source
+setWindowState_sys proves frameless restore uses MoveWindow while Windows snap
+uses WS_MAXIMIZE. Caption/tray actions now use one native system-command owner;
+the same restore regression and tray reopen must pass before activation.
+Native af664a16c462d72e8602b53c3ee5b2c64ff13653 has authoritative R35/R36 and
+scripts/office/Verify-Office-Visuals.ps1 and check_screen_visuals.py. Next: observe
+the original CI run, retrieve verified artifact, prepare exact candidate, stop
+one native owner, export all scales and run owner preview; preserve settings.
+
+Scratch: E:/Temp/openrgb-lightbulb-visuals-20261106 (transaction
+ee237c8cfd9d4142ad0a3f1ec7e00888). Native runtime candidate
+D:/Tools/OpenRGB/candidate-office-0.9.2 uses D: for sustained/native runtime I/O
+(transaction0cfebc579c976bbc6110b29c2bcc04ba); remove immediately after its last
+consumer exits and final release supersedes it. Retained acceptance destination:
+D:/Tools/OpenRGB/validation/20261106/screen-visuals-0.9.2.
+
+## Previously completed 0.9.1 delivery
 
 Specification R29-R34: stage31 COMPLETE; stage32 COMPLETE. No blockers or tracked
 deferrals. Final software is published, independently retrieved, installed and

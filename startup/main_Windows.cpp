@@ -29,6 +29,7 @@
 #include "ResourceManager.h"
 #include "PluginManager.h"
 #include "StringUtils.h"
+#include "OfficeWindowActions.h"
 
 using namespace std::chrono_literals;
 
@@ -602,7 +603,7 @@ static void WaitWhileServerOnline(NetworkServer* srv, int argc, char* argv[])
                 if(!show) throw std::runtime_error("Cannot create Office activation event");
                 QWinEventNotifier activate(show);
                 QObject::connect(&activate, &QWinEventNotifier::activated, panel, [panel]() {
-                    panel->showNormal(); panel->raise(); panel->activateWindow();
+                    office::showWindow(panel); panel->raise(); panel->activateWindow();
                 });
                 LOG_INFO("[Office] Unified application and independent lighting owner loaded");
                 app.exec();
