@@ -1258,14 +1258,18 @@ includes TrayHelper.cs and GetDefaultTrayOptions in Manager.cs. Verify real Qt
 menu/dialog actions, checks/enabling, owner dispatch, persistence and expiry along
 with R38/R39. Complete this extension before the single final0.9.3 release.
 
-35. ACTIVE — Implement R38/R39/R41 and complete feature acceptance from R40: existing
+35. COMPLETE — Implement R38/R39/R41 and complete feature acceptance from R40: existing
     window selection → scoped native requests → restore/minimize/close/secondary/
     session/power transitions → deterministic release and preserved idle rest.
     Complete native manual modes/tray controls, persistence and explicit-deadline
     expiry. Focused actual Windows tests plus real installed owner/settings readback.
-    Internal advancement blocker: feature and acceptance evidence remain; resolve
-    within this stage. Stage36 depends on this acceptance. No tracked deferrals.
-36. NOT STARTED — Final0.9.3 delivery (R40). Publish once stage35 passes; verify
+    Verified by Ambient fca2cdabfe1588366a504f2883f1cbb1407da987, successful native
+    CI42247379089 (real private-desktop windows and independent powercfg request
+    inventory), real Qt actions and all-scale packaged renders, live owner manual
+    modes/expiry, actual cold-restart deadline restoration, unchanged settings/
+    power preferences, valid gamma and required wireless availability. Evidence:
+    D:/Tools/OpenRGB/validation/20261106/awake-0.9.3. No blockers or deferrals.
+36. ACTIVE — Final0.9.3 delivery (R40). Publish once stage35 passes; verify
     actual release/assets/source, independently retrieve, install/cold-activate
     existing task/shortcut and read back actual owner/request/gamma/wireless state.
     Preserve maps/imported state and0.9.2 rollback. Clean spent scratch through
