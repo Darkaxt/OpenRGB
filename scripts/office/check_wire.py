@@ -5,7 +5,9 @@ SPDX-License-Identifier: GPL-2.0-or-later
 import argparse
 import base64
 import ctypes
+from ctypes import wintypes
 import json
+import os
 import queue
 import selectors
 import socket
@@ -17,6 +19,7 @@ from pathlib import Path
 from openrgb import OpenRGBClient
 from openrgb.utils import RGBColor
 from govee_trial import detector_inventory, devices
+from runtime_control import wait_ready, stop_and_wait
 
 
 class ReadinessLog:
@@ -108,10 +111,19 @@ def main():
     receiver.start()
     readiness = ReadinessLog(args.work)
     log = (args.work / 'server-output.log').open('w', encoding='utf-8')
+    environment = dict(os.environ, OPENRGB_OFFICE_SHUTDOWN='1')
+    environment.pop('OPENRGB_OFFICE_PLUGIN', None)
     process = subprocess.Popen([str(args.exe), '--config', str(args.work), '--noautoconnect', '--server',
                                 '--server-host', '127.0.0.1', '--loglevel', 'info', '-v'],
-                               stdout=log, stderr=subprocess.STDOUT, text=True,
+                               stdout=log, stderr=subprocess.STDOUT, text=True, env=environment,
                                creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+    kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+    kernel.GetProcessTimes.argtypes = [wintypes.HANDLE]+[ctypes.POINTER(wintypes.FILETIME)]*4
+    times = [wintypes.FILETIME() for _ in range(4)]
+    assert kernel.GetProcessTimes(int(process._handle), *(ctypes.byref(t) for t in times))
+    created = ((times[0].dwHighDateTime << 32) | times[0].dwLowDateTime)+504911232000000000
+    (args.work/'owner.json').write_text(json.dumps({'pid':process.pid,'startUtcTicks':created,
+        'executable':str(args.exe.resolve()),'graceful':True}))
     client = None
     try:
         readiness.wait(process)
@@ -157,19 +169,22 @@ def main():
                           'idle_frame_preserved': True, 'idle_gap_seconds': gaps, 'stream_enables': enables,
                           'scope': 'real executable and SDK with simulated UDP peers'}))
     finally:
-        if client is not None:
-            client.disconnect()
-        if process.poll() is None:
-            process.terminate()  # Explicit teardown of this test-owned process.
-        process.wait()
-        readiness.close()
-        stop.set()
-        sockets[0].sendto(b'{}', ('127.0.0.1', 4001))
-        receiver.join()
-        selector.close()
-        for sock in sockets:
-            sock.close()
-        log.close()
+        try:
+            if client is not None:
+                client.disconnect()
+            if process.poll() is None:
+                wait_ready(process.pid, args.work)
+                stop_and_wait(process.pid, args.work)
+            assert process.wait() == 0, 'Native SDK/controller teardown failed'
+        finally:
+            readiness.close()
+            stop.set()
+            sockets[0].sendto(b'{}', ('127.0.0.1', 4001))
+            receiver.join()
+            selector.close()
+            for sock in sockets:
+                sock.close()
+            log.close()
 
 
 if __name__ == '__main__':
