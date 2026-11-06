@@ -1,73 +1,86 @@
-# Office 0.9.0 Screen integration
+# Office Screen integration: current delivery checkpoint
 
-Authorization: 2026-11-06 user "go ahead"; native LightBulb integration and exact
-tray. Additional request extends monthly maintenance. Authoritative specification:
-office-integration-specification.md R29-R34. Stage 31 COMPLETE; stage 32 ACTIVE.
-No blockers or tracked deferrals. Final release/delivery still pending.
+Authorized: user "go ahead", monthly upstream-LightBulb task update, and later
+explicit "kill Lightbulb if you must". Specification R29-R34. Stage 31 ACTIVE
+(reopened for a native shutdown defect); stage 32 BLOCKED on that fix/verification.
+Final target is a normal verified 0.9.1 patch release. No tracked deferrals.
 
-Upstream LightBulb pin f74285784be7bc191872c06b1b5e644eb209b98b; MIT attribution,
-official bulb and source map included. Ambient 322da9f6b57d5cbef6110f6475059bf935155394
-passed completed Windows build 42216299806. CI artifact 13501626674 SHA256
-8f9bdbf8a3d9af79caab9b633c9e38d9a019765480f0e9b3d13dcb5eaea2fd08.
-Native compiled source a185a351, successful run 42113774830, remains unchanged;
-only allowed packaging/support/docs changes exist in the native repository.
+LightBulb feature is integrated in the native Qt application: exact two root
+pause menus, official bulb, imported settings, independent RGB/screen owners,
+solar/manual scheduling, transitions, smoothing, exclusions, hotkeys and preview.
+Source reference f74285784be7bc191872c06b1b5e644eb209b98b; MIT/source map included.
+Source/settings/captures remain private where required; no desktop input was sent.
 
-Verified integrated behavior:
-- Complete imported settings match the untouched standalone file; current targets
-  6600K day/night, 100/85%, automatic solar/3-hour transitions, fullscreen pause,
-  seven unset shortcuts. Private location/exclusions remain local.
-- Actual Screen controls and exact root tray/11 pause choices rendered at all
-  three required sizes and 100/150/200% scaling. Current corrected-caption build
-  additionally rendered with real main-display preview. Real editor Save/restore
-  retained the complete six-device/314-LED configuration.
-- Both displays pass actual gamma temperature/brightness readback and exact
-  baseline restoration. Independent pause choices, native effect rest/resume,
-  applied brightness factor once, stale screen draft rejection, original settings
-  restoration and source hash preservation pass.
-- Actual native display/resume/time message paths preserve the single factor;
-  registered hotkey handler toggles Screen independently; actual foreground
-  executable exclusion leaves RGB capture running.
-- Pause deadlines/offsets survive process restart and restore correctly. Full-day
-  preview completed and traversed both targets. Graceful native exit restored
-  exact original display ramps. Live capture remains main-display wallpaper/app.
-- Resource observation: requested 15fps yielded 14.88 output fps, median GPU
-  .912ms, metadata request 3.31ms, process working set 103MiB, 1.67% total CPU;
-  original saved RGB settings unchanged. This is current-workload evidence.
-- Monthly upstream automation updated through supported tool and read back;
-  timing/status/target preserved, includes all three upstream source pins and
-  compatible native LightBulb adaptations, quiet when no actionable changes.
+Verified Screen acceptance before delivery: source-derived contracts and Windows
+native UI/lifecycle checks; exact imported settings; actual renders at three sizes
+and 100/150/200%; both-display gamma readback and exact restoration; independent
+pause choices and native mode rest/resume; one applied RGB brightness factor;
+registered native hotkey handler; actual foreground exclusion while RGB capture
+continues; deadlines/offset persistence through restart; complete full-day preview;
+real main-display capture and native editor Save/restore preserving all 314 LEDs.
+This evidence remains applicable to unchanged Screen/capture/controller code.
+Local retained evidence: D:/Tools/OpenRGB/validation/20261106/screen-0.9.0.
 
-Evidence: D:/Tools/OpenRGB/validation/20261106/screen-0.9.0. Includes live-screen,
-screen-runtime, preview-and-exit, private persistence, current-live UI, earlier
-DPI renders, gamma exit readbacks and performance. Private records/captures are
-never release inputs. No desktop input/foreground takeover was performed.
+The monthly-openrgb-upstream-maintenance heartbeat is updated and read back.
+It includes all three upstreams and native LightBulb adaptations, preserving
+monthly timing, target/current status, quiet no-change behavior and verified release.
 
-User dismissed screen saver and expressly authorized killing LightBulb. Initial
-broker request 4ec551eefdfa42328faa0cab61dc1c18 stopped nothing: WMI creation time
-truncated native timestamp by six ticks. Correct native identity was reread;
-broker request 8db7d944cd9142bab7f0d0d30cd3f61e verified PID43020, native start
-639294986079909296, installed path/version a23b129 and observed exact process exit.
-Settings and startup were unchanged. Gamma already read neutral on both displays,
-so no additional gamma reset was performed. Migration rollback captured privately
-at state-integration/office-screen-migration.json. Preserve standalone application
-and the 0.8.0 package for rollback. Do not restart a competing gamma writer.
+Delivery found a genuine native defect: stopping candidate PID88724 returned
+0xc0000005 after journal owner_stop_complete. Windows dump/WinDbg show a sender
+locking a freed NetworkClientInfo::client_send_mutex (offset A8; CV F8, running148).
+NetworkServer.cpp admitted accept(-1) because SOCKET is unsigned on Windows and
+its '<0' check was false; invalid socket destruction skipped sender join. Native
+cleanup ran concurrently with that late invalid client. This is inherited native
+SDK code, not gamma teardown. Retained dump crash-88724.dmp SHA256
+f6cff79a813cbf4fdd23fc60eaec11573525a0f26f80cfeccce76f94b738d7e99
+and crash-analysis.log/crash-thread.log substantiate the diagnosis.
 
-Current candidate: D:/Tools/OpenRGB/candidate-screen-0.9.0-r2, owner PID88724 at
-checkpoint (recheck pid/start identity). Screen management enabled and validated;
-imported settings restored, both manual pauses cleared, source settings untouched.
-Sign-in binding remains 0.8.0 until final delivery. Standalone startup still exists.
+Native fix 56a094a924391d7a0478adc1f3efdd27080b5da2 rejects INVALID_SOCKET,
+closes failed/unclaimed admissions, joins connection workers, and joins sender
+ownership independently of socket validity with its condition predicate changed
+under the queue mutex. Native build 42220324884 is RUNNING (watch session90136).
+Ambient 691b57b474ace5d1fd98ee08300849d27eaf3dc3 pins that exact native source;
+Windows plugin build 42220395237 PASSED. No other feature code changed.
+Native regression covers absent/idle/disconnecting clients and real process exit.
+Old-artifact smoke 42220382962 passed: it does not reproduce this timing-sensitive
+race reliably. Improved wire check f49bdb44327 uses native graceful exit after
+actual SDK to simulated Govee traffic; old-artifact run 42221086999 is RUNNING
+(watch20830). Inspect original outcomes, do not duplicate or abandon them.
 
-Scratch: E:/Temp/openrgb-screen-20261106, cleanup transaction
-11b910937fb4789e44c311568123550e. Candidate native DLL/runtime I/O uses D:;
-r2 cleanup transaction 3a585c49949a9020edfb5def40bd503f must apply immediately after
-final owner replaces it. Earlier exact candidate was stopped and transactionally
-removed (cc6cbbd412d6a9a81def355b8f39875f, 86,452,263 bytes, no residuals).
-No local native build tree or new background helper. Existing owner has its own
-persistent runtime-temp under state-integration, independent of task scratch.
+0.9.0 source029eac300c7 / plugin322da9f was normally published and independently
+retrieved (ZIP cb779509b0c1d094958eae62324516d67ef4b16f96af0b28f8d2126c54e6ed26),
+but failed local shutdown acceptance. It is now explicitly marked PRERELEASE and
+not latest, with honest failure notes; do not call it the delivered outcome or
+rewrite its tag. Final 0.9.1 must supersede it through the established normal channel.
 
-Next: commit/push verified sources, produce final 0.9.0 package from the exact
-clean commits and successful CI receipts, check it, publish normal existing-channel
-release, independently retrieve/hash/provenance-check delivered assets, install
-final release, verify cold start/gamma/RGB, switch existing quiet sign-in/shortcut,
-retire exact standalone startup through Migrate-LightBulb.ps1, read back delivery,
-then close stage 32 and clean spent candidates/scratch. No further approval needed.
+Current live owner restored to stable 0.8.0, PID90352 at checkpoint (recheck exact
+PID/start identity). Existing sign-in binding remains 0.8.0; no startup retirement
+or final shortcut migration occurred. Preserve all private topology/settings.
+Standalone LightBulb PID43020 was stopped through broker request
+8db7d944cd9142bab7f0d0d30cd3f61e after exact path, native start639294986079909296
+and version2.7.2+a23b129 checks. Initial request stopped nothing because WMI
+truncated that timestamp by six ticks. Original settings/startup/app were preserved.
+Both display ramps already read neutral after its exit; no reset was needed.
+Integrated screen settings remain enabled in private office-screen.json for the
+next candidate. Rollback is captured in office-screen-migration.json; retain the
+original standalone app and Office0.8.0 package. Never restart competing gamma.
+
+Scratch E:/Temp/openrgb-screen-20261106, cleanup transaction
+11b910937fb4789e44c311568123550e remains open for required build/package inputs.
+Earlier D candidates were stopped and transactionally removed immediately after
+last use: cc6cbbd412d6a9a81def355b8f39875f (86,452,263 bytes) and
+3a585c49949a9020edfb5def40bd503f (86,456,426 bytes), no residuals. Temporary native
+DLL/runtime I/O used D: intentionally. No local native build tree/new helper.
+Unavoidable OS crash dump C:/Users/darka/AppData/Local/CrashDumps/OpenRGB.exe.88724.dmp
+was hash-verified against the retained D: copy; clean that task-attributed original
+and the spent D: symbols cache through the helper when their consumers are done.
+Existing owner runtime-temp is independent of task scratch.
+
+Next: inspect native build and old-artifact wire outcomes. Run improved graceful
+wire verification against the new compiled source via the supported reuse flow.
+Retrieve exact native/plugin receipts; package and install a new0.9.1 candidate;
+verify real host shutdown/cold start and unchanged Screen/gamma/map behavior.
+Close stage31 only on passing evidence. Resume stage32: final commit/package,
+normal0.9.1 release, independent download/check, actual installed activation,
+quiet existing sign-in/shortcut, exact standalone startup retirement, readbacks,
+final specification reconciliation and transactional scratch cleanup.
