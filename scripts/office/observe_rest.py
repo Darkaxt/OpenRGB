@@ -41,11 +41,12 @@ def main():
                 online = {d['id'] for d, yes in zip(value['layout'], value['online']) if yes}
                 assert {'H6609', 'H8048', 'Secretlab'} <= online, 'Required wireless light missing'
                 black = all(c == [0, 0, 0] for row in value['colors'] for c in row)
-                state = (status['rest_reason'], gate['held'], gate['last_input_tick'], black)
+                state = (status['rest_reason'], gate['held'], gate['last_input_tick'], black, status['output_paused'])
                 observation = {'utc': status['updated_utc'], 'pid': client.owner_pid,
                                'rest_reason': status['rest_reason'], 'mode': status['mode'],
                                'gate': gate, 'all_314_output_colors_black': black,
                                'awake_active': status['awake']['active'],
+                               'manual_lighting_pause': status['output_paused'],
                                'device_submissions': status['device_submissions'],
                                'led_writes': status['led_writes'], 'online': sorted(online)}
                 if state != previous:
@@ -55,7 +56,7 @@ def main():
                     previous = state
                 if gate['held']:
                     assert black and not status['awake']['active'], 'Rest gate failed to suppress RGB/Awake'
-                if a.phase == 'rest' and status['rest_reason'] == 'automatic-screensaver' and gate['held'] and black:
+                if a.phase == 'rest' and status['rest_reason'] == 'automatic-screensaver' and gate['held'] and black and not status['output_paused']:
                     assert gate['input_query_ok']
                     record['natural_rest'] = observation
                     a.record.write_text(json.dumps(record, indent=2))

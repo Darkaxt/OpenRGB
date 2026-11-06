@@ -18,6 +18,13 @@ report establishes physical lights were on while asleep; logs establish early
 software resume, not the cause of Windows' state clear or acknowledged delivery.
 No claim that the Windows transition itself was caused by Helium/Wallpaper Engine.
 
+Temporary live protection: original lighting pause was none. Set lighting pause
+forever on the existing0.9.3 owner during implementation to avoid further blue
+light disturbance. Recovery: after the candidate observes a natural saver and
+its rest gate is held, use the existing screen/pause/lighting/enable command,
+then verify black output without the manual pause. This must be restored before
+stage37 closes; it must not mask rest acceptance or become a saved user preference.
+
 Scratch E:/Temp/openrgb-rest-20261106; native candidate
 D:/Tools/OpenRGB/candidates/1.1-office.0.9.4 uses local runtime/small-file I/O and
 must be deleted after its last consumer. Cleanup transaction
