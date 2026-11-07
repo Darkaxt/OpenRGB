@@ -1387,12 +1387,18 @@ proof of delivered images.
     manual pause, no-input black and fresh-image resume passed. Existing actual
     native request/lifecycle and GPU coverage passed. Inactive-desktop WGC
     limitation remains explicit; real frames belong to40. No blockers/deferrals.
-40. ACTIVE — Single final release and installed delivery verification.
-    Internal advancement blockers: package provenance and negative installer
-    checks, actual image-first submission/live handoff, two fresh live rebuilds,
-    preserved preferences/wireless ownership, normal publication/independent
-    retrieval and cold sign-in task/module checks. Preserve0.9.4 rollback and
-    existing startup ownership. No tracked deferrals.
+40. COMPLETE — Single final release and installed delivery verification.
+    v1.1-office.0.9.5 atb0e5a69fd01228df8167a9431cb7ddcfa9ca2d88; independent
+    asset retrieval matches SHA256708b405d3d8667f50a487276d35f87232363005577ebe42e90825fe53bb3a13d.
+    Negative installer/provenance checks and all146 installed members passed.
+    Actual candidate/delivered owners submitted the static image before live
+    frames and handoff; repeated fresh live capture measured444-758ms. These
+    measurements are not natural unlock latency. Native module, preserved
+    settings/gamma/wireless checks and existing sign-in task cold start passed:
+    result0, one headless owner91040, Interactive/Limited/IgnoreNew/PT0S unchanged.
+    Prior0.9.4 retained. No blockers/deferrals. User then stopped further live
+    testing due disruption: no additional app/capture/wallpaper/lighting resets
+    without a new request; review future normal-use logs instead.
 
 R46 (user scope addition2026-11-07): Read the Windows desktop wallpaper image
 first after a valid unlock/resume, using Wallpaper Engine's current Windows
