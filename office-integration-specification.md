@@ -1741,5 +1741,19 @@ change. Verify affected diagnostics/readiness and preserve useful failure logs.
     reader uses existing authenticated IPC, no new background job or transport.
     No blockers, deferrals or required refactoring. R59 is unchanged and its
     native compositor proof also passed in this exact combined source run.
-52. ACTIVE — final0.9.10 release, independent retrieval, one installed
+52. COMPLETE — final0.9.10 release, independent retrieval, one installed
     handoff/read-only preservation checks and expendable-artifact cleanup.
+    Normal published v1.1-office.0.9.10 points to1b2e552fa651551558934ffb79d804785011f6b0.
+    Independently downloaded ZIP matches published SHA256
+    9d9db8fa7f2380cbf30846c131efa0f7aaa7341b933d2c400c3cd0922f9424d0.
+    All159 installed members verified; native owner163772/startUtcTicks
+    639296897868668228 loads the exact0.9.10 module (SHA14780334518DA634E6B4B37BC2B6D3050F0FDDF4DD544E90EDE880C5547D7197).
+    One graceful shutdown and one existing-task activation; startup/shortcut,
+    headless single owner, wireless availability, gamma and capture policy pass.
+    App/profile/settings and OS power/saver preferences preserved. Live output
+    advanced35 frames while checkpoint bytes remained unchanged. Effective master
+    100/shared fullscreen50, device levels100 and Nuvio Govee30 remain intact.
+   0.9.9 rollback retained. Exact reviewed cleanup removed29 members/395529666
+    bytes, no residuals. Delivery receipts: office-validation/delivery-0.9.10.md.
+    Final reconciliation: R59/R60 satisfied; prior delivered requirements remain
+    preserved. No blockers, tracked deferrals or required refactoring.
