@@ -51,7 +51,7 @@ def main():
             while True:
                 snapshot = client.call('snapshot')
                 status = snapshot['status']
-                expected = status['output_paused'] or not snapshot['settings']['enabled']
+                expected = status['output_paused'] or not snapshot['settings']['enabled'] or status.get('intensity_muted', False)
                 assert not status['diagnostic_error'] and not status['controller_error']
                 assert not status['rest_resume']['error']
                 if status['capture_paused'] == expected and snapshot['screen']['gamma_valid']:

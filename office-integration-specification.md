@@ -1471,3 +1471,78 @@ until the verified final0.9.6 release was ready for its one normal activation.
     experiments, screenshots, recovery requests or Computer Use.0.9.5 rollback
     retained. No blockers, tracked deferrals or required refactoring remain.
     Sanitized delivery receipt: office-validation/delivery-0.9.6.md.
+
+## Global and per-device lighting intensity (2026-11-07)
+
+R50: Add a global fullscreen lighting percentage shared by every app, not
+per-app profiles. Default50%, range0..100%; multiply existing sampled brightness
+and display-following gain only for a fullscreen application on the main display.
+An ordinary maximized window does not trigger fullscreen dimming. Restore normal
+intensity when fullscreen ends or the app moves off the main display. Preserve
+Awake, gamma, rest/off gates, capture ownership and one-time static-file bridge.
+
+R51: Provide a BetterTrumpet-style lighting mixer: top master percentage for all
+mapped lights and one individual percentage/mute control per physical mapped
+device, identified by stable device ID. Defaults100%, range0..100%; multiply
+master * fullscreen factor * device factor. Muting preserves a useful prior level
+for toggling back. Retain offline device settings and clearly show offline state;
+reconnection uses the saved level. Do not add per-app rows or another RGB writer.
+Persist only intended intensity changes atomically, guard against external file
+edits and reject unknown devices/non-finite/out-of-range values before any write.
+Do not silently overwrite unsaved topology/settings drafts. Calibration/identify
+retain their reference colours; rest/disabled lighting still wins. Global mute
+releases capture/input while keeping independent screen/Awake policies.
+
+R52: Follow the supplied screenshot and inspected BetterTrumpet source:
+FlyoutWindow.xaml/.xaml.cs, DeviceView.xaml, VolumeSlider.cs and FlyoutViewModel.cs.
+Left-click the existing Ambilight tray icon opens a compact lighting flyout;
+double-click and existing Open action still open the full panel, existing tray
+menu actions remain. Include pin, collapse, keyboard-accessible sliders and
+numeric percentages, icon mute/unmute, Escape and click-away dismissal unless
+pinned. No sounds. Expose the same mixer from the main panel. User correction:
+fullscreen intensity does not belong in the tray flyout. Put its one shared
+control and actual active/inactive state in the main app's Output card. The
+flyout contains only master and physical device levels; no per-app configuration.
+
+Design contract, revised by user feedback: retain BetterTrumpet's layout and
+interactions while matching Ambilight's greenish theme. Native Qt, dark teal
+body#081b18, header#10332c, border#28584e, light text#d4e6df and mint-green
+slider/accent#45ddb0. Use existing Office Body fonts,15px device labels,
+26px master percentage, visible focus. Base flyout width420 logical pixels,
+12px rounded outline, 16px insets, 44px slider/mute hit targets, 72px device rows
+with full names/tooltips. Content scrolls within available monitor work area;
+anchor above/beside the tray and clamp within work area. Inspect app-owned hosted
+renders at100/150/200% scale, expanded/collapsed and offline states. No host
+desktop screenshots, Computer Use, synthetic fullscreen or lighting experiments.
+
+R54: Modernize the existing tray context menu to match the greenish mixer palette:
+rounded frame/hover rows, comfortable padding, legible existing app font, subtle
+separators and coherent icons. Preserve Open, lighting/screen pause choices,
+Awake options and Exit behavior, keyboard navigation and submenu semantics.
+Include app-owned rendered menu evidence with the flyout acceptance checks.
+
+R53: Verify the complete mixer UI -> production command -> saved preferences ->
+native output path in hosted Windows tests: master/device/fullscreen multiplication,
+normal restoration, offline reconnect, malformed input, stale external edits,
+rapid slider updates, drafts and rest/pause. Release one normal0.9.7 package
+after integrated acceptance; independently retrieve/hash it, verify installed
+members/loaded plugin and one normal activation via existing startup task.
+Preserve current settings except new authorized intensity preferences; retain0.9.6
+rollback. Read-only host delivery verification only.
+
+43. COMPLETE — R50/R51/R52/R54 integrated intensity policy, persisted commands
+    and BetterTrumpet-style native mixer. Ambient497848b32682c1b523b78c34dda7a28ded59b3fc,
+    hosted CI42399208049 passed. Actual sliders -> production command -> durable
+    settings -> native output verified, including multiplication, normal restore,
+    master mute/capture release, offline reconnect, malformed input and stale
+    edits. Ordinary maximized/other-display windows preserve normal intensity;
+    Awake/gamma/rest/identify remain independent. App-owned flyout/context-menu/
+    Output-card renders reviewed at100/150/200%; green palette, rounded opaque
+    surfaces, accessible hit targets and main-panel fullscreen placement verified.
+    No host experiments. Shared persistence helper and one native mixer component
+    serve current paths; no required refactoring, blockers or deferrals remain.
+44. ACTIVE — R53 final normal0.9.7 release, independent package retrieval,
+    installed/startup/read-only runtime verification and temporary-artifact cleanup.
+    Remaining criteria: packaged/installed provenance, normal publication and
+    independent download, one normal startup handoff, preserved preferences and
+    runtime ownership. Preserve0.9.6 rollback; no host UI/capture experiments.
