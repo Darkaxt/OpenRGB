@@ -1653,5 +1653,12 @@ handoff, preserve current NuvioDV/device settings and0.9.8 rollback.
     collapsed reopen, expansion and pinned resizing passed. App-owned100/150/200%
     renders reviewed; existing appearance/controls preserved. No blockers,
     deferrals or required refactoring; one shared fit path owns placement.
-49. ACTIVE — final0.9.9 release, independent retrieval, one normal installed
-    handoff/read-only preservation checks and expendable-artifact cleanup.
+49. COMPLETE — R58 normal v1.1-office.0.9.9 published at root/tag
+    d52586d912f41f9df3b2d69971fc6d66e6155cb6, Ambient2605c45fa9bf3a1a9866c36f87ff864c5a61bcdd.
+    Independent metadata/tag/download/checksum matched ZIP SHA256
+    427ab59aabb6955ac02fd908d2d458bfe728c0fec91fa7b2734b639917a99fd3.
+    All156 installed files and loaded plugin verified. One graceful0.9.8 exit
+    and existing task activation; saved app/profile/settings files and OS power/
+    saver preferences unchanged. Wireless/gamma/read-only capture policy checks
+    passed;0.9.8 rollback retained. Cleanup removed21 expendable members,
+    394350275 bytes, no residuals. No blockers, deferrals or required refactoring.
