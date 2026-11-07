@@ -14,9 +14,12 @@ reviewed at100/150/200%. Earlier offline fixture assertion was corrected to
 respect its missing owner; no production behavior was weakened. No blockers,
 deferrals or required refactoring. Existing0.9.6 owner remains untouched so far.
 
-44 ACTIVE: final normal0.9.7 package/release, independent retrieval,
-installed module/startup/read-only verification and cleanup. No host UI automation,
-capture recovery, fullscreen simulation or pause/resume experiment.
+44 COMPLETE: normal0.9.7 published and independently retrieved; package, installed
+members, loaded module and one normal startup handoff verified. Settings and OS
+preferences preserved; all six devices online. User confirmed working. Reviewed
+cleanup removed55 members/358963764 bytes, no residuals. No host UI automation,
+capture recovery, fullscreen simulation or pause/resume experiment. No blockers
+or tracked deferrals. See delivery-0.9.7.md.
 
 Design reference: user screenshot and inspected D:/Projects/BetterTrumpet
 FlyoutWindow.xaml/.xaml.cs, DeviceView.xaml, VolumeSlider.cs, FlyoutViewModel.cs.
@@ -32,6 +35,6 @@ confirms that the release following DoubleClick is ignored, so it cannot reopen
 the mixer after opening the panel. Primary source:
 https://github.com/qt/qtbase/blob/v6.8.3/src/plugins/platforms/windows/qwindowssystemtrayicon.cpp
 
-Scratch E:/Temp/openrgb-intensity-20261107, cleanup transaction
-5499a7f65381ea1ec0c0534adf5150fc. Durable current evidence will be retained under
+Scratch E:/Temp/openrgb-intensity-20261107 removed by cleanup transaction
+5499a7f65381ea1ec0c0534adf5150fc. Durable current evidence retained under
 D:/Tools/OpenRGB/validation/20261107/intensity-mixer.

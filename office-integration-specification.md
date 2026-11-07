@@ -1541,8 +1541,13 @@ rollback. Read-only host delivery verification only.
     surfaces, accessible hit targets and main-panel fullscreen placement verified.
     No host experiments. Shared persistence helper and one native mixer component
     serve current paths; no required refactoring, blockers or deferrals remain.
-44. ACTIVE — R53 final normal0.9.7 release, independent package retrieval,
-    installed/startup/read-only runtime verification and temporary-artifact cleanup.
-    Remaining criteria: packaged/installed provenance, normal publication and
-    independent download, one normal startup handoff, preserved preferences and
-    runtime ownership. Preserve0.9.6 rollback; no host UI/capture experiments.
+44. COMPLETE — R53 normal v1.1-office.0.9.7 published at source
+    97ddebb62e52bf3b1fdfd692c9c4a0b74315794d. Independent downloaded ZIP matched
+    SHA25632fe940b41b91478f20fdcb8402b1f8bf6dc1a49991ea371289f6a1cbc7d2b8c;
+    all152 installed members and loaded plugin verified. One graceful old-owner
+    exit and existing startup-task activation; read-only IPC confirmed intensity
+    settings, all six devices online, valid gamma and expected capture policy.
+    Existing settings, OS power/saver preferences and startup policy preserved;
+    0.9.6 rollback retained. User confirmed working. Reviewed cleanup removed
+    all55 temporary members,358963764 bytes; retained source-bound UI/log evidence.
+    No blockers/deferrals or required refactoring. See delivery-0.9.7.md.
