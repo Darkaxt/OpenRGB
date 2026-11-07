@@ -1446,8 +1446,8 @@ Computer Use helper91732, created for this chat's settings operation, retained
 capture after its UI closed. Node client reset did not close that helper; its
 identity-checked stop at02:59:42Z removed the border, confirmed by the user.
 Do not attribute this incident's border to Ambilight. Prefer app-owned controls;
-no further Computer Use without an explicit request. Ambilight currently remains
-closed from the isolation, Wallpaper Engine PID95052 remains running.
+no further Computer Use without an explicit request. Ambilight remained closed
+until the verified final0.9.6 release was ready for its one normal activation.
 
 41. COMPLETE — R47/R48/R49 cohesive lifecycle correction and hosted verification.
     Ambient054a6b95b25495a9e8b9d8228f1605c48757b4df, CI42332547954 passed.
@@ -1458,8 +1458,16 @@ closed from the isolation, Wallpaper Engine PID95052 remains running.
     incorrectly reused pre-pause input; it now supplies a fresh post-resume row.
     No changes to the static file reader or WGC border policy. No blockers or
     deferrals; no additional architecture/refactoring work required.
-42. ACTIVE — One final0.9.6 release and installed delivery verification.
-    Acceptance blockers: verified package/install, normal publication and
-    independent retrieval, one startup-task activation, loaded module/status and
-    unchanged preference readback. No live feature experiments or Computer Use;
-    preserve existing startup policy, current pause preferences and0.9.5 rollback.
+42. COMPLETE — Final1.1-office.0.9.6 published normally at tag
+    v1.1-office.0.9.6, source e39b30063eff7a91e8f5b0e8ea568c0a5d333875.
+    Independent package retrieval matched SHA256
+    6df47cfdbf820dc4073860313d1c9fd4bd191db5733ba054f230b8c42d988817;
+    native/plugin provenance, all149 installed files and invalid-digest rejection
+    verified. One existing sign-in task activation created owner70100; loaded
+    executable/plugin paths and plugin hash matched0.9.6. Read-only IPC confirmed
+    valid gamma, all required wireless devices and capture policy matching saved
+    preferences. Private settings, screensaver and power plan hashes unchanged;
+    startup remains Interactive/Limited/IgnoreNew/PT0S. No host feature
+    experiments, screenshots, recovery requests or Computer Use.0.9.5 rollback
+    retained. No blockers, tracked deferrals or required refactoring remain.
+    Sanitized delivery receipt: office-validation/delivery-0.9.6.md.

@@ -12,16 +12,18 @@ fixture now supplies fresh input after resume instead of expecting cached colour
 to survive pause. Actual native Awake remains independent during pause. No
 blockers/deferrals or required refactoring remain in41.
 
-42 ACTIVE: final0.9.6 normal release, package/installed provenance, one
-activation through existing startup scripts, read-only status and unchanged
-private settings verification. No Computer Use, screenshots, recovery commands
-or pause/resume experiments on the user's desktop. Prior0.9.5 retained.
+42 COMPLETE: final0.9.6 normal release, independently retrieved package and
+installed provenance verified. One existing startup-task activation; read-only
+IPC verified runtime, required wireless devices, gamma and unchanged private/OS
+preferences. No Computer Use, screenshots, recovery commands or pause/resume
+experiments on the user's desktop. Prior0.9.5 retained. No blockers/deferrals.
 
 Yellow border: Ambilight exit did not remove it; stopping this chat's retained
 Computer Use helper91732 did, confirmed by user. Do not attribute that border to
-Ambilight or recreate the Computer Use session. Ambilight remains stopped until
-the verified final build is ready for its single activation.
+Ambilight or recreate the Computer Use session. The verified final build was
+activated once after publication. See delivery-0.9.6.md.
 
-Scratch E:/Temp/openrgb-pause-20261107, cleanup transaction
-e5cd037e3594b07500e3b101a2015e2d. Retained evidence
+Scratch E:/Temp/openrgb-pause-20261107 removed through reviewed cleanup transaction
+e5cd037e3594b07500e3b101a2015e2d:15 members,357394543 bytes, no residuals.
+Retained evidence
 D:/Tools/OpenRGB/validation/20261107/pause-capture.
