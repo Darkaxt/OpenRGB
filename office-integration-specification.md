@@ -1502,7 +1502,8 @@ numeric percentages, icon mute/unmute, Escape and click-away dismissal unless
 pinned. No sounds. Expose the same mixer from the main panel. User correction:
 fullscreen intensity does not belong in the tray flyout. Put its one shared
 control and actual active/inactive state in the main app's Output card. The
-flyout contains only master and physical device levels; no per-app configuration.
+flyout contains only master and physical device levels. The original global-only
+scope is superseded by the direct R57 request for per-app profiles in the main UI.
 
 Design contract, revised by user feedback: retain BetterTrumpet's layout and
 interactions while matching Ambilight's greenish theme. Native Qt, dark teal
@@ -1551,3 +1552,74 @@ rollback. Read-only host delivery verification only.
     0.9.6 rollback retained. User confirmed working. Reviewed cleanup removed
     all55 temporary members,358963764 bytes; retained source-bound UI/log evidence.
     No blockers/deferrals or required refactoring. See delivery-0.9.7.md.
+
+## Product-specific device icons (2026-11-07)
+
+R55: User confirmed0.9.7 working and requested ImageGen in the next update for
+proper icons resembling the actual products, replacing the generic physical
+device symbols. Cover the six current IDs: Govee H6609 Gaming Light Strip G1,
+Govee H8048 Gaming Light Bars Pro, Secretlab MAGRGB E72 desk lighting, Keychron
+Q6 HE ISO full-size keyboard, Lenovo Legion Pro7 16IRX8H Gen8 (82WQ, read from
+the host's model metadata), and Logitech G502 X PLUS. Use verified product
+references; retain source URLs/hashes and exact generation prompts. Generate one
+transparent, product-recognizable raster icon per device in a coherent miniature
+style readable in the existing controller. No random category glyphs for these
+known IDs. Keep the accepted green UI, row layout, mute controls and behavior.
+
+R56: Embed/cache the selected icons in the native application by stable device
+ID, independent of online status and display name. Verify all six distinct
+resources, alpha/readability at actual widget/DPI sizes, real mute/slider behavior
+and source-bound app-owned renders. Generate with built-in ImageGen as requested;
+disclose each exact prompt and necessary reference inputs before calling it.
+Do not access the desktop, run lighting experiments or recreate capture helpers.
+The later direct R57 request authorizes its NuvioDV profile configuration only;
+preserve unrelated lighting settings.
+Release one normal0.9.8 after integrated icon and app-profile acceptance and independently verify the
+published package and one normal installed handoff, preserving current preferences
+and0.9.7 rollback.
+
+45. COMPLETE — R55/R56 six manufacturer-referenced ImageGen assets embedded by
+    stable ID at Ambient1311e0a50a7c52a31153d2f0f28e1de69eaa8242. Hosted Windows
+    CI42402635913 passed all required production tests. Six distinct embedded
+    hashes/transparent sources and40px miniatures verified against provenance;
+    rename/offline identity and real mute/restore/slider paths passed. Reviewed
+    actual app-owned renders at100/150/200%: recognizable complete products,
+    accepted green layout/hit targets preserved. Bounded192px CPU image cache;
+    no runtime download or external asset path. No blockers, deferrals or required
+    refactoring. Final source-bound package delivery remains assigned to stage47.
+R57: Additional direct user request during icon implementation: per-fullscreen-app
+lighting profiles, including independent physical-device intensities. Normal
+wallpaper uses normal master/device levels; a NuvioDV fullscreen profile can set
+both Govee devices to30%. Edit profiles in the main application, retaining the
+tray mixer's master/device scope. Match a deterministic app executable identity;
+Identity is the case-folded Windows executable basename, deliberately covering
+all instances and surviving version/install-path changes. Profile levels override
+the shared fullscreen percentage for selected devices,
+rather than multiplying30% by the existing50% default. Master/device adjustments
+still apply. Unconfigured devices/apps retain the existing shared fullscreen
+policy; exit fullscreen, switching apps or moving to another screen restores the
+appropriate policy. Rest/disabled lighting and independent gamma/Awake win as
+before. Persist profiles atomically with settings and guard drafts/external edits.
+Verify production window identity -> profile selection -> native device output,
+profile editing/persistence and restoration in hosted tests. Configure the actual
+installed NuvioDV executable's H6609/H8048 profile to30%, preserving other choices.
+No host fullscreen/lighting experiments. One combined final release only.
+
+46. COMPLETE — R57 integrated native profile selection/settings/UI at Ambient
+    4822d03a6a4989bdfeb2cd8c36fefbfaecc5c789, hosted CI42404653752 passed.
+    Actual Windows fullscreen window -> executable -> saved profile verified;
+    editor controls -> durable native command -> device output demonstrated.
+    Govee30 overrides shared50 (not15), master/device multiplication, defaults,
+    app/fullscreen/display restoration, restart, stale drafts, external edits,
+    rest blackout and all-device mute/capture release passed. Actual profile UI
+    reviewed at100/150/200%; existing visible vector controls reused with mint
+    arrows, product icons and accessible names/hit targets. Main Output entry and
+    cancel/draft behavior passed. No implementation blockers or required refactoring;
+    shared OfficeInputs.h removes duplicate input behavior for these existing paths.
+    Tracked delivery work: configuring the actual NuvioDV profile belongs to
+    stage47's single normal installed handoff, after the combined release passes.
+    Verify its durable/runtime H6609/H8048=30 readback and preservation of every
+    unrelated preference there; stage46 acceptance uses the complete hosted app.
+47. ACTIVE — final0.9.8 normal release, independent retrieval, installed
+    handoff, NuvioDV Govee30 configuration/read-only checks and expendable-artifact
+    cleanup. Resolve the tracked R57 live-configuration delivery before closure.
