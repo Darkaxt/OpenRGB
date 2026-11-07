@@ -1416,3 +1416,50 @@ live-frame delivery separately, including unavailable/undecodable image failures
 Do not change Windows or Wallpaper Engine preferences. Add image positioning,
 actual shader sampling, rest/paused-output and fresh-frame handoff coverage to39;
 40 must verify the installed image-first path and live handoff before publication.
+
+## Disabled-lighting capture lifecycle (2026-11-07)
+
+R47: Disabling RGB lighting must release the live WGC capture session and its
+GPU/preview resources, clear retained image input, and stop creating captures or
+reading/sampling the wallpaper file while lighting stays disabled. Cover tray
+lighting pauses, output pause and global ambience enabled=false. Re-enabling
+lighting observes the existing rest/input gates and acquires fresh imagery.
+Gamma/screen adjustment, Awake eligibility and native hardware ownership remain
+independent. Pending preview requests must terminate with an explicit paused
+state rather than silently restarting capture or waiting indefinitely.
+
+R48: Preserve the startup-only static-image bridge: read the configured Windows
+wallpaper file once, not through WGC, while the normal Wallpaper Engine pipeline
+starts. Do not introduce a sustained/static-wallpaper capture session, repeating
+polling reads, or a capture-duration timeout. The user's clarification refers to
+this static bridge, not replacing normal animated RGB with frozen colours.
+
+R49: No host lighting/capture experiments, screenshots or Computer Use for this
+repair. Verify pause/re-enable/rest/preview and independent Awake/gamma behavior
+on hosted Windows fixtures. Deliver one normal release, preserve current user
+preferences, and activate it once through existing local startup/IPC scripts.
+Observe installed status read-only, without toggling lighting or recovery tests.
+
+Yellow-border isolation: user explicitly requested one stop. Ambilight PID91040
+exited with capture_stop_complete02:55:24.857Z; user reported border remained.
+Computer Use helper91732, created for this chat's settings operation, retained
+capture after its UI closed. Node client reset did not close that helper; its
+identity-checked stop at02:59:42Z removed the border, confirmed by the user.
+Do not attribute this incident's border to Ambilight. Prefer app-owned controls;
+no further Computer Use without an explicit request. Ambilight currently remains
+closed from the isolation, Wallpaper Engine PID95052 remains running.
+
+41. COMPLETE — R47/R48/R49 cohesive lifecycle correction and hosted verification.
+    Ambient054a6b95b25495a9e8b9d8228f1605c48757b4df, CI42332547954 passed.
+    RGB/global pause releases capture/input and prevents source-generation or
+    preview acquisition while disabled. Resume acquires fresh input; actual
+    Windows Awake requests remain eligible during lighting pause. Existing
+    gamma/rest/GPU/static-image coverage passed. Initial failed output fixture
+    incorrectly reused pre-pause input; it now supplies a fresh post-resume row.
+    No changes to the static file reader or WGC border policy. No blockers or
+    deferrals; no additional architecture/refactoring work required.
+42. ACTIVE — One final0.9.6 release and installed delivery verification.
+    Acceptance blockers: verified package/install, normal publication and
+    independent retrieval, one startup-task activation, loaded module/status and
+    unchanged preference readback. No live feature experiments or Computer Use;
+    preserve existing startup policy, current pause preferences and0.9.5 rollback.
