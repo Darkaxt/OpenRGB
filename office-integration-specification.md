@@ -1620,6 +1620,16 @@ No host fullscreen/lighting experiments. One combined final release only.
     stage47's single normal installed handoff, after the combined release passes.
     Verify its durable/runtime H6609/H8048=30 readback and preservation of every
     unrelated preference there; stage46 acceptance uses the complete hosted app.
-47. ACTIVE — final0.9.8 normal release, independent retrieval, installed
-    handoff, NuvioDV Govee30 configuration/read-only checks and expendable-artifact
-    cleanup. Resolve the tracked R57 live-configuration delivery before closure.
+47. COMPLETE — R55-R57 normal v1.1-office.0.9.8 published at root/tag
+    7de0a25990f40a4caec43c01373f234853fcf2d6 with Ambient4822d03a6a4989bdfeb2cd8c36fefbfaecc5c789.
+    Independent GitHub metadata/tag/download/checksum matched ZIP SHA256
+    bf1c2790a6c4f4581ae076bbd393e33c1581681c361d650aff89763061b1966d.
+    All154 installed members and loaded plugin verified. One graceful0.9.7 exit
+    and existing task activation; one headless0.9.8 owner. Tracked R57 delivery
+    resolved: installed NuvioDV.exe profile durably/native-readback H6609/H8048=30,
+    master100/default fullscreen50 and unrelated preferences preserved. Actual
+    automatic screensaver was active during read-only verification: every mapped
+    light black, capture absent; wireless devices/gamma valid. No host experiments.
+    Startup policy and OS power/saver settings unchanged,0.9.7 rollback retained.
+    Reviewed cleanup removed32 temporary members/395266650 bytes, no residuals.
+    No remaining blockers, deferrals or required refactoring. See delivery-0.9.8.md.
