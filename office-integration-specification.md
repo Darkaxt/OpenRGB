@@ -1633,3 +1633,25 @@ No host fullscreen/lighting experiments. One combined final release only.
     Startup policy and OS power/saver settings unchanged,0.9.7 rollback retained.
     Reviewed cleanup removed32 temporary members/395266650 bytes, no residuals.
     No remaining blockers, deferrals or required refactoring. See delivery-0.9.8.md.
+
+## Collapsed tray anchoring (2026-11-07)
+
+R58: User screenshot shows the collapsed mixer floating at the expanded panel's
+old top edge. Retain the opening tray/button anchor and recompute position after
+layout changes, so collapse and expansion preserve the same lower/right edge and
+existing tray spacing. Reopening collapsed and normal snapshot refresh must keep
+the panel attached; preserve work-area bounds, pinning, controls and all settings.
+Verify actual production-widget geometry through collapse/expand/refresh/pin and
+app-owned renders at100/150/200%. No host desktop access or lighting experiments.
+Deliver one normal0.9.9 release, independently verify package and one installed
+handoff, preserve current NuvioDV/device settings and0.9.8 rollback.
+
+48. COMPLETE — R58 at Ambient2605c45fa9bf3a1a9866c36f87ff864c5a61bcdd,
+    hosted Windows CI42406805010 passed. fit() now recomputes position from the
+    opening anchor after sizing. Actual widget bounds expanded[380,97,420,625]
+    and collapsed[380,553,420,169] share bottom/right[799,721]. Collapse, refresh,
+    collapsed reopen, expansion and pinned resizing passed. App-owned100/150/200%
+    renders reviewed; existing appearance/controls preserved. No blockers,
+    deferrals or required refactoring; one shared fit path owns placement.
+49. ACTIVE — final0.9.9 release, independent retrieval, one normal installed
+    handoff/read-only preservation checks and expendable-artifact cleanup.
