@@ -1349,3 +1349,64 @@ off state to the fix or claim natural-cycle verification was performed.
     restored. Cleanup applied182 members/671121970 bytes, no residuals. Prior0.9.3
     install/package preserved. R42/R43 satisfied under the explicit user scope
     change; no natural-cycle acceptance claim. Current blockers0/deferrals0.
+
+## Unlock capture recovery (2026-11-07)
+
+R44: Correct evidenced event-dependent recovery after unlock. Owner107256
+received unlock at00:13:11.785Z, found no wallpaper through00:13:12.843Z,
+and did not select it until00:13:22.806Z. First fresh frame followed at
+00:13:26.267Z, including3.14 seconds recreating GPU resources and recompiling
+unchanged shaders. While waiting for an eligible source, continue observation
+on the existing output cadence without requiring an unrelated window event,
+adding delays or churning unchanged source generations. Compile immutable shader
+programs once per process; each capture retains its own device and image state.
+Preserve R42: rest stays black, no stale image replay, fresh input when required
+and a fresh captured frame before output. No Windows, Wallpaper Engine, Awake,
+gamma, map, device or power preference changes.
+
+R45: Verify event-free unavailable-to-available source recovery in the production
+owner fixture, stable waiting diagnostics, actual fresh GPU capture across
+independent capture states, and all rest/input regressions. Record real host
+source/capture timing when available without locking the user's desktop,
+synthesizing input or waiting for a manufactured idle cycle. Deliver one normal
+versioned release with independently verified package, installed module, existing
+startup and preserved settings. Physical wake latency remains subject to the
+renderer making an eligible fresh source available; do not promise a fixed
+deadline or call controller submission proof of wireless physical illumination.
+The inactive Windows test desktop verifies discovery and an attempted native
+capture; hosted WGC returns E_INVALIDARG there. Successful WGC creation/fresh
+frames must instead pass twice on the actual installed interactive owner before
+publication; retain that explicit boundary rather than treating the fixture as
+proof of delivered images.
+
+39. COMPLETE — R44/R45/R46 cohesive recovery correction and regression acceptance.
+    Ambient0a9f4152e64d37a2645efd6b0d316fcd98aac8d4, CI42319811511 passed.
+    Source readiness is observed without another event; unchanged waiting states
+    retain their generation. Immutable shader programs are reused. Current-image
+    span/center/tile/stretch/fit/fill positioning and production GPU output,
+    manual pause, no-input black and fresh-image resume passed. Existing actual
+    native request/lifecycle and GPU coverage passed. Inactive-desktop WGC
+    limitation remains explicit; real frames belong to40. No blockers/deferrals.
+40. ACTIVE — Single final release and installed delivery verification.
+    Internal advancement blockers: package provenance and negative installer
+    checks, actual image-first submission/live handoff, two fresh live rebuilds,
+    preserved preferences/wireless ownership, normal publication/independent
+    retrieval and cold sign-in task/module checks. Preserve0.9.4 rollback and
+    existing startup ownership. No tracked deferrals.
+
+R46 (user scope addition2026-11-07): Read the Windows desktop wallpaper image
+first after a valid unlock/resume, using Wallpaper Engine's current Windows
+override where configured, and submit its sampled colours before starting live
+capture. Local Windows currently points to WallpaperEngineOverride_random*.jpg,
+updated at00:33:30Z, with spanning enabled. Resolve the actual primary monitor
+and Windows positioning through the supported read-only desktop-wallpaper API;
+crop a spanning image to that monitor, preserving the existing region map,
+processing and output settings. Switch to a fresh live frame as soon as one is
+available. This explicitly permits a freshly read static wallpaper frame before
+R42's fresh live frame; it does not permit replay of pre-rest screen imagery,
+reading lock-screen imagery, or clearing the existing input/security/rest gate.
+Keep wallpaper paths and pixels out of logs/packages. Report static-image versus
+live-frame delivery separately, including unavailable/undecodable image failures.
+Do not change Windows or Wallpaper Engine preferences. Add image positioning,
+actual shader sampling, rest/paused-output and fresh-frame handoff coverage to39;
+40 must verify the installed image-first path and live handoff before publication.
