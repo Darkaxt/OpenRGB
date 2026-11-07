@@ -1662,3 +1662,84 @@ handoff, preserve current NuvioDV/device settings and0.9.8 rollback.
     saver preferences unchanged. Wireless/gamma/read-only capture policy checks
     passed;0.9.8 rollback retained. Cleanup removed21 expendable members,
     394350275 bytes, no residuals. No blockers, deferrals or required refactoring.
+
+## Frosted lighting widget (2026-11-08)
+
+R59: Add background blur to the lighting flyout like the original BetterTrumpet
+reference. Use native Windows background acrylic, retaining the green tint,
+opaque/readable text, product icons, 420-DIP layout, rounded silhouette, controls
+and corrected tray anchoring in expanded/collapsed/pinned/reopened states. Do not
+blur the controls themselves. Respect Windows transparency/high-contrast choices
+without changing them; retain the existing opaque green surface when effects are
+disabled or unavailable. No screen sampling, CPU wallpaper blur, timer, extra RGB
+writer or background resource while the flyout is hidden.
+This supersedes the earlier opaque-background rule only while native acrylic is
+active; the opaque fallback remains unchanged.
+
+Implementation decision: follow BetterTrumpet4a76efd34a1aa38b1b006251cfa9e18be1b1604b,
+FlyoutWindow.xaml/AccentPolicyLibrary.cs/App.xaml. Its transparent layered popup
+uses ACCENT_ENABLE_ACRYLICBLURBEHIND with a70% tint. Qt6.8.3's Windows raster
+backend likewise requires WS_EX_LAYERED for this existing translucent frameless
+widget. Use that same narrowly scoped user32 accent policy instead of replacing
+the Qt window/composition pipeline to use the newer non-layered DWM backdrop.
+Apply/remove only on this owned HWND; reapply on show/pin/native preference changes.
+Keep rounded clipping with native/DPI-aware widget mask and nonzero body alpha
+for input hit testing. Native failures use the explicit opaque policy fallback.
+
+Verify real native policy acceptance/lifecycle and compositor output against a
+generated CI-owned background; app-owned widget renders alone do not prove OS blur.
+WCA_ACCENT_POLICY cannot be retrieved with GetWindowCompositionAttribute: a hidden
+owned-HWND ABI probe confirmed Set succeeds but Get fails withERROR_INVALID_PARAMETER
+on the installed Windows11 as well. Record actual Set acceptance (not invented
+readback), and prove both high-frequency blur and retained low-frequency background
+colour with compositor pixels. This replaces an unsupported diagnostic method
+while preserving the required observable blur.
+Review expanded/collapsed100/150/200% renders, opacity/legibility, corner clipping,
+pin/reopen/anchor and existing interaction checks. No user-desktop capture or
+live lighting experiments. Final normal0.9.10 release, independent package/source/
+hash verification, one installed handoff, preferences preserved and0.9.9 rollback.
+
+50. COMPLETE — R59 native acrylic, transparency preference/lifecycle integration,
+    real native compositor verification and existing widget/geometry acceptance.
+    Ambient a95d7cf, successful hosted CI42421723208. Native composed pixels reduce
+    stripe contrast61.0 to0.785 while retaining red/blue background fields; real
+    Set acceptance, layered HWND, rounded mask, pin/hide/reopen and unchanged tray
+    anchor passed. Reviewed native and100/150/200% widget renders; controls stay
+    sharp, offscreen fallback remains opaque. Evidence: validation/20261108/acrylic.
+    Closure assessment: one owned-HWND material lifecycle, no duplicate writer,
+    timer or capture; no required refactoring, blockers or tracked deferrals.
+R60: User also questions repeated access to
+D:/Tools/OpenRGB/state-integration/office-ambience-status.json (exact filename
+clarified by the user). Trace readers/writers and their current purpose after
+unification; remove evidenced redundant continuous status I/O without breaking
+required diagnostics, startup readiness or external consumers. Explain actual
+purpose and resulting change. No invented maintenance file or unrelated schedule
+change. Verify affected diagnostics/readiness and preserve useful failure logs.
+
+51. COMPLETE — R60 status-file access investigation and required bounded
+    correction, with affected reader/writer/readiness verification.
+    Root cause: native status() atomically rewrites the complete report every
+    second. Unified UI already uses in-process snapshots; no active external
+    observer found. Keep one-second in-memory FPS measurement and ten-second
+    health logs, publish disk checkpoints on semantic state changes only. Frame
+    counters, input ticks, brightness/temperature ramps and timing samples do not
+    trigger writes. Keep readiness/gamma/error/pause/source changes and requested
+    preview-completion notifications. Manual frame observer and one-time legacy
+    migration read authenticated live snapshots instead of stale file counters.
+    Verify stable bytes across volatile progress, live IPC counters, semantic
+    changes, publication failure/recovery and existing readiness/preview paths.
+    CI42422813579 compiled and passed native blur; checkpoint fixture failed at
+    construction because it omitted five devices required by fresh bootstrap.
+    Corrected fixture inventory in bb7dba4 without weakening the production gate.
+    Corrected source bb7dba4e52f01171c8edfb3131d616d0e6c0028a passed hosted
+    CI42423239290: stable file bytes during counter/input/timing progress, fresh
+    command snapshot/FPS, screen-ramp filtering, readiness/pause state selection,
+    real pause/error checkpoint and failed-save recovery. Existing lifecycle,
+    preview, runtime, UI and compositor checks pass. Hardware-free observer
+    progress/owner-exit/identity checks and migration PowerShell parse passed.
+    Closure assessment: existing owner remains sole state publisher; optional
+    reader uses existing authenticated IPC, no new background job or transport.
+    No blockers, deferrals or required refactoring. R59 is unchanged and its
+    native compositor proof also passed in this exact combined source run.
+52. ACTIVE — final0.9.10 release, independent retrieval, one installed
+    handoff/read-only preservation checks and expendable-artifact cleanup.

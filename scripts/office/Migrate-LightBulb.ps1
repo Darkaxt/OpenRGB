@@ -1,7 +1,8 @@
 param(
     [Parameter(Mandatory)][ValidateSet('Capture','Retire','RestoreStartup')][string]$Mode,
     [string]$StateRoot='D:/Tools/OpenRGB/state-integration',
-    [string]$InstallRoot='D:/Tools/OpenRGB/releases/1.1-office.0.9.1'
+    [string]$InstallRoot='D:/Tools/OpenRGB/releases/1.1-office.0.9.1',
+    [string]$Python='D:/Tools/OpenRGB/python/Scripts/python.exe'
 )
 $ErrorActionPreference='Stop'
 $runKey='HKCU:\Software\Microsoft\Windows\CurrentVersion\Run'
@@ -25,7 +26,9 @@ if($Mode -eq 'Retire') {
     if($process.Path -ne (Join-Path $InstallRoot 'OpenRGB.exe')){throw 'Verified final Office release is not the active owner.'}
     $manifest=Get-Content -LiteralPath (Join-Path $InstallRoot 'installed-manifest.json') -Raw | ConvertFrom-Json
     if($manifest.version -ne '1.1-office.0.9.1'){throw 'Expected the completed 0.9.1 release.'}
-    $status=Get-Content -LiteralPath (Join-Path $StateRoot 'office-ambience-status.json') -Raw | ConvertFrom-Json
+    $live=& $Python -B (Join-Path $PSScriptRoot 'office_control.py') --state $StateRoot
+    if($LASTEXITCODE -ne 0){throw 'Cannot read the integrated live gamma status.'}
+    $status=($live | ConvertFrom-Json).status
     if(!$status.screen.managed -or !$status.screen.gamma_valid){throw 'Integrated gamma ownership/readback has not passed.'}
     if($existing -ne $record.original_startup){throw 'Standalone LightBulb startup binding changed after capture; preserve it.'}
     if((Get-FileHash -LiteralPath $sourceSettings -Algorithm SHA256).Hash -ne $record.source_settings_sha256){throw 'Original LightBulb settings changed after migration capture.'}

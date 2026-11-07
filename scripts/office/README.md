@@ -47,8 +47,12 @@ D:/Tools/OpenRGB/python/Scripts/python.exe -B D:/Tools/OpenRGB/releases/1.1-offi
 pwsh -NoProfile -File D:/Tools/OpenRGB/releases/1.1-office.0.3.0/office/Stop-Office.ps1 -StateRoot D:/Tools/OpenRGB/state-integration
 ```
 
-Atomic `office-ambience-status.json` reports the chosen source, frame counters,
-GPU processing and callback-to-native-submit timing. This is software timing;
+Atomic `office-ambience-status.json` is a last-state diagnostic checkpoint,
+updated on source/pause/readiness/error changes, not every second. Its frame
+counters and timings describe that checkpoint; use authenticated `office_control.py`
+snapshots or the manually invoked `watch_ambience.py` for live progress. The unified
+UI already uses in-memory snapshots. Ten-second health logs remain available.
+This is software timing;
 Govee streaming does not acknowledge physical LED application. Native logs and
 `owner.json` remain in the state directory. The stop script verifies PID, creation
 time and executable, requests normal teardown, waits for exit and releases Govee
