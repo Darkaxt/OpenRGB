@@ -1835,6 +1835,19 @@ Keep DPI/surface lifecycle synchronized and no work while hidden.
     Closure assessment: one pre-show layout path; no periodic repaint, retry,
     arbitrary sleep, automatic reopen or hidden-background resource. Header tint
     stays paint state. No blockers, tracked deferrals or required refactoring.
-55. ACTIVE — normal0.9.11 release, independent download/hash/source checks,
+55. COMPLETE — normal0.9.11 release, independent download/hash/source checks,
     one final installed handoff with preserved preferences and0.9.10 rollback,
     read-only installed verification and transactional scratch cleanup.
+    Published v1.1-office.0.9.11/source cd2108e41486c281bdeb649ee0eef3d10321438c;
+    independent download, tag and checksum match SHA256
+    714dd391a34d2ee716a8736169ffbecba864d55a36de1e739a17dc2587fef066.
+    All161 installed members read back; owner21712/start639298360023408409 loads
+    plugin F22DAF58B1614ED0F865BC493C1D5C81628D6F667FB8712E98E285835F09B114.
+    One graceful old-owner shutdown and one existing-task activation with result0.
+    Wireless/gamma/current capture-policy and saved settings/OS preferences pass;
+    effective master/device/fullscreen/app-profile levels match pre-handoff values.
+    App settings hash8870C7B6149EECEE3761D0E6BEC60AF52132ACFF26549C0482D4853289B5846F.
+    User-host widget was not opened/captured for testing.0.9.10 retained for rollback.
+    Cleanup removed26 reviewed members/396331772 bytes, no residuals. Final
+    reconciliation: R61 satisfied; no blockers/deferrals/refactoring required.
+    Delivery receipt: office-validation/delivery-0.9.11.md.
