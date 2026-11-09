@@ -1757,3 +1757,84 @@ change. Verify affected diagnostics/readiness and preserve useful failure logs.
     bytes, no residuals. Delivery receipts: office-validation/delivery-0.9.10.md.
     Final reconciliation: R59/R60 satisfied; prior delivered requirements remain
     preserved. No blockers, tracked deferrals or required refactoring.
+
+## First-open lighting widget corruption (2026-11-09)
+
+R61: The first lighting-widget opening after it has been hidden must render the
+whole current viewport correctly, without requiring a second opening. User's
+150%-scale screenshot shows a630-pixel window with content cut off at420 pixels
+and missing right-side controls/footer. Preserve native acrylic, rounded corners,
+420-DIP width, tray attachment, scrolling, pin/collapse/reopen, device artwork,
+settings and intensity behavior. No periodic repaint, arbitrary delay, automatic
+reopen, desktop capture or live lighting/wallpaper experiments.
+
+Investigation: installed0.9.10/bb7dba4 is unchanged. Read-only owned-HWND probe
+finds630x935 physical pixels at144 DPI. Hidden setState skips fit(); showAt calls
+show before fit(), while showEvent enables acrylic and clips the old rectangle.
+Native tests repaint/collapse before compositor observation and only simulate
+100/150/200% through image exports, missing native first-show presentation.
+Resolve geometry/layout before showing; apply material to the final surface,
+and verify the actual first queued paint rather than forcing a corrective repaint.
+Keep DPI/surface lifecycle synchronized and no work while hidden.
+
+53. COMPLETE — R61 source correction and native first-show regression
+    checks, including real150% native composition, hidden inventory changes,
+    first/reopen, pin/collapse and viewport/anchor preservation. Source inspection
+    closes this stage; compiled acceptance is assigned to54.
+    Source inspection: showAt binds QWindow screen, polishes/activates layouts
+    and fits the hidden window before showEvent applies acrylic/clip. Hidden
+    state refreshes do not run fit. Native tests observe actual Show geometry,
+    queued paint coverage and composed right-slider/footer pixels, with hidden
+    inventory changes and a hidden main-window owner. Separate real150% CTest
+    writes isolated evidence. Existing geometry/material/interaction tests remain.
+    Whole-scope source ready for validation: OfficeLightController.h,
+    tests/office_window_tests.cpp and CMakeLists.txt; no known source gaps.
+    Build/acceptance unexecuted at this boundary. Launch established hosted
+    Office Windows workflow after committing this cohesive source. No separate
+    local app launch, host capture or new gate/runtime required. No refactoring
+    finding or tracked deferral; exact correctness remains stage54 acceptance.
+54. COMPLETE — integrated hosted Windows validation of the whole source change;
+    first composed pixels and native geometry/material evidence before any manual
+    repaint, representative scale renders and existing interaction checks.
+    Attempt42642784185/b38baa5 compiled but both native first-frame checks
+    found geometry changing during first queued paint; no release/candidate
+    activation. Existing offscreen and engine tests passed. Source correction:
+    material transitions no longer replace header stylesheets (which invalidate
+    fonts/layout); parent paint owns header tint without geometry mutations.
+    Related first-frame assertion now reports exact prepared/settled rectangles.
+    Cohesive failed-attempt correction ready for revalidation after inspection;
+    source changes only OfficeLightController.h and the native diagnostic text.
+    Attempt42643686778/ae38a54 disproved stylesheet replacement as the source of
+    the size jump:100% prepared420x512 then623 high;150% prepared420x341 then623.
+    These match QWidget::adjustSize's documented2/3-screen height cap exactly.
+    Removed that speculative paint refactor. fit now derives chrome and capped
+    viewport directly from layout size hints, activates final constraints and
+    explicitly resizes before show, including collapse. No adjustSize remains
+    in the flyout. Qt6.8.3 qwidget.cpp adjustedSize() confirms the mechanism.
+    Original failed attempts/logs retained; cohesive geometry correction inspected
+    and source ready for affected native/offscreen validation, same R61 scope.
+    Attempt42644943318/1928244 compiled;100% retained a24px deferred height
+    change, while150% passed geometry/right-slider but failed visible footer.
+    Retained first native PNG shows an oversized viewport extending below the
+    CI screen. The outer hidden layout was reading cached descendant hints;
+    activate() on only outer/deviceRows does not measure nested QWidget layouts.
+    Correction settles widget layouts bottom-up before natural measurement and
+    again after assigning the bounded viewport. Material tint is painted without
+    changing header stylesheet, eliminating layout mutation after preparation.
+    This reconciles the two measured causes rather than retaining a workaround.
+    First-frame diagnostics now retain child hint/constraint/bounds with failures.
+    Same acceptance criteria; no timer, delay, automatic reopen or forced repaint.
+    Whole cohesive source correction inspected and ready for revalidation.
+    Source3588c395e11f8723fc8e1857e58b6f67b73a64b1 passed CI42646493749.
+    First show and reopen keep identical prepared/presented bounds:420x623 at
+    100%,420x473/630x710 physical at150% with bounded scrolling. First composed
+    frames contain right-slider121 green pixels and footer272/529 text pixels;
+    no manual repaint or second-open repair. Reviewed native PNGs at both scales.
+    Existing widgets, pin/collapse/anchor and real acrylic compositor checks pass.
+    Source-bound UI artifact13687627601 SHA114c76a19823108b6ea63c71e2013781a9d4fcfa556c97d000307e76fe36cb58.
+    Closure assessment: one pre-show layout path; no periodic repaint, retry,
+    arbitrary sleep, automatic reopen or hidden-background resource. Header tint
+    stays paint state. No blockers, tracked deferrals or required refactoring.
+55. ACTIVE — normal0.9.11 release, independent download/hash/source checks,
+    one final installed handoff with preserved preferences and0.9.10 rollback,
+    read-only installed verification and transactional scratch cleanup.
