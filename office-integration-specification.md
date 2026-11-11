@@ -1851,7 +1851,7 @@ Keep DPI/surface lifecycle synchronized and no work while hidden.
     Cleanup removed26 reviewed members/396331772 bytes, no residuals. Final
     reconciliation: R61 satisfied; no blockers/deferrals/refactoring required.
     Delivery receipt: office-validation/delivery-0.9.11.md.
-56. IN PROGRESS — 0.9.12 QA and future-proofing (Claude Code takeover of the
+56. COMPLETE — 0.9.12 QA and future-proofing (Claude Code takeover of the
     Codex thread). Requirements: (a) Govee H6609/H8048 recover their DreamView
     stream session without user action after network/firewall interruptions;
     (b) firewall/GlassWire rules survive releases: the active release runs from
@@ -1863,3 +1863,6 @@ Keep DPI/surface lifecycle synchronized and no work while hidden.
     published/independently verified package, installed at the stable path and
     started by the existing task, single owner ready, output-thread CPU below the
     0.9.11 sample, no live lighting experiments or Wallpaper Engine restarts.
+    Result: all acceptance met (output thread 3.3% vs ~52%; 6/6 devices; task
+    result 0 at the stable path). Remaining inferred: whether sends fail during
+    firewall interruptions. Delivery receipt: office-validation/delivery-0.9.12.md.
