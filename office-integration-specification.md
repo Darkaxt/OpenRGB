@@ -1851,3 +1851,15 @@ Keep DPI/surface lifecycle synchronized and no work while hidden.
     Cleanup removed26 reviewed members/396331772 bytes, no residuals. Final
     reconciliation: R61 satisfied; no blockers/deferrals/refactoring required.
     Delivery receipt: office-validation/delivery-0.9.11.md.
+56. IN PROGRESS — 0.9.12 QA and future-proofing (Claude Code takeover of the
+    Codex thread). Requirements: (a) Govee H6609/H8048 recover their DreamView
+    stream session without user action after network/firewall interruptions;
+    (b) firewall/GlassWire rules survive releases: the active release runs from
+    one stable executable path D:/Tools/OpenRGB/app (Activate-Release.ps1), with
+    versioned releases kept for rollback; (c) caption drag/resize work even when a
+    descendant widget owns a native HWND; (d) reviewer QA fixes (CPU: cached
+    LightBulb process probe; capture retry; safe rebind; gamma crash baseline;
+    socket/buffer bounds). Acceptance: CI green with the native-child caption test,
+    published/independently verified package, installed at the stable path and
+    started by the existing task, single owner ready, output-thread CPU below the
+    0.9.11 sample, no live lighting experiments or Wallpaper Engine restarts.
