@@ -200,6 +200,12 @@ void GoveeController::SendRazerData(RGBColor* colors, unsigned int size)
         return;
     }
 
+    if(stream_interrupted.exchange(false))
+    {
+        LOG_INFO("[Govee stream] sku=%s re-entering stream mode after a send failure", sku.c_str());
+        SendRazerEnable();
+    }
+
     /*-----------------------------------------------------*\
     | PT payload: BB [len_hi] [len_lo] B0 [gradient_off=1]  |
     | [led_count] (RGB * N) [xor]                           |
@@ -257,6 +263,7 @@ void GoveeController::SendRazerData(RGBColor* colors, unsigned int size)
     if(written != expected)
     {
         failed_frame_count++;
+        stream_interrupted = true;
     }
     // Summaries avoid allocating a log entry on every animation frame.
     if(frame_count == 1 || frame_count % 300 == 0)
@@ -297,7 +304,12 @@ void GoveeController::SendRazerEnable()
     \*-----------------------------------------------------*/
     std::string command_str                     = command.dump();
 
-    port.udp_write((char *)command_str.c_str(), (int)command_str.length() + 1);
+    const int expected = (int)command_str.length() + 1;
+
+    if(port.udp_write((char *)command_str.c_str(), expected) != expected)
+    {
+        stream_interrupted = true;
+    }
 }
 
 void GoveeController::SetBrightness(unsigned int brightness)
@@ -353,6 +365,7 @@ void GoveeController::SendScan()
 \*---------------------------------------------------------*/
 net_port                        GoveeController::broadcast_port;
 std::vector<GoveeController*>   GoveeController::callbacks;
+std::mutex                      GoveeController::callbacks_mutex;
 std::thread*                    GoveeController::ReceiveThread;
 std::atomic<bool>               GoveeController::ReceiveThreadRun;
 
@@ -368,7 +381,7 @@ void GoveeController::ReceiveBroadcastThreadFunction()
         | Receive up to 1024 bytes from the device with a   |
         | 1s timeout                                        |
         \*-------------------------------------------------*/
-        int size = broadcast_port.udp_listen(recv_buf, 1024);
+        int size = broadcast_port.udp_listen(recv_buf, sizeof(recv_buf) - 1);
 
         /*-------------------------------------------------*\
         | If data was received, loop through registered     |
@@ -385,6 +398,8 @@ void GoveeController::ReceiveBroadcastThreadFunction()
         \*-------------------------------------------------*/
         if(size > 0)
         {
+            std::lock_guard<std::mutex> lock(callbacks_mutex);
+
             for(std::size_t callback_idx = 0; callback_idx < callbacks.size(); callback_idx++)
             {
                 GoveeController* controller = callbacks[callback_idx];
@@ -397,11 +412,13 @@ void GoveeController::ReceiveBroadcastThreadFunction()
 
 void GoveeController::RegisterReceiveBroadcastCallback(GoveeController* controller_ptr)
 {
+    std::lock_guard<std::mutex> lock(callbacks_mutex);
     callbacks.push_back(controller_ptr);
 }
 
 void GoveeController::UnregisterReceiveBroadcastCallback(GoveeController* controller_ptr)
 {
+    std::lock_guard<std::mutex> lock(callbacks_mutex);
     for(std::size_t callback_idx = 0; callback_idx < callbacks.size(); callback_idx++)
     {
         if(callbacks[callback_idx] == controller_ptr)

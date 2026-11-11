@@ -114,10 +114,14 @@ RGBController_Govee::RGBController_Govee(GoveeController* controller_ptr)
 
 RGBController_Govee::~RGBController_Govee()
 {
-    Shutdown();
-
-    keepalive_thread_run = 0;
+    {
+        std::lock_guard<std::mutex> lock(keepalive_mutex);
+        keepalive_thread_run = 0;
+    }
+    keepalive_cv.notify_all();
     keepalive_thread->join();
+
+    Shutdown();
     delete keepalive_thread;
 
     delete controller;
@@ -407,6 +411,7 @@ void RGBController_Govee::KeepaliveThread()
             }
         }
 
-        std::this_thread::sleep_for(10s);
+        std::unique_lock<std::mutex> lock(keepalive_mutex);
+        keepalive_cv.wait_for(lock, 10s, [this] { return !keepalive_thread_run.load(); });
     }
 }

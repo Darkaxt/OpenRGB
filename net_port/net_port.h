@@ -86,7 +86,7 @@ public:
     void set_receive_timeout(int sec, int usec);
 
     bool connected;
-    SOCKET sock;
+    SOCKET sock = INVALID_SOCKET;
 
 private:
 #ifdef WIN32
@@ -96,5 +96,8 @@ private:
     std::vector<SOCKET *> clients;
 
     sockaddr addrDest;
-    addrinfo*   result_list;
+    addrinfo*   result_list = NULL;
+    bool        udp_owned   = false;
+
+    void udp_release();
 };

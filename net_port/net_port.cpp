@@ -50,10 +50,27 @@ net_port::net_port(const char * client_name, const char * port)
 
 net_port::~net_port()
 {
+    udp_release();
+
     if(result_list)
     {
         freeaddrinfo(result_list);
     }
+}
+
+void net_port::udp_release()
+{
+    /*-----------------------------------------------------*\
+    | Re-opening a UDP client (for example Nanoleaf's       |
+    | external control) must not leak the previous socket. |
+    \*-----------------------------------------------------*/
+    if(udp_owned && sock != INVALID_SOCKET)
+    {
+        closesocket(sock);
+        sock = INVALID_SOCKET;
+    }
+
+    udp_owned = false;
 }
 
 bool net_port::udp_client(const char* client_name, const char * port)
@@ -73,12 +90,16 @@ bool net_port::udp_client(const char * client_name, const char * send_port, cons
     }
 #endif
 
+    udp_release();
+
     sock = socket(AF_INET, SOCK_DGRAM, 0);
     if(sock == INVALID_SOCKET)
     {
         WSACleanup();
         return(false);
     }
+
+    udp_owned = true;
 
     if(setsockopt(sock, SOL_SOCKET, SO_BROADCAST, (const char *)&yes, sizeof(yes)) == SOCKET_ERROR)
     {
@@ -357,6 +378,8 @@ SOCKET * net_port::tcp_server_listen()
 void net_port::tcp_close()
 {
     closesocket(sock);
+    sock      = INVALID_SOCKET;
+    udp_owned = false;
     connected = false;
 }
 

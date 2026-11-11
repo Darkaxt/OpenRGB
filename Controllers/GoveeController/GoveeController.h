@@ -11,6 +11,8 @@
 
 #pragma once
 
+#include <atomic>
+#include <mutex>
 #include <string>
 #include <thread>
 #include <vector>
@@ -51,7 +53,14 @@ private:
     std::string         wifiVersionHard;
     std::string         wifiVersionSoft;
 
-    bool                broadcast_received;
+    std::atomic<bool>   broadcast_received;
+    /*-----------------------------------------------------*\
+    | Set when a stream datagram could not be sent (network |
+    | or firewall interruption). The next frame re-enters   |
+    | DreamView stream mode before sending colours, since a |
+    | device whose stream session lapsed ignores B0 frames. |
+    \*-----------------------------------------------------*/
+    std::atomic<bool>   stream_interrupted{false};
     unsigned long long  frame_count = 0;
     unsigned long long  failed_frame_count = 0;
     long long           maximum_send_us = 0;
@@ -69,6 +78,7 @@ public:
     \*-----------------------------------------------------*/
     static net_port                             broadcast_port;
     static std::vector<GoveeController*>        callbacks;
+    static std::mutex                           callbacks_mutex;
     static std::thread*                         ReceiveThread;
     static std::atomic<bool>                    ReceiveThreadRun;
 

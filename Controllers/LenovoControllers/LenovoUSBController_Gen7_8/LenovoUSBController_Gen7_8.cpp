@@ -150,16 +150,20 @@ void LenovoGen7And8USBController::setLedsByGroup(uint8_t profile_id, vector<led_
             buffer[i++] = 0x06;
             buffer[i++] = 0x00;
 
-            buffer[i++] = (uint8_t)led_groups[group].colors.size();
-            for(RGBColor c : led_groups[group].colors)
+            // Reserve the colour-count and LED-count bytes before bounding
+            // the variable-length lists to the fixed report buffer.
+            size_t color_count = min(led_groups[group].colors.size(), (PACKET_SIZE - i - 2)/3);
+            buffer[i++] = (uint8_t)color_count;
+            for(size_t color = 0; color < color_count; color++)
             {
+                RGBColor c = led_groups[group].colors[color];
                 buffer[i++] = RGBGetRValue(c);
                 buffer[i++] = RGBGetGValue(c);
                 buffer[i++] = RGBGetBValue(c);
             }
 
             vector<uint16_t> leds = led_groups[group].leds;
-            size_t led_count = min(leds.size(), (PACKET_SIZE - i)/2);
+            size_t led_count = min(leds.size(), (PACKET_SIZE - i - 1)/2);
             buffer[i++] = (uint8_t)led_count;
             uint8_t* byte_ptr = reinterpret_cast<uint8_t*>(leds.data());
             std::copy(byte_ptr, byte_ptr + led_count * sizeof(uint16_t), buffer + i);

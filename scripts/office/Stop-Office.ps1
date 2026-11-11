@@ -1,4 +1,4 @@
-param([Parameter(Mandatory)][string]$StateRoot)
+param([Parameter(Mandatory)][string]$StateRoot,[string]$Python = 'D:/Tools/OpenRGB/python/Scripts/python.exe')
 $ErrorActionPreference = 'Stop'
 $owner = Get-Content -LiteralPath (Join-Path $StateRoot 'owner.json') -Raw | ConvertFrom-Json
 if (Get-Process -Name SignalRgb -ErrorAction SilentlyContinue) { throw 'SignalRGB is running; do not release another writer.' }
@@ -8,7 +8,7 @@ $process = Get-Process -Id $owner.pid -ErrorAction SilentlyContinue
 if ($process) {
     if ($process.Path -ne $owner.executable -or $process.StartTime.ToUniversalTime().Ticks -ne $owner.startUtcTicks) { throw 'Process identity no longer matches this trial.' }
     if ($owner.graceful) {
-        python -B (Join-Path $PSScriptRoot 'runtime_control.py') --pid $process.Id --wait-exit --state $StateRoot
+        & $Python -B (Join-Path $PSScriptRoot 'runtime_control.py') --pid $process.Id --wait-exit --state $StateRoot
         if ($LASTEXITCODE) { throw 'Graceful stop request failed; process preserved.' }
     } else {
         Stop-Process -Id $process.Id

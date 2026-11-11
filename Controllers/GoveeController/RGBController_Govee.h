@@ -11,6 +11,8 @@
 
 #pragma once
 
+#include <condition_variable>
+#include <mutex>
 #include "RGBController.h"
 #include "GoveeController.h"
 
@@ -36,6 +38,8 @@ private:
 
     GoveeController*                                    controller;
     std::thread*                                        keepalive_thread;
+    std::mutex                                          keepalive_mutex;
+    std::condition_variable                             keepalive_cv;
     std::atomic<bool>                                   keepalive_thread_run;
     std::chrono::time_point<std::chrono::steady_clock>  last_update_time;
     RGBColor                                            last_static_color;
