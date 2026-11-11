@@ -1866,7 +1866,7 @@ Keep DPI/surface lifecycle synchronized and no work while hidden.
     Result: all acceptance met (output thread 3.3% vs ~52%; 6/6 devices; task
     result 0 at the stable path). Remaining inferred: whether sends fail during
     firewall interruptions. Delivery receipt: office-validation/delivery-0.9.12.md.
-57. IN PROGRESS — 0.9.13 Day/Night per-light night levels. Requirement (user,
+57. COMPLETE — 0.9.13 Day/Night per-light night levels. Requirement (user,
     2026-11-11): lights currently follow the screen's night brightness (~85%);
     Govee lamps need a stronger night reduction (~50%), so each device gets its
     own gradual night level; the Screen page becomes "Day/Night". Decision: each
@@ -1878,3 +1878,5 @@ Keep DPI/surface lifecycle synchronized and no work while hidden.
     position, gain, persistence, validation and the Lights tab; published and
     independently verified package; deployed to the stable path; single owner
     ready with settings preserved; no lighting experiments.
+    Result: acceptance met (Ambient CI 43024946602; task result 0 at the stable
+    path; settings preserved). Delivery receipt: office-validation/delivery-0.9.13.md.
