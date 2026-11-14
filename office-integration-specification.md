@@ -1880,3 +1880,26 @@ Keep DPI/surface lifecycle synchronized and no work while hidden.
     ready with settings preserved; no lighting experiments.
     Result: acceptance met (Ambient CI 43024946602; task result 0 at the stable
     path; settings preserved). Delivery receipt: office-validation/delivery-0.9.13.md.
+58. COMPLETE — 0.9.14/0.9.15 HDR screen dimming and Corsair K95 RGB Platinum.
+    Requirement (user, 2026-11-14, at home): "the monitor brightness adjustment
+    looks odd. Like losing color quality instead of brightness" and "my corsair
+    keyboard doesn't seem to be supported". Cause (probe): both displays output HDR
+    (AW3423DWF 10 bpc, SDR white 340 nits); gamma ramps distort the encoded HDR
+    signal. Decision: HDR displays scale the Windows SDR white level from the
+    startup baseline (crash-recorded as "sdr:<name>", restored on exit or pause,
+    a user slider change becomes the new baseline); colour temperature is applied
+    to SDR displays only; built-in panels that return ERROR_NOT_SUPPORTED (laptop
+    BOE, backlight-coupled) are left unchanged. The K95 (USB 1B1C:1B2D, 139 LEDs:
+    120-key matrix + 19-LED light bar) is an optional seventh controller that
+    joins the map at startup or after discovery completes, in memory until the
+    topology is saved; the fixed six-device/314-LED inventory check became a
+    non-empty, at-most-512-LED check. Acceptance: Ambient CI green with a hot-add
+    lifecycle test; published and independently verified package; deployed with
+    the Corsair detector enabled; K95 online; HDR adjustment valid without error;
+    no lighting experiments or Wallpaper Engine restarts.
+    Result: acceptance met (Ambient CI 43647531586; owner 56960 at the stable path,
+    task result 0, gamma_valid true, 1 HDR display dimmed + 1 built-in left
+    unchanged, Corsair online). 0.9.14 was superseded within the hour: the built-in
+    panel refused the SDR write and failed the whole adjustment. Not verified:
+    the on-screen look of the HDR dimming (screen adjustment is paused by the user)
+    and the K95 colours. Delivery receipt: office-validation/delivery-0.9.15.md.
