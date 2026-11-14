@@ -7,7 +7,7 @@ import subprocess
 import sys
 import zipfile
 
-EXPECTED = {'Govee','Nanoleaf','Keychron RGB QMK/ZMK Keyboard','Lenovo Legion 7 Gen 8','Logitech HID++ 2.0'}
+EXPECTED = {'Govee','Nanoleaf','Keychron RGB QMK/ZMK Keyboard','Lenovo Legion 7 Gen 8','Logitech HID++ 2.0','Corsair K95 RGB PLATINUM'}
 p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('--archive',type=Path,required=True)
 p.add_argument('--source',required=True)

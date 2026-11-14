@@ -13,8 +13,11 @@ from govee_trial import detector_inventory
 from process_metrics import snapshot
 
 DETECTORS = {'Govee', 'Nanoleaf', 'Keychron RGB QMK/ZMK Keyboard',
-             'Lenovo Legion 7 Gen 8', 'Logitech HID++ 2.0'}
-COUNTS = {'H6609': 20, 'H8048': 20, 'Secretlab': 48, 'Keychron': 109, 'Legion': 109, 'Logitech': 8}
+             'Lenovo Legion 7 Gen 8', 'Logitech HID++ 2.0', 'Corsair K95 RGB PLATINUM'}
+COUNTS = {'H6609': 20, 'H8048': 20, 'Secretlab': 48, 'Keychron': 109, 'Legion': 109, 'Logitech': 8,
+          'Corsair': 139}
+# The Corsair K95 RGB Platinum is optional: it is used where it is attached.
+OPTIONAL = {'Corsair'}
 
 
 def prepare(args):
@@ -47,6 +50,7 @@ def identify(device):
     if 'Q6 HE ISO' in device.name: return 'Keychron'
     if 'Lenovo Legion 7 Gen 8' in device.name: return 'Legion'
     if 'G502 X PLUS' in device.name.upper(): return 'Logitech'
+    if 'K95 RGB PLATINUM' in device.name: return 'Corsair'
     raise RuntimeError(f'Unexpected controller: {device.name}')
 
 
@@ -57,8 +61,8 @@ def inventory(client):
         if key in found or len(device.leds) != COUNTS[key]:
             raise RuntimeError(f'Duplicate or unexpected LED count: {key}, {len(device.leds)}')
         found[key] = device
-    if set(found) != set(COUNTS):
-        raise RuntimeError(f'Incomplete integration: found {sorted(found)}, expected {sorted(COUNTS)}')
+    if not set(COUNTS) - OPTIONAL <= set(found):
+        raise RuntimeError(f'Incomplete integration: found {sorted(found)}, expected {sorted(set(COUNTS) - OPTIONAL)}')
     legion = found['Legion']
     if [len(zone.leds) for zone in legion.zones] != [102, 6, 1]:
         raise RuntimeError('Legion must expose its hardware keyboard, six-section front bar and auxiliary light')

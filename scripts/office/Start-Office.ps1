@@ -27,8 +27,8 @@ if ($Ambience) {
 $config = Get-Content -LiteralPath (Join-Path $StateRoot 'OpenRGB.json') -Raw | ConvertFrom-Json -AsHashtable
 $enabled = @($config.Detectors.detectors.Keys | Where-Object { $config.Detectors.detectors[$_] })
 if ($AllDevices) {
-    $expected = @('Govee','Nanoleaf','Keychron RGB QMK/ZMK Keyboard','Lenovo Legion 7 Gen 8','Logitech HID++ 2.0')
-    if (@(Compare-Object $expected $enabled -CaseSensitive).Count) { throw 'Expected the five office detectors only.' }
+    $expected = @('Govee','Nanoleaf','Keychron RGB QMK/ZMK Keyboard','Lenovo Legion 7 Gen 8','Logitech HID++ 2.0','Corsair K95 RGB PLATINUM')
+    if (@(Compare-Object $expected $enabled -CaseSensitive).Count) { throw 'Expected the six office detectors only (including the Corsair K95).' }
     if ($config.NanoleafDevices.devices.Count -ne 1 -or $config.NanoleafDevices.devices[0].zone_count -ne 48) { throw 'Expected the 48-section Secretlab strip.' }
 } elseif ($enabled.Count -ne 1 -or $enabled[0] -cne 'Govee') { throw 'Expected Govee-only detection.' }
 if ($config.GoveeDevices.devices.Count -ne 2) { throw 'Expected exactly two configured Govee devices.' }
