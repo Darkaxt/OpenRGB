@@ -1903,3 +1903,14 @@ Keep DPI/surface lifecycle synchronized and no work while hidden.
     panel refused the SDR write and failed the whole adjustment. Not verified:
     the on-screen look of the HDR dimming (screen adjustment is paused by the user)
     and the K95 colours. Delivery receipt: office-validation/delivery-0.9.15.md.
+59. COMPLETE — 0.9.16 topology: offline devices recede. Requirement (user,
+    2026-11-15): HDR dimming "works, but the topology still renders the Keychron
+    instead of the Corsair". Cause: the offline Keychron's saved regions
+    (y .55-.85) share the desk position with the Corsair's defaults (y .68-1.00)
+    and were drawn identically. Decision: offline devices draw as faint dotted
+    outlines and are not hit-tested on the canvas; selecting one in the tree
+    still shows it in full. Acceptance: Ambient CI green, verified package,
+    deployed, single owner ready, no lighting experiments.
+    Result: acceptance met (Ambient CI 43650726106; owner 61296, task result 0;
+    screen valid, Corsair online). Not verified: the rendered canvas itself
+    (no desktop capture). Delivery receipt: office-validation/delivery-0.9.16.md.
