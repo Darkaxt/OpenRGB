@@ -1914,3 +1914,14 @@ Keep DPI/surface lifecycle synchronized and no work while hidden.
     Result: acceptance met (Ambient CI 43650726106; owner 61296, task result 0;
     screen valid, Corsair online). Not verified: the rendered canvas itself
     (no desktop capture). Delivery receipt: office-validation/delivery-0.9.16.md.
+60. COMPLETE — 0.9.17 gray disconnected devices. Requirement (user,
+    2026-11-15): "gray out disconnected devices ... No need to hide them or
+    delete the settings, just use gray font color". Decision: disconnected
+    devices keep their entries, settings and editing; their names in the
+    topology tree (device and zones), device cards and dashboard list use gray
+    #6b7785 with a "Disconnected · settings retained" tooltip, rebuilt when the
+    owner's online vector changes. Acceptance: Ambient CI green, verified
+    package, deployed, single owner ready. Result: acceptance met (Ambient CI
+    43651869634; owner 25512, task result 0; saved topology with the Corsair
+    preserved). Not verified: the rendered panel (no desktop capture).
+    Delivery receipt: office-validation/delivery-0.9.17.md.
