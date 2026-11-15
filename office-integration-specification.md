@@ -1934,3 +1934,13 @@ Keep DPI/surface lifecycle synchronized and no work while hidden.
     online, screen valid. Not verified: the rendered gray text (no desktop
     capture). Remaining gap: no CI test loads a first snapshot into the panel.
     Delivery receipt: office-validation/delivery-0.9.18.md.
+61. COMPLETE — 0.9.19 tray mixer lists available devices only. Requirement
+    (user, 2026-11-15): "the widget that should only show available devices".
+    Decision: the tray light mixer hides a disconnected device's row instead of
+    tagging it "Offline"; its level is kept and the row returns on reconnect.
+    The panel continues to show disconnected devices in gray. Acceptance: widget
+    test (hidden, level retained, returns on reconnect, hides again); Ambient
+    CI green; verified package; deployed; owner still running after 90 s with
+    no plugin failure. Result: acceptance met (Ambient CI 43656501294; owner
+    23600, task result 0). Not verified: the rendered tray (no desktop capture).
+    Delivery receipt: office-validation/delivery-0.9.19.md.
